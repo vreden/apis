@@ -191,20 +191,21 @@ app.get('/api/bingimg', async (req, res) => {
 
     if (data.length > 0) {
       for (let i = 0; i < data.length; i++) {
-        try {
+        
           if (!data[i].endsWith(".svg")) {
+          }
+        }
+      }
             var result = data[i]
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
       result
     
-    });
-          }     
+    });     
   } catch (error) {
     res.status(500).json({ error: error.message });
  }       
-}
     });
 app.use((req, res, next) => {
   res.status(404).send("Halaman tidak ditemukan");
