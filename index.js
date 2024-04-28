@@ -178,7 +178,7 @@ app.get('/api/ttsearch', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/ttsearch', async (req, res) => {
+app.get('/api/bingimg', async (req, res) => {
   try {
     const message = req.query.text;
     if (!message) {
@@ -198,12 +198,14 @@ app.get('/api/ttsearch', async (req, res) => {
       status: 200,
       creator: "RIAN X EXONITY",
       result
+    
     });
-          }
+          }     
   } catch (error) {
     res.status(500).json({ error: error.message });
  }       
-});
+}
+    });
 app.use((req, res, next) => {
   res.status(404).send("Halaman tidak ditemukan");
 });
