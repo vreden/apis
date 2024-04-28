@@ -36,9 +36,3 @@ encodedParams.set('hd', '1');
 
 
 module.exports = tiktok2;
-
-
-module.exports = {
-
-  tiktok2,
-};
