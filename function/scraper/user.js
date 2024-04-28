@@ -1,3 +1,4 @@
+const axios = require("axios")
 async function tiktok2(query) {
   return new Promise(async (resolve, reject) => {
     try {
@@ -34,6 +35,7 @@ encodedParams.set('hd', '1');
 }
 
 
+module.exports = tiktok2;
 
 
 module.exports = {
