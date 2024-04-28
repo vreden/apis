@@ -189,8 +189,8 @@ app.get('/api/bingimg', async (req, res) => {
     });
     const data = await img2.createImage(message);
 
-    if (data.length > 0) {
-      for (let i = 0; i < data.length; i++) {
+    if (data > 0) {
+      for (let i = 0; i < data; i++) {
         
           if (!data[i].endsWith(".svg")) {
           }
