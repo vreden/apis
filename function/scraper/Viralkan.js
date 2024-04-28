@@ -39,6 +39,5 @@ function tiktokserch2(query) {
     }
   });
 }
-module.exports = {
-  tiktokserch2,
-};
+
+module.exports = tiktokserch2;
