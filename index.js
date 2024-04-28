@@ -193,10 +193,11 @@ app.get('/api/ttsearch', async (req, res) => {
       for (let i = 0; i < data.length; i++) {
         try {
           if (!data[i].endsWith(".svg")) {
+            var result = data[i]
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      data[i]
+      result
     });
           }
   } catch (error) {
