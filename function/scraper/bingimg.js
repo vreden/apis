@@ -275,4 +275,6 @@ class BingImageCreator {
 }
 
 
-module.exports = BingImageCreator;
+module.exports = {
+  BingImageCreator,
+};
