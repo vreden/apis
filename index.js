@@ -167,7 +167,7 @@ app.get('/api/ttsearch', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "text" tidak ditemukan' });
     }
-    const response = await ptz.smartContract(text);
+    const response = await ptz.tiktokserch2(text);
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
