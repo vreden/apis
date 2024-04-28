@@ -193,7 +193,7 @@ app.get('/api/bingimg', async (req, res) => {
           if (!data.endsWith(".svg")) {
           }
         
-      }
+      
             var result = data;
     res.status(200).json({
       status: 200,
