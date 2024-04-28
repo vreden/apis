@@ -50,7 +50,7 @@ app.get('/api/ragbot', async (req, res) => {
     const response = await ptz.ragBot(message);
     res.status(200).json({
       status: 200,
-      creator: "siputzx",
+      creator: "RIAN X EXONITY",
       data: { response }
     });
   } catch (error) {
@@ -68,7 +68,7 @@ app.get('/api/degreeguru', async (req, res) => {
     const response = await ptz.degreeGuru(message);
     res.status(200).json({
       status: 200,
-      creator: "siputzx",
+      creator: "RIAN X EXONITY",
       data: { response }
     });
   } catch (error) {
@@ -86,7 +86,7 @@ app.get('/api/smartcontract', async (req, res) => {
     const response = await ptz.smartContract(message);
     res.status(200).json({
       status: 200,
-      creator: "siputzx",
+      creator: "RIAN X EXONITY",
       data: { response }
     });
   } catch (error) {
@@ -104,7 +104,7 @@ app.get('/api/blackboxAIChat', async (req, res) => {
     const response = await ptz.blackboxAIChat(message);
     res.status(200).json({
       status: 200,
-      creator: "siputzx",
+      creator: "RIAN X EXONITY",
       data: { response }
     });
   } catch (error) {
@@ -145,8 +145,38 @@ console.error(error);
 res.status(500).send("Internal Server Error");
 }
 });
-
-
+app.get('/api/tiktok', async (req, res) => {
+  try {
+    const message = req.query.message;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "message" tidak ditemukan' });
+    }
+    const response = await ptz.tiktok(url);
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/ttsearch', async (req, res) => {
+  try {
+    const message = req.query.message;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "message" tidak ditemukan' });
+    }
+    const response = await ptz.smartContract(text);
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 app.use((req, res, next) => {
   res.status(404).send("Halaman tidak ditemukan");
 });
