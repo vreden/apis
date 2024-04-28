@@ -189,14 +189,12 @@ app.get('/api/bingimg', async (req, res) => {
     });
     const data = await img2.createImage(message);
 
-    if (data > 0) {
-      for (let i = 0; i < data; i++) {
         
-          if (!data[i].endsWith(".svg")) {
+          if (!data.endsWith(".svg")) {
           }
-        }
+        
       }
-            var result = data[i]
+            var result = data;
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
