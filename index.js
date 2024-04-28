@@ -189,11 +189,6 @@ app.get('/api/bingimg', async (req, res) => {
     });
     const data = await img2.createImage(message);
 
-        
-          if (!data.endsWith(".svg")) {
-          }
-        
-      
             var result = data;
     res.status(200).json({
       status: 200,
