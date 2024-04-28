@@ -147,9 +147,9 @@ res.status(500).send("Internal Server Error");
 });
 app.get('/api/tiktok', async (req, res) => {
   try {
-    const message = req.query.message;
+    const message = req.query.url;
     if (!message) {
-      return res.status(400).json({ error: 'Parameter "message" tidak ditemukan' });
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
     const response = await ptz.tiktok(url);
     res.status(200).json({
@@ -163,9 +163,9 @@ app.get('/api/tiktok', async (req, res) => {
 });
 app.get('/api/ttsearch', async (req, res) => {
   try {
-    const message = req.query.message;
+    const message = req.query.text;
     if (!message) {
-      return res.status(400).json({ error: 'Parameter "message" tidak ditemukan' });
+      return res.status(400).json({ error: 'Parameter "text" tidak ditemukan' });
     }
     const response = await ptz.smartContract(text);
     res.status(200).json({
