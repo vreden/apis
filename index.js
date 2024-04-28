@@ -151,7 +151,7 @@ app.get('/api/tiktok', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    const response = await ptz.tiktok(message);
+    const response = await ptz.tiktok2(message);
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
