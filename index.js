@@ -2,6 +2,7 @@ var express = require("express"), cors = require("cors"), secure = require("ssl-
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
+const { BingImageCreator } = require("./function/scraper/bingimg");
 const ptz = require('./function/index') 
 const axios = require('axios')
 
@@ -176,6 +177,31 @@ app.get('/api/ttsearch', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+app.get('/api/ttsearch', async (req, res) => {
+  try {
+    const message = req.query.text;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "text" tidak ditemukan' });
+    }
+    const res = new BingImageCreator({
+      cookie: `1lVjcgPnXLSccoYZ1_QxlVsh2GUoIvwXRkMCYur5Q_fgtQRMeSs_DmnDTNKixYXAN9Tr5eOphlc5qjEfsreCOWx9EELSDG6Pt-oB2Twm_htnoVtQVCMrPM-7pt8z3nReVKGLEQ2cQn5Vxuz9GHJiBtEeHGTdEbzbPRcYr3PD75pkfZWpjCELTxHhskev33pUTeuTLGHpc4gqIh3PQLL6IZw`,
+    });
+    const data = await res.createImage(message);
+
+    if (data.length > 0) {
+      for (let i = 0; i < data.length; i++) {
+        try {
+          if (!data[i].endsWith(".svg")) {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      data[i]
+    });
+          }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+ }       
 });
 app.use((req, res, next) => {
   res.status(404).send("Halaman tidak ditemukan");
