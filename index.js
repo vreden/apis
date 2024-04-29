@@ -6,6 +6,13 @@ const { BingImageCreator } = require("./function/scraper/bingimg");
 const ptz = require('./function/index') 
 const axios = require('axios')
 
+  var {
+  ytDonlodMp3,
+  ytDonlodMp4,
+  ytPlayMp3,
+  ytPlayMp4,
+  ytSearch
+} = require("./function/scraper/yt");
 var app = express();
 app.enable("trust proxy");
 app.set("json spaces", 2);
@@ -205,6 +212,26 @@ app.get('/api/bingimg', async (req, res) => {
     res.status(500).json({ error: error.message });
  }       
     });
+
+app.get('/api/ytmp4', async (req, res) => {
+  try {
+    const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+    ytPlayMp4(message)
+    .then((result) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result
+    
+    });
+        }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname,  '404.html'));
 });
