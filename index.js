@@ -44,7 +44,9 @@ app.get('/', (req, res) => {
 app.get('/landing', (req, res) => {
   res.sendFile(path.join(__dirname,  'home.html'));
 });
-
+app.get('/pingpong', (req, res) => {
+  res.sendFile(path.join(__dirname,  'game.html'));
+});
 app.get('/api/ragbot', async (req, res) => {
   try {
     const message = req.query.message;
