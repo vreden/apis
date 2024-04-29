@@ -13,9 +13,13 @@
     "@types/node": "^18.0.6",
     "axios": "^1.6.8",
     "formdata-node": "^6.0.3",
+    "cheerio": "^1.0.0-rc.12",
     "canvas": "^2.11.2",
+    "node-fetch": "^2.6.1",
     "fake-useragent": "^1.0.1",
     "undici": "^6.6.2",
+    "yt-search": "^2.10.3"
+    "ytdl-core":"github:officialdittaz/node-ytdl-core", 
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "ssl-express-www": "^3.2.1"
