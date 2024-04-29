@@ -233,11 +233,29 @@ app.get('/api/ytmp4', async (req, res) => {
 });
 app.get('/api/yts', async (req, res) => {
   try {
-    const message = req.query.url;
+    const message = req.query.text;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
     ytSearch(message)
+    .then((result) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/ytmp3', async (req, res) => {
+  try {
+    const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+    ytPlayMp3(message)
     .then((result) => {
     res.status(200).json({
       status: 200,
