@@ -13,6 +13,7 @@
     "@types/node": "^18.0.6",
     "axios": "^1.6.8",
     "formdata-node": "^6.0.3",
+    "canvas": "^2.11.2",
     "fake-useragent": "^1.0.1",
     "undici": "^6.6.2",
     "cors": "^2.8.5",
