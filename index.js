@@ -231,7 +231,7 @@ app.get('/api/ytmp4', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/ytsearch', async (req, res) => {
+app.get('/api/yts', async (req, res) => {
   try {
     const message = req.query.url;
     if (!message) {
