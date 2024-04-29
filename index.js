@@ -38,10 +38,10 @@ app.get('/stats', (req, res) => {
   res.json(stats);
 });
 
-app.get('/', (req, res) => {
+app.get('/dosc', (req, res) => {
   res.sendFile(path.join(__dirname,  'index.html'));
 });
-app.get('/landing', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname,  'home.html'));
 });
 app.get('/pingpong', (req, res) => {
@@ -206,9 +206,8 @@ app.get('/api/bingimg', async (req, res) => {
  }       
     });
 app.use((req, res, next) => {
-  res.status(404).send("Halaman tidak ditemukan");
+  res.sendFile(path.join(__dirname,  '404.html'));
 });
-
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Ada kesalahan pada server');
