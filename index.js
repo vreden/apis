@@ -41,6 +41,9 @@ app.get('/stats', (req, res) => {
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname,  'index.html'));
 });
+app.get('/landing', (req, res) => {
+  res.sendFile(path.join(__dirname,  'home.html'));
+});
 
 app.get('/api/ragbot', async (req, res) => {
   try {
