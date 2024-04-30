@@ -278,21 +278,21 @@ app.get('/api/ytmp3', async (req, res) => {
   }
 });
 app.get('/api/spotify', async (req, res) => {
+  try{
     const message = req.query.url;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
     fetch(`https://api.miftahganzz.my.id/api/download/spotify?url=${message}&apikey=zex`);
-    .then(response => response.json())
-        .then(data => {
-            var result = data.result;
+    var data = await response.json();
+    var { result: result } = data.result;
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
       result 
     });
-        }
-  .catch(e => {
+        
+  } catch (error) {
   res.status(500).json({ error: error.message });
   }
 });
