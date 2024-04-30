@@ -60,6 +60,9 @@ app.get('/j', (req, res) => {
 app.get('/docs', (req, res) => {
   res.sendFile(path.join(__dirname,  'lah.html'));
 });
+app.get('/gte', (req, res) => {
+  res.sendFile(path.join(__dirname,  'LOADING.html'));
+});
 app.get('/api/ragbot', async (req, res) => {
   try {
     const message = req.query.message;
