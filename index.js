@@ -285,7 +285,7 @@ app.get('/api/spotify', async (req, res) => {
     }
     fetch(`https://api.miftahganzz.my.id/api/download/spotify?url=${message}&apikey=zex`);
     var data = await response.json();
-    var { result: result } = data.result;
+    var { result: result } = data;
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
