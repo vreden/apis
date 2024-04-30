@@ -2,6 +2,7 @@ var express = require("express"), cors = require("cors"), secure = require("ssl-
 const path = require('path');
 const os = require('os');
 const fs = require('fs');
+const fetch = require('node-fetch');
 const { BingImageCreator } = require("./function/scraper/bingimg");
 const ptz = require('./function/index') 
 const axios = require('axios')
@@ -228,7 +229,7 @@ app.get('/api/ytmp4', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    ytPlayMp4(message)
+    ytDonlodMp4(message)
     .then((result) => {
     res.status(200).json({
       status: 200,
@@ -264,7 +265,7 @@ app.get('/api/ytmp3', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    ytPlayMp3(message)
+    ytDonlodMp3(message)
     .then((result) => {
     res.status(200).json({
       status: 200,
@@ -274,6 +275,26 @@ app.get('/api/ytmp3', async (req, res) => {
     })
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/spotify', async (req, res) => {
+  try {
+    const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+    fetch(`https://api.miftahganzz.my.id/api/download/spotify?url=${message}&apikey=zex`);
+    .then(response => response.json())
+        .then(data => {
+            var result = data.result;
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+        }
+  } catch (error) {
+  res.status(500).json({ error: error.message });
   }
 });
 app.use((req, res, next) => {
