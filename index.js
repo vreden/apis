@@ -45,7 +45,7 @@ app.get('/stats', (req, res) => {
   res.json(stats);
 });
 
-app.get('/loading', (req, res) => {
+app.get('/loadihng', (req, res) => {
   res.sendFile(path.join(__dirname,  'index.html'));
 });
 app.get('/', (req, res) => {
@@ -54,7 +54,7 @@ app.get('/', (req, res) => {
 app.get('/pingpong', (req, res) => {
   res.sendFile(path.join(__dirname,  'game.html'));
 });
-app.get('/j', (req, res) => {
+app.get('/loading', (req, res) => {
   res.sendFile(path.join(__dirname,  'j.html'));
 });
 app.get('/docs', (req, res) => {
