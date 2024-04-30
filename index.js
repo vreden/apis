@@ -45,7 +45,7 @@ app.get('/stats', (req, res) => {
   res.json(stats);
 });
 
-app.get('/docs', (req, res) => {
+app.get('/loading', (req, res) => {
   res.sendFile(path.join(__dirname,  'index.html'));
 });
 app.get('/', (req, res) => {
@@ -57,7 +57,7 @@ app.get('/pingpong', (req, res) => {
 app.get('/j', (req, res) => {
   res.sendFile(path.join(__dirname,  'j.html'));
 });
-app.get('/rul', (req, res) => {
+app.get('/docs', (req, res) => {
   res.sendFile(path.join(__dirname,  'lah.html'));
 });
 app.get('/api/ragbot', async (req, res) => {
