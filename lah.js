@@ -150,7 +150,7 @@
     <td class="ellipsis">god AI</td>
     <td align="center">
 
-       <a href="/api/god?query=hallo&model=you%20are%20assistant"><button>Get</button></a></a>
+       <a href="/api/chatbot_bitrough?query=halo&lang=id"><button>Get</button></a></a>
     </td>
  </tr>	
 <tr>
@@ -222,7 +222,7 @@
     <td class="ellipsis">Gemini Ai</td>
     <td align="center">
 
-       <a href="/api/gemini?query=jelaskan%20yang%20dimaksud%20bahan%20bakar"><button>Get</button></a></a>
+       <a href="/api/gemini?query=jelaskan fungsi vps"><button>Get</button></a></a>
     </td>
  </tr>	   
     <td><div class="circle pulse color-on"></div></td>
@@ -261,7 +261,7 @@
     <td class="ellipsis">Bing Image</td>
     <td align="center">
 
-       <a href="https://bing-rulzz.cyclic.app/"><button>Docs</button></a>
+       <a href="https://bing-rian.railway.app/"><button>Docs</button></a>
     </td>
  </tr>		    
 <tr>
@@ -269,7 +269,7 @@
     <td class="ellipsis">Spotify Search</td>
     <td align="center">
 
-       <a href="/api/spotifySearch?query=dan%20bandung"><button>Get</button></a></a>
+       <a href="/api/spotifySearch?query=dj asik"><button>Get</button></a></a>
     </td>
 	    </tr>
 	<td><div class="circle pulse color-on"></div></td>
@@ -297,10 +297,10 @@
  </tr>	
 	</tr>
 	<td><div class="circle pulse color-on"></div></td>
-    <td class="ellipsis">Seart Ai</td>
+    <td class="ellipsis">YtSearch</td>
     <td align="center">
 
-       <a href="/api/seart?prompt=girl"><button>Get</button></a></a>
+       <a href="/api/yts?query=meme jomok"><button>Get</button></a></a>
     </td>
  </tr>		
 	</tr>
