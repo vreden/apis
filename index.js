@@ -1,7 +1,7 @@
 var express = require("express"), cors = require("cors"), secure = require("ssl-express-www");
 const path = require('path');
 const os = require('os');
-
+var request = require('request');
 const fs = require('fs');
 const fetch = require('node-fetch');
 const { BingImageCreator } = require("./function/scraper/bingimg");
@@ -354,6 +354,25 @@ app.get('/api/aio', async (req, res) => {
       result 
     });
         
+  } catch (error) {
+  res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/toanime', async (req, res) => {
+  try{
+    const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+   var requestSettings = {
+        url: `https://skizo.tech/api/toanime?apikey=nana&url=${message}`,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'image/png');
+        res.send(body);
+    });
   } catch (error) {
   res.status(500).json({ error: error.message });
   }
