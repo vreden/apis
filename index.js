@@ -1,6 +1,7 @@
 var express = require("express"), cors = require("cors"), secure = require("ssl-express-www");
 const path = require('path');
 const os = require('os');
+
 const fs = require('fs');
 const fetch = require('node-fetch');
 const { BingImageCreator } = require("./function/scraper/bingimg");
@@ -118,9 +119,9 @@ app.get('/api/smartcontract', async (req, res) => {
 });
 
 // Endpoint untuk blackboxAIChat
-app.get('/api/blackboxAIChat', async (req, res) => {
+app.get('/api/blackbox', async (req, res) => {
   try {
-    const message = req.query.message;
+    const message = req.query.query;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "message" tidak ditemukan' });
     }
@@ -243,7 +244,7 @@ app.get('/api/ytmp4', async (req, res) => {
 });
 app.get('/api/yts', async (req, res) => {
   try {
-    const message = req.query.text;
+    const message = req.query.query;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
@@ -303,6 +304,48 @@ app.get('/api/gemini', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
    var response = await fetch(`https://apiruulzz.my.id/api/gemini?query=${message}`);
+    var data = await response.json();
+    var { result: result } = data;
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+        
+  } catch (error) {
+  res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/chatbot_bitrough', async (req, res) => {
+  try{
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+    const lang = req.query.lang;
+    if (!lang) {
+      return res.status(400).json({ error: 'Parameter "lang" tidak ditemukan' });
+    }
+   var response = await fetch(`https://api.onesytex.my.id/api/chatbot_bitrough?query=${message}&lang=${lang}`);
+    var data = await response.json();
+    var { result: result } = data;
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+        
+  } catch (error) {
+  res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/aio', async (req, res) => {
+  try{
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+   var response = await fetch(`.my.id/api/gemini?query=${message}`);
     var data = await response.json();
     var { result: result } = data;
     res.status(200).json({
