@@ -328,7 +328,7 @@ app.get('/api/chatbot_bitrough', async (req, res) => {
     }
    var response = await fetch(`https://api.onesytex.my.id/api/chatbot_bitrough?query=${message}&lang=${lang}`);
     var data = await response.json();
-    var { result: result } = data;
+    var { msg: result } = data.reply;
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
