@@ -5,6 +5,7 @@ var request = require('request');
 const fs = require('fs');
 const fetch = require('node-fetch');
 const { BingImageCreator } = require("./function/scraper/bingimg");
+const { processing } = require("./function/scraper/Anakay");
 const ptz = require('./function/index') 
 const axios = require('axios')
 
@@ -211,7 +212,6 @@ app.get('/api/bingimg', async (req, res) => {
       cookie: `1lVjcgPnXLSccoYZ1_QxlVsh2GUoIvwXRkMCYur5Q_fgtQRMeSs_DmnDTNKixYXAN9Tr5eOphlc5qjEfsreCOWx9EELSDG6Pt-oB2Twm_htnoVtQVCMrPM-7pt8z3nReVKGLEQ2cQn5Vxuz9GHJiBtEeHGTdEbzbPRcYr3PD75pkfZWpjCELTxHhskev33pUTeuTLGHpc4gqIh3PQLL6IZw`,
     });
     const data = await img2.createImage(message);
-
             
     res.status(200).json({
       status: 200,
@@ -409,6 +409,19 @@ app.get('/api/ytplaymp4', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+app.get('/api/remini', async (req, res) => {
+  try {
+    const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+ const img = ${message};
+const This = await processing(img, "enhance");
+res.set({
+                'Content-Type': 'image/png'
+            })
+            res.send(This)    
 });
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname,  '404.html'));
