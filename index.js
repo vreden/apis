@@ -359,7 +359,6 @@ app.get('/api/aio', async (req, res) => {
   }
 });
 app.get('/api/toanime', async (req, res) => {
-  try{
     const message = req.query.url;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
@@ -372,9 +371,43 @@ app.get('/api/toanime', async (req, res) => {
     request(requestSettings, function (error, response, body) {
         res.set('Content-Type', 'image/png');
         res.sendFile(body);
+    });  
+});
+app.get('/api/tiktokStalk', async (req, res) => {
+  try{
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+   var response = await fetch(`https://apiruulzz.my.id/api/tiktokStalk?query=${message}`);
+    var data = await response.json();
+    var { result: result } = data;
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
     });
+        
   } catch (error) {
   res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/ytplaymp4', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+    ytPlayMp4(message)
+    .then((result) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 app.use((req, res, next) => {
