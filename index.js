@@ -411,7 +411,6 @@ app.get('/api/ytplaymp4', async (req, res) => {
   }
 });
 app.get('/api/remini', async (req, res) => {
-  try {
     const message = req.query.url;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
