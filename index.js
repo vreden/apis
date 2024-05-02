@@ -416,8 +416,7 @@ app.get('/api/remini', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
- const img = ${message};
-const This = await processing(img, "enhance");
+const This = await processing(message, "enhance");
 res.set({
                 'Content-Type': 'image/png'
             })
