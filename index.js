@@ -371,7 +371,7 @@ app.get('/api/toanime', async (req, res) => {
     };
     request(requestSettings, function (error, response, body) {
         res.set('Content-Type', 'image/png');
-        res.send(body);
+        res.sendFile(body);
     });
   } catch (error) {
   res.status(500).json({ error: error.message });
