@@ -22,6 +22,11 @@ var {
   downloadCapcut,
   capcutsearch
 } = require("./function/scraper/api");
+var {
+  chatgptss,
+  quotesAnime, 
+  capcut
+} = require("./function/scraper/exonityscraper");
 var app = express();
 app.enable("trust proxy");
 app.set("json spaces", 2);
@@ -433,12 +438,12 @@ app.get('/api/capcutdl', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    downloadCapcut(message)
-    .then((result) => {
+     let res4 = await capcut(message);
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result 
+      res4.thumbnail 
+      res4.video                   
     });
     })
   } catch (error) {
@@ -453,6 +458,38 @@ app.get('/api/HariLibur', async (req, res) => {
       status: 200,
       creator: "RIAN X EXONITY",
       result 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/quotesAnime', async (req, res) => {
+  try {
+    quotesAnime()
+    .then((hasil) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      hasil 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/capcutdl', async (req, res) => {
+  try {
+    const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+     chatgptss(message) 
+    .then((resultan.data) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      resultan.data               
     });
     })
   } catch (error) {
