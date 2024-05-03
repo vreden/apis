@@ -16,6 +16,11 @@ const axios = require('axios')
   ytPlayMp4,
   ytSearch
 } = require("./function/scraper/yt");
+var {
+  wallpaperhd,
+  downloadCapcut,
+  capcutsearch
+} = require("./function/scraper/api");
 var app = express();
 app.enable("trust proxy");
 app.set("json spaces", 2);
@@ -419,7 +424,43 @@ const This = await processing(message, "enhance");
 res.set({
                 'Content-Type': 'image/jpeg'
             })
-            res.sendFile(This)    
+            res.send(This)    
+});
+app.get('/api/capcutdl', async (req, res) => {
+  try {
+    const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+    downloadCapcut(message)
+    .then((result) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/wallpaperhd', async (req, res) => {
+  try {
+    const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+    wallpaperhd(message)
+    .then((result) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname,  '404.html'));
@@ -428,7 +469,6 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Ada kesalahan pada server😵');
 });
-
 app.listen(port, () => {
   console.log(`Server berjalan di http://localhost:${port}`);
 });
