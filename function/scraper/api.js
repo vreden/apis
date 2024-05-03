@@ -876,6 +876,9 @@ async function findSongs(text) {
 }
 module.exports = {
   ttSearch,
+  downloadCapcut, 
+  capcutsearch, 
+  wallpaperhd, 
   random_mail,
   githubstalk,
   aigpt,
