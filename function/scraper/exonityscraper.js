@@ -37,11 +37,11 @@ async function capcut(url) {
   const response = await fetch(url);
   const data = await response.text();
   const $ = cheerio.load(data);
-  return {
+  hasil.push({
     thumbnail: $("video").attr("poster"),
     video: $("video").attr("src"),
-  };
-
+  });
+resolve(hasil)
 }
 async function chatgptss(message) {
     const url = 'https://chatgptss.org';
