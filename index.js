@@ -478,7 +478,7 @@ app.get('/api/quotesAnime', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/capcutdl', async (req, res) => {
+app.get('/api/chat-gpt', async (req, res) => {
   try {
     const message = req.query.url;
     if (!message) {
