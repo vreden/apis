@@ -370,7 +370,7 @@ app.get('/api/toanime', async (req, res) => {
     };
     request(requestSettings, function (error, response, body) {
         res.set('Content-Type', 'image/png');
-        res.sendFile(body);
+        res.send(body);
     });  
 });
 app.get('/api/tiktokStalk', async (req, res) => {
@@ -417,16 +417,16 @@ app.get('/api/remini', async (req, res) => {
     }
 const This = await processing(message, "enhance");
 res.set({
-                'Content-Type': 'image/png'
+                'Content-Type': 'image/jpeg'
             })
-            res.send(This)    
+            res.sendFile(This)    
 });
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname,  '404.html'));
 });
 app.use((err, req, res, next) => {
   console.error(err.stack);
-  res.status(500).send('Ada kesalahan pada server');
+  res.status(500).send('Ada kesalahan pada server😵');
 });
 
 app.listen(port, () => {
