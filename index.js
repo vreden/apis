@@ -438,13 +438,14 @@ app.get('/api/capcutdl', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    var result = await capcut(message);
+    capcut(message);
+    .then((hasil) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result              
+      hasil              
     });
-    
+    }); 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -484,11 +485,11 @@ app.get('/api/chat-gpt', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
      chatgptss(message) 
-    .then((resultan.data) => {
+    .then((resultan) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      resultan.data               
+      resultan.data
     });
     })
   } catch (error) {
