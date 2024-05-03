@@ -18,6 +18,7 @@ const axios = require('axios')
 } = require("./function/scraper/yt");
 var {
   wallpaperhd,
+  HariLibur, 
   downloadCapcut,
   capcutsearch
 } = require("./function/scraper/api");
