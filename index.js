@@ -432,20 +432,20 @@ res.set({
             })
             res.send(This)    
 });
-app.get('/api/capcutdl', async (req, res) => {
+  app.get('/api/capcutdl', async (req, res) => {
   try {
     const message = req.query.url;
     if (!message) {
-      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-    capcut(message);
+    capcut(message)
     .then((hasil) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      hasil              
+      hasil 
     });
-    }); 
+    })
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
