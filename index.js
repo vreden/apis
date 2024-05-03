@@ -442,8 +442,7 @@ app.get('/api/capcutdl', async (req, res) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result.video   
-      result.thumbnail              
+      result              
     });
     
   } catch (error) {
