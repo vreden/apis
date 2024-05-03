@@ -489,7 +489,7 @@ app.get('/api/chat-gpt', async (req, res) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      resultan.data
+      resultan
     });
     })
   } catch (error) {
