@@ -444,13 +444,9 @@ app.get('/api/capcutdl', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/wallpaperhd', async (req, res) => {
+app.get('/api/HariLibur', async (req, res) => {
   try {
-    const message = req.query.query;
-    if (!message) {
-      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
-    }
-    wallpaperhd(message)
+    HariLibur()
     .then((result) => {
     res.status(200).json({
       status: 200,
