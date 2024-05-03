@@ -438,13 +438,14 @@ app.get('/api/capcutdl', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-     var result = await capcut(message);
+    var result = await capcut(message);
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result.video                  
+      result.video   
+      result.thumbnail              
     });
-    })
+    
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
