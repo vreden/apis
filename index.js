@@ -77,6 +77,9 @@ app.get('/docs', (req, res) => {
 app.get('/gte', (req, res) => {
   res.sendFile(path.join(__dirname,  'LOADING.html'));
 });
+app.get('/lolhuman', (req, res) => {
+  res.sendFile(path.join(__dirname,  'Lolhuman.html'));
+});
 app.get('/api/ragbot', async (req, res) => {
   try {
     const message = req.query.message;
