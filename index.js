@@ -541,7 +541,7 @@ app.get('/api/searchsticker', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/dj viral', async (req, res) => {
+app.get('/api/djviral', async (req, res) => {
   let response = await fetch('https://raw.githubusercontent.com/BotzIky/DJ-Viral/main/database.json');
         var data = await response.json();
         var randomIndex = Math.floor(Math.random() * data.results.length);
