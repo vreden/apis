@@ -12,6 +12,7 @@ const { processing } = require("./function/scraper/Anakay");
 const ptz = require('./function/index') 
 const apis = require("@siputzx/scraper") 
 const api = require("caliph-api") 
+const apiz = require("api-dylux") 
 const axios = require('axios')
 
   var {
@@ -540,6 +541,22 @@ app.get('/api/searchsticker', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+app.get('/api/dj viral', async (req, res) => {
+  let response = await fetch('https://raw.githubusercontent.com/BotzIky/DJ-Viral/main/database.json');
+        var data = await response.json();
+        var randomIndex = Math.floor(Math.random() * data.results.length);
+        var randomResult = data.results[randomIndex];
+        var downloadLink = randomResult.download;
+    var requestSettings = {
+        url: downloadLink,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'audio/mp3');
+        res.send(body);
+    });
 });
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname,  '404.html'));
