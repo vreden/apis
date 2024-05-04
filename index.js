@@ -442,12 +442,10 @@ res.set({
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
    let a = await capcut(message)
-    var video = a.video
-    var thumb = a.thumbnail
+    var video = a.video;
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
-      thumb 
+      creator: "RIAN X EXONITY", 
       video
     });
     })
