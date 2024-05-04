@@ -380,19 +380,19 @@ app.get('/api/aio', async (req, res) => {
   }
 });
 app.get('/api/toanime', async (req, res) => {
-    const message = req.query.url;
-    if (!message) {
+    const url = req.query.url;
+    if (!url) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
    var requestSettings = {
-        url: `https://skizo.tech/api/toanime?apikey=nana&url=${message}`,
+        url: `https://skizo.tech/api/toanime?apikey=nana&url=${url}`,
         method: 'GET',
         encoding: null
     };
     request(requestSettings, function (error, response, body) {
         res.set('Content-Type', 'image/png');
         res.send(body);
-    });  
+    })      
 });
 app.get('/api/tiktokStalk', async (req, res) => {
   try{
