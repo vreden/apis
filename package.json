@@ -19,6 +19,7 @@
     "form-data": "4.0.0",
     "node-fetch": "^2.6.1",
     "g-i-s": "^2.1.6",
+    "@bochilteam/scraper": "^4.2.4",
     "api-dylux": "^1.2.2",
     "caliph-api": "^1.0.0",
     "jimp": "^0.22.12", 
