@@ -564,7 +564,7 @@ app.get('/api/nobg', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-  const img = await ${message}
+  const img = ${message}
 const { data } = await axios.post("https://backend.zyro.com/v1/ai/remove-background", { 
 image: "data:image/jpeg;base64," + img.toString("base64") 
 })
