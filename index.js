@@ -1,3 +1,6 @@
+// script by siputzx
+// recode by rian ofc
+// jangan dihapus jembud
 var express = require("express"), cors = require("cors"), secure = require("ssl-express-www");
 const path = require('path');
 const os = require('os');
@@ -7,6 +10,8 @@ const fetch = require('node-fetch');
 const { BingImageCreator } = require("./function/scraper/bingimg");
 const { processing } = require("./function/scraper/Anakay");
 const ptz = require('./function/index') 
+const apis = require("@siputzx/scraper") 
+const api = require("caliph-api") 
 const axios = require('axios')
 
   var {
