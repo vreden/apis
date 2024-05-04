@@ -541,14 +541,16 @@ app.get('/api/searchsticker', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/djviral', async (req, res) => {
-  let response = await fetch('https://raw.githubusercontent.com/BotzIky/DJ-Viral/main/database.json');
-        var data = await response.json();
-        var randomIndex = Math.floor(Math.random() * data.results.length);
-        var randomResult = data.results[randomIndex];
-        var downloadLink = randomResult.download;
+app.get('/api/tikmusic', async (req, res) => {
+  const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+  var response = await fetch(`https://aemt.me/download/tikdl?url=${message}`);
+    var data = await response.json();
+    var { nowm: video, audio } = data.result.url;
     var requestSettings = {
-        url: downloadLink,
+        url: audio,
         method: 'GET',
         encoding: null
     };
