@@ -441,12 +441,14 @@ res.set({
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-    capcut(message)
-    .then((hasil) => {
+   let a = await capcut(message)
+    var video = a.video
+    var thumb = a.thumbnail
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      hasil 
+      thumb 
+      video
     });
     })
   } catch (error) {
@@ -488,13 +490,13 @@ app.get('/api/chat-gpt', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
      chatgptss(message) 
-    .then((resultan) => {
+    var result = resultan.data
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      resultan
+      result
     });
-    })
+    
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
