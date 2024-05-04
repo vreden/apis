@@ -491,8 +491,8 @@ app.get('/api/chat-gpt', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-     chatgptss(message) 
-    var result = resultan.data
+    let aja = await chatgptss(message) 
+    var result = aja.resultan.data
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
