@@ -559,6 +559,27 @@ app.get('/api/tikmusic', async (req, res) => {
         res.send(body);
     });
 });
+app.get('/api/nobg', async (req, res) => {
+  const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+  const img = await ${message}
+const { data } = await axios.post("https://backend.zyro.com/v1/ai/remove-background", { 
+image: "data:image/jpeg;base64," + img.toString("base64") 
+})
+const image = Buffer.from(data.result.split(",")[1], "base64")
+await
+    var requestSettings = {
+        url: image,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'image/jpeg');
+        res.send(body);
+    });
+});
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname,  '404.html'));
 });
