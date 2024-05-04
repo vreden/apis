@@ -11,8 +11,7 @@ const { BingImageCreator } = require("./function/scraper/bingimg");
 const { processing } = require("./function/scraper/Anakay");
 const ptz = require('./function/index') 
 const apis = require("@siputzx/scraper") 
-const api = require("caliph-api") 
-const apiz = require("api-dylux") 
+const api = require("caliph-api")
 const axios = require('axios')
 
   var {
