@@ -448,7 +448,6 @@ res.set({
       creator: "RIAN X EXONITY", 
       video
     });
-    })
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
