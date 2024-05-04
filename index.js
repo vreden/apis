@@ -29,6 +29,8 @@ var {
 } = require("./function/scraper/api");
 var {
   chatgptss,
+  searchsticker, 
+  pinterest, 
   quotesAnime, 
   capcut
 } = require("./function/scraper/exonityscraper");
@@ -499,6 +501,42 @@ app.get('/api/chat-gpt', async (req, res) => {
       result
     });
     
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/pinterest', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+    pinterest(message)
+    .then((hasil) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      hasil 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/searchsticker', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+    searchsticker(message)
+    .then((result) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+    })
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
