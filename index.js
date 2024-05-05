@@ -564,7 +564,7 @@ app.get('/api/nobg', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-  const img = ${message}
+  const img = `${message}`
 const { data } = await axios.post("https://backend.zyro.com/v1/ai/remove-background", { 
 image: "data:image/jpeg;base64," + img.toString("base64") 
 })
@@ -579,6 +579,21 @@ const image = Buffer.from(data.result.split(",")[1], "base64")
         res.send(body);
     });
 });
+app.get('/api/asupan', async (req, res) => {
+  var data = ["https://api.miftahganzz.my.id/api/random/asupanrandom?type=video&apikey=zex"] 
+    var result = data[Math.floor(Math.random() * data.length)];
+    var requestSettings = {
+        url: result,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'video/mp4');
+        res.send(body);
+    });
+    
+});
+
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname,  '404.html'));
 });
