@@ -10,6 +10,7 @@ const fetch = require('node-fetch');
 const { BingImageCreator } = require("./function/scraper/bingimg");
 const { processing } = require("./function/scraper/Anakay");
 const ptz = require('./function/index') 
+const { getBuffer } = require("./function/scraper/buffer");
 const apis = require("@siputzx/scraper") 
 const api = require("caliph-api")
 const axios = require('axios')
@@ -379,21 +380,7 @@ app.get('/api/aio', async (req, res) => {
   res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/toanime', async (req, res) => {
-    const url = req.query.url;
-    if (!url) {
-      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
-    }
-   var requestSettings = {
-        url: `https://skizo.tech/api/toanime?apikey=nana&url=${url}`,
-        method: 'GET',
-        encoding: null
-    };
-    request(requestSettings, function (error, response, body) {
-        res.set('Content-Type', 'image/png');
-        res.send(body);
-    })      
-});
+
 app.get('/api/tiktokStalk', async (req, res) => {
   try{
     const message = req.query.query;
@@ -593,7 +580,15 @@ app.get('/api/asupan', async (req, res) => {
     });
     
 });
-
+app.get('/api/toanime', async (req, res) => {
+  const url = req.query.url;
+    if (!url) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+  let result = await getBuffer(`https://skizo.tech/api/toanime?apikey=nana&url=${url}`)
+res.set({'Content-Type': 'image/png'})
+res.send(result)
+});
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname,  '404.html'));
 });
