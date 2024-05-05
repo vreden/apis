@@ -569,7 +569,6 @@ const { data } = await axios.post("https://backend.zyro.com/v1/ai/remove-backgro
 image: "data:image/jpeg;base64," + img.toString("base64") 
 })
 const image = Buffer.from(data.result.split(",")[1], "base64")
-await
     var requestSettings = {
         url: image,
         method: 'GET',
