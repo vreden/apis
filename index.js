@@ -238,7 +238,7 @@ app.get('/api/tiktok', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    tktokdl(message)
+    tiktokdl(message)
     .then((result) => {
     res.status(200).json({
       status: 200,
