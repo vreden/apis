@@ -6,6 +6,8 @@ const path = require('path');
 const os = require('os');
 var request = require('request');
 const fs = require('fs');
+const FormData = require("form-data");
+const cheerio = require("cheerio");
 const fetch = require('node-fetch');
 const { BingImageCreator } = require("./function/scraper/bingimg");
 const { processing } = require("./function/scraper/Anakay");
@@ -14,7 +16,42 @@ const { getBuffer } = require("./function/scraper/buffer");
 const apis = require("@siputzx/scraper") 
 const api = require("caliph-api")
 const axios = require('axios')
-
+// males benerin:v
+async function tiktokdl(url) {
+  let result = {}
+  const bodyForm = new FormData()
+  bodyForm.append("q", url)
+  bodyForm.append("lang", "id")
+  try {
+    const { data } = await axios('https://savetik.co/api/ajaxSearch', {
+      method: "post",
+      data: bodyForm,
+      headers: {
+        "content-type": "application/x-www-form-urlencoded",
+        "User-Agent": "PostmanRuntime/7.32.2"
+      }
+    })
+    const $ = cheerio.load(data.data)
+    result.status = true
+    result.caption = $("div.video-data > div > .tik-left > div > .content > div > h3").text()
+    ;(result.server1 = {
+      quality: "MEDIUM",
+      url: $("div.video-data > div > .tik-right > div > p:nth-child(1) > a").attr("href")
+    }),
+      (result.serverHD = {
+        quality: $("div.video-data > div > .tik-right > div > p:nth-child(3) > a").text().split("MP4 ")[1],
+        url: $("div.video-data > div > .tik-right > div > p:nth-child(3) > a").attr("href")
+      }),
+      (result.audio = $("div.video-data > div > .tik-right > div > p:nth-child(4) > a").attr("href"))
+    return result
+  } catch (err) {
+    result.status = false
+    result.message = (err) 
+    console.log(err)
+    return result
+  }
+}
+// ok work
   var {
   ytDonlodMp3,
   ytDonlodMp4,
@@ -201,12 +238,14 @@ app.get('/api/tiktok', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    const response = await ptz.tiktok2(message);
+    tiktokdl(message);
+    .then((result) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result: { response }
+      result 
     });
+    })
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
