@@ -499,11 +499,15 @@ app.get('/api/remini', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-const This = await processing(message, "enhance");
-res.set({
-                'Content-Type': 'image/jpeg'
-            })
-            res.send(This)    
+var requestSettings = {
+        url: `https://api.lolhuman.xyz/api/upscale?apikey=gata_dios&img=${message}`,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'image/jpeg');
+        res.send(body);
+    });    
 });
   app.get('/api/capcutdl', async (req, res) => {
   try {
