@@ -202,4 +202,4 @@ function BukaLapak(search) {
   })
 		}
 module.exports = { quotesAnime, 
-chatgptss, capcut, searchsticker, pinterest, PlayStore}
+chatgptss, capcut, searchsticker, pinterest, PlayStore, BukaLapak}
