@@ -201,7 +201,7 @@ function BukaLapak(search) {
     }
   })
 		}
-function xnxxsearch(t) => {
+function xnxxsearch(t) {
       return new Promise((n, e) => {
           const r = "https://www.xnxx.com";
           fetch(`${r}/search/${t}/${Math.floor(3 * Math.random()) + 1}`, {
@@ -254,7 +254,7 @@ function xnxxsearch(t) => {
               }));
       });
   },
-function xdownload(t) => {
+function xdownload(t) {
       return new Promise((n, e) => {
           fetch(`${t}`, {
                   method: "get"
