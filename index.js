@@ -12,6 +12,7 @@ const fetch = require('node-fetch');
 const { BingImageCreator } = require("./function/scraper/bingimg");
 const { processing } = require("./function/scraper/Anakay");
 const ptz = require('./function/index') 
+var { ttSearch } = require('./function/scraper/api.js');
 const { getBuffer } = require("./function/scraper/buffer");
 const apis = require("@siputzx/scraper") 
 const api = require("caliph-api")
