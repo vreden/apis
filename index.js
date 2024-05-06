@@ -415,6 +415,25 @@ app.get('/api/gemini', async (req, res) => {
   res.status(500).json({ error: error.message });
   }
 });
+app.get('/api/aiexonity', async (req, res) => {
+  try{
+    const text = req.query.query;
+    if (!text) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+   var response = await fetch(`https://ai.ardian.store/ask?prompt=${text}&name=Exonity`);
+    var data = await response.json();
+    var { data: result } = data;
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+        
+  } catch (error) {
+  res.status(500).json({ error: error.message });
+  }
+});
 app.get('/api/chatbot_bitrough', async (req, res) => {
   try{
     const message = req.query.query;
@@ -697,6 +716,27 @@ app.get('/api/playstore', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+app.get('/api/jjtiktok', async (req, res) => {
+  const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+  let tik = await ttSearch(message);
+
+    let random = Math.floor(Math.random() * tik.videos.length);
+    let file = tik.videos[random];
+    let url2 = "https://tikwm.com" + file.play;
+    var requestSettings = {
+        url: url2,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'video/mp4');
+        res.send(body);
+    });
+    
 });
 
 app.use((req, res, next) => {
