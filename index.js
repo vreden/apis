@@ -52,6 +52,38 @@ async function tiktokdl(url) {
   }
 }
 // ok work
+async function chatgptss(message) {
+    const url = 'https://chatgptss.org';
+    const formData = new FormData();
+
+    try {
+        const html = await (await fetch(url)).text();
+        const $ = cheerio.load(html);
+
+        const chatData = $('.wpaicg-chat-shortcode').map((index, element) => {
+            return Object.fromEntries(Object.entries(element.attribs));
+        }).get();
+
+        formData.append('_wpnonce', chatData[0]['data-nonce']);
+        formData.append('post_id', chatData[0]['data-post-id']);
+        formData.append('action', 'wpaicg_chatbox_message');
+        formData.append('message', message);
+
+        const response = await fetch('https://chatgptss.org/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) throw new Error('Network response was not ok');
+
+        let resultan = await response.json();
+        return resultan.data
+    } catch (error) {
+        console.error('An error occurred:', error.message);
+        throw error;
+    }
+}
+// got ai
   var {
   ytDonlodMp3,
   ytDonlodMp4,
@@ -69,6 +101,8 @@ var {
   chatgptss,
   searchsticker, 
   pinterest, 
+  BukaLapak, 
+  PlayStore, 
   quotesAnime, 
   capcut
 } = require("./function/scraper/exonityscraper");
@@ -522,14 +556,14 @@ app.get('/api/chat-gpt', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    let aja = await chatgptss(message) 
-    var result = aja.resultan.data
+    chatgptss(message) 
+    .then((data) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result
+      data
     });
-    
+    }) 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -622,15 +656,44 @@ app.get('/api/asupan', async (req, res) => {
     });
     
 });
-app.get('/api/toanime', async (req, res) => {
-  const url = req.query.url;
-    if (!url) {
+
+app.get('/api/bukalapak', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-  let result = await getBuffer(`https://skizo.tech/api/toanime?apikey=nana&url=${url}`)
-res.set({'Content-Type': 'image/png'})
-res.send(result)
+    BukaLapak(message)
+    .then((dat) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      dat 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
+app.get('/api/playstore', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+    PlayStore(message)
+    .then((hasil) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      hasil 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname,  '404.html'));
 });
