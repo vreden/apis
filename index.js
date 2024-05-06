@@ -505,7 +505,7 @@ var requestSettings = {
         encoding: null
     };
     request(requestSettings, function (error, response, body) {
-        res.set('Content-Type', 'image/jpeg');
+        res.set('Content-Type', 'image/png');
         res.send(body);
     });    
 });
