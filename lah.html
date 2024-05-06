@@ -375,6 +375,7 @@
 <ul class="cloud" role="navigation" aria-label="Webdev tag cloud">
    <li><a href="https://saweria.co/RAINXYZ">Donate</a></li>
    <li><a onclick="openFullscreen()">Change Screen</a></li>
+	<li><a onclick="tos()">Chat Box💬</a></li>
 	</a> 
 	</div>
 	<script>
@@ -525,26 +526,46 @@ function openFullscreen(){let e=document.documentElement;e.requestFullscreen?e.r
 document.addEventListener("DOMContentLoaded", function() {
   Swal.fire({
   title: "error",
-  text: "Jangan Lupa Join Saluran Whatsapp Kami Untuk Melihat Update Fitur Terbaru cuy",
+  text: "Join Saluran Whatsapp Kami Untuk Melihat Update Fitur Terbaru ><",
   icon: "warning",
   showCancelButton: true,
   confirmButtonColor: "#0bd923",
   cancelButtonColor: "#0bd9d5",
-  cancelButtonText: "Skip",
+  cancelButtonText: "skip",
   confirmButtonText: "Ok",
   color: "#716add",
   backdrop: `
     rgba(0,0,123,0.4)
-    url("https://telegra.ph/file/e8e9db3757fbb42f83913.jpg")
+    url("https://telegra.ph/file/a73aefda0a76b63265d07.png")
     bottom
     no-repeat
-  `
-  })
-}	
+  `,
 showClass: {
     popup: `
       animate__animated
       animate__fadeInUp
-      animat 
- `
-}
+      animate__slow
+    `
+  },
+  hideClass: {
+    popup: `
+      animate__animated
+      animate__fadeOutDown
+      animate__faster
+    `
+  }
+}).then((result) => {
+  if (result.isConfirmed) {
+    window.location.href = "https://whatsapp.com/channel/0029VabO7pL8KMqo8HUAis1a";
+  }
+});
+});
+</script>
+<script>
+  function tos() {
+    swal.fire({
+      html: `<iframe src="https://my.cbox.ws/Exonity_api"></iframe>`,
+      confirmButtonText: 'tutup'
+    })
+  };
+</script>
