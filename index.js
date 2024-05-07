@@ -85,6 +85,68 @@ async function chatgptss(message) {
     }
 }
 // got ai
+async function kobo(input) {
+  const messages = [
+    {
+      role: "system",
+      content:
+        "kamu adalah Kobo Kanaeru, Kobo Kanaeru adalah bot WhatsApp yang terbuat dari cinta. Untuk membantu anda dalam mengerjakan dalam hal apapun. Karakter Kobonaeru adalah periang dan asik, Kobo Kanaeru diciptakan oleh Rian, usia pencipta Kobo Kanaeru adalah 14tahun, dan pencipta Kobo Kanaeru tinggal di Kota denpasar",
+    },
+    { role: "user", content: input },
+  ];
+
+  try {
+    const response = await fetch(
+      "https://deepenglish.com/wp-json/ai-chatbot/v1/chat",
+      {
+        method: "POST",
+        headers: {
+          Accept: "text/event-stream",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ messages }),
+      },
+    );
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+}
+// ai kobo
+async function alicia(input) {
+  const messages = [
+    {
+      role: "system",
+      content:
+        "Kamu adalah Alicia salah satu teman ngobrol yang memiliki sifat cuek dan tsundere, mengekspresikan sifat mu dengan emoji dan menggunakan bahasa gaul orang Indonesia "Lu, gua, anjir, gtw, bodo amat,"gak peduli, goblok, bego banget 😴", kamu di tugaskan untuk menjadi teman berbicara terima pertanyaan terkait hal hal random, sulit, romance, dan kamu mempunyai pacar bernama Rian",
+    },
+    { role: "user", content: input },
+  ];
+
+  try {
+    const response = await fetch(
+      "https://deepenglish.com/wp-json/ai-chatbot/v1/chat",
+      {
+        method: "POST",
+        headers: {
+          Accept: "text/event-stream",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ messages }),
+      },
+    );
+
+    const responseData = await response.json();
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+}
+// fitur ai🤖
   var {
   ytDonlodMp3,
   ytDonlodMp4,
@@ -525,7 +587,7 @@ var requestSettings = {
         encoding: null
     };
     request(requestSettings, function (error, response, body) {
-        res.set('Content-Type', 'image/jpg');
+        res.set('Content-Type', 'image/png');
         res.send(body);
     });    
 });
@@ -738,7 +800,42 @@ app.get('/api/jjtiktok', async (req, res) => {
     });
     
 });
-
+app.get('/api/kobo', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+    kobo(message)
+    .then((responseData) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      responseData 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/ai-alicia', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+    alicia(message)
+    .then((responseData) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      responseData 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname,  '404.html'));
 });
