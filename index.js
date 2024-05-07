@@ -836,6 +836,67 @@ app.get('/api/ai-alicia', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+app.get('/api/search-character', async (req, res) => {
+  try{
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+   var response = await fetch(`https://apiruulzz.my.id/api/search-character?query=${message}`);
+    var data = await response.json();
+    var { result: result } = data;
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+        
+  } catch (error) {
+  res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/info-character', async (req, res) => {
+  try{
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+   var response = await fetch(`https://apiruulzz.my.id/api/info-character?query=${message}`);
+    var data = await response.json();
+    var { result: result } = data;
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+        
+  } catch (error) {
+  res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/characterai', async (req, res) => {
+  try{
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+    const id = req.query.query;
+    if (!id) {
+      return res.status(400).json({ error: 'Parameter "id" tidak ditemukan!' });
+    }
+   var response = await fetch(`https://apiruulzz.my.id/api/characterai?query=${message}&id=${id}`);
+    var data = await response.json();
+    var { result: result } = data;
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+        
+  } catch (error) {
+  res.status(500).json({ error: error.message });
+  }
+});
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname,  '404.html'));
 });
@@ -844,5 +905,5 @@ app.use((err, req, res, next) => {
   res.status(500).send('Ada kesalahan pada server😵');
 });
 app.listen(port, () => {
-  console.log(`Server berjalan di http://localhost:${port}`);
+  console.log(`Server berjalan di ${port}`);
 });
