@@ -897,6 +897,25 @@ app.get('/api/characterai', async (req, res) => {
   res.status(500).json({ error: error.message });
   }
 });
+app.get('/api/binjie', async (req, res) => {
+  try{
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+   var response = await fetch(`https://apiruulzz.my.id/api/binjie?query=${message}`);
+    var data = await response.json();
+    var { result: result } = data;
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+        
+  } catch (error) {
+  res.status(500).json({ error: error.message });
+  }
+});
 app.use((req, res, next) => {
   res.sendFile(path.join(__dirname,  '404.html'));
 });
