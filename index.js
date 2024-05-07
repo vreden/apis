@@ -109,7 +109,7 @@ async function kobo(input) {
     );
 
     const responseData = await response.json();
-    return responseData;
+    return responseData.answer
   } catch (error) {
     console.error("Error fetching data:", error);
     throw error;
@@ -140,7 +140,7 @@ async function alicia(input) {
     );
 
     const responseData = await response.json();
-    return responseData;
+    return responseData.answer
   } catch (error) {
     console.error("Error fetching data:", error);
     throw error;
@@ -807,11 +807,11 @@ app.get('/api/kobo', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
     kobo(message)
-    .then((responseData) => {
+    .then((answer) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      responseData 
+      answer 
     });
     })
   } catch (error) {
@@ -825,11 +825,11 @@ app.get('/api/ai-alicia', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
     alicia(message)
-    .then((responseData) => {
+    .then((answer) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      responseData 
+      answer 
     });
     })
   } catch (error) {
