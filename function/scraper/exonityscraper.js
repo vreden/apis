@@ -201,6 +201,125 @@ function BukaLapak(search) {
     }
   })
 		}
+async function npmstalk(packageName) {
+  let stalk = await axios.get("https://registry.npmjs.org/"+packageName)
+  let versions = stalk.data.versions
+  let allver = Object.keys(versions)
+  let verLatest = allver[allver.length-1]
+  let verPublish = allver[0]
+  let packageLatest = versions[verLatest]
+let result;
+  result = {
+    name: packageName,
+    versionLatest: verLatest,
+    versionPublish: verPublish,
+    versionUpdate: allver.length,
+    latestDependencies: Object.keys(packageLatest.dependencies).length,
+    publishDependencies: Object.keys(versions[verPublish].dependencies).length,
+    publishTime: stalk.data.time.created,
+    latestPublishTime: stalk.data.time[verLatest]
+  }
+	resolve(result);
+	  }
+function hentaivid() {
+    return new Promise((resolve, reject) => {
+        const page = Math.floor(Math.random() * 1153)
+        axios.get('https://sfmcompile.club/page/'+page)
+        .then((data) => {
+            const $ = cheerio.load(data.data)
+            const hasil = []
+            $('#primary > div > div > ul > li > article').each(function (a, b) {
+                hasil.push({
+                    title: $(b).find('header > h2').text(),
+                    link: $(b).find('header > h2 > a').attr('href'),
+                    category: $(b).find('header > div.entry-before-title > span > span').text().replace('in ', ''),
+                    share_count: $(b).find('header > div.entry-after-title > p > span.entry-shares').text(),
+                    views_count: $(b).find('header > div.entry-after-title > p > span.entry-views').text(),
+                    type: $(b).find('source').attr('type') || 'image/jpeg',
+                    video_1: $(b).find('source').attr('src') || $(b).find('img').attr('data-src'),
+                    video_2: $(b).find('video > a').attr('href') || ''
+                })
+            })
+            resolve(hasil)
+        })
+    })
+			    }
+function Hero(querry) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            let upper = querry.charAt(0).toUpperCase() + querry.slice(1).toLowerCase()
+            const {
+                data,
+                status
+            } = await axios.get('https://mobile-legends.fandom.com/wiki/' + upper);
+            if (status === 200) {
+                const $ = cheerio.load(data);
+                let atributes = []
+                let rill = []
+                let rull = []
+                let rell = []
+                let hero_img = $('figure.pi-item.pi-image > a > img').attr('src')
+                let desc = $('div.mw-parser-output > p:nth-child(6)').text()
+                $('.mw-parser-output > table:nth-child(9) > tbody > tr').each((u, i) => {
+                    let _doto = []
+                    $(i).find('td').each((o, p) => {
+                        _doto.push($(p).text().trim())
+                    })
+                    if (_doto.length === 0) return
+                    atributes.push({
+                        attribute: _doto[0],
+                        level_1: _doto[1],
+                        level_15: _doto[2],
+                        growth: _doto.pop()
+                    })
+                })
+                $('div.pi-item.pi-data.pi-item-spacing.pi-border-color > div.pi-data-value.pi-font').each((i, u) => {
+                    rill.push($(u).text().trim())
+                })
+                $('aside.portable-infobox.pi-background.pi-border-color.pi-theme-wikia.pi-layout-default').each((i, u) => {
+                    rull.push($(u).html())
+                })
+                const _$ = cheerio.load(rull[1])
+                _$('.pi-item.pi-data.pi-item-spacing.pi-border-color').each((l, m) => {
+                    rell.push(_$(m).text().trim().replace(/\n/g, ':').replace(/\t/g, ''))
+                })
+                const result = rell.reduce((acc, curr) => {
+                    const [key, value] = curr.split('::');
+                    acc[key] = value;
+                    return acc;
+                }, {});
+                let anu = {
+                    hero_img: hero_img,
+                    desc: desc,
+                    release: rill[0],
+                    role: rill[1],
+                    specialty: rill[2],
+                    lane: rill[3],
+                    price: rill[4],
+                    gameplay_info: {
+                        durability: rill[5],
+                        offense: rill[6],
+                        control_effect: rill[7],
+                        difficulty: rill[8],
+                    },
+                    story_info_list: result,
+                    story_info_array: rell,
+                    attributes: atributes
+                }
+                resolve(anu)
+            } else if (status === 400) {
+                resolve({
+                    mess: 'hh'
+                })
+            }
+            console.log(status)
+        } catch (err) {
+            resolve({
+                mess: 'asu'
+            })
+        }
+    })
+}
 
 module.exports = { quotesAnime, 
-chatgptss, capcut, searchsticker, pinterest, PlayStore, BukaLapak}
+chatgptss, capcut, searchsticker, pinterest, PlayStore, BukaLapak, npmstalk, hentaivid, Hero}
