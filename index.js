@@ -165,6 +165,9 @@ var {
   searchsticker, 
   pinterest, 
   BukaLapak, 
+  hentaivid, 
+  Hero, 
+  npmstalk, 
   PlayStore, 
   quotesAnime, 
   capcut
@@ -587,7 +590,7 @@ var requestSettings = {
         encoding: null
     };
     request(requestSettings, function (error, response, body) {
-        res.set('Content-Type', 'image/png');
+        res.set('Content-Type', 'image/jpeg');
         res.send(body);
     });    
 });
@@ -806,14 +809,13 @@ app.get('/api/kobo', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-    kobo(message)
-    .then((answer) => {
+    let ia = await kobo(message)
+  const result = ia.answer
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      answer 
+       result
     });
-    })
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -824,14 +826,13 @@ app.get('/api/ai-alicia', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-    alicia(message)
-    .then((answer) => {
+  let iar = await alicia(message)
+  const result = iar.answer
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      answer 
+      result 
     });
-    })
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -914,6 +915,56 @@ app.get('/api/binjie', async (req, res) => {
         
   } catch (error) {
   res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/hentaivid', async (req, res) => {
+  try {
+    hentaivid()
+    .then((hasil) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      hasil 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/npmstalk', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+    npmstalk(message)
+    .then((result) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/Hero', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+    Hero(message)
+    .then((anu) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      anu 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 app.use((req, res, next) => {
