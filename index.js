@@ -148,25 +148,12 @@ async function alicia(input) {
 }
 // fitur ai🤖
 async function fbdl(url) {
-  return new Promise((resolve, reject) => {
-    axios("https://getmyfb.com/process", {
-      headers: {
-        "cookie": "PHPSESSID=mtkljtmk74aiej5h6d846gjbo4 __cflb=04dToeZfC9vebXjRcJCMjjSQh5PprejufZXs2vHCt5 _token=K5Qobnj4QvoYKeLCW6uk"
-      },
-      data: {
-        id: url,
-        locale: "en"
-      },
-      "method": "POST"
-    }).then(res => {
-      let $ = cheerio.load(res.data)
-      let result =
-      result.caption = $("div.results-item-text").eq(0).text().trim()
-      result.thumb = $(".results-item-image-wrapper img").attr("src")
-      result.result = $("a").attr("href")
-      resolve(result)
-    })
-  })
+		let { data } = await axios({ 
+			method: 'POST', 
+			url: 'https://yt1s.io/api/ajaxSearch/facebook', 
+			data: `q=${encodeURIComponent(url)}&vt=facebook` 
+		});
+		return data;
 }
 // gabut bikin fitur gini
 function styleText(text) {
@@ -1021,11 +1008,11 @@ app.get('/api/fbdl', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
     fbdl(message)
-    .then((result) => {
+    .then((data) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result 
+      data 
     });
     })
   } catch (error) {
