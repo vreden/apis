@@ -809,8 +809,8 @@ app.get('/api/kobo', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-    let ia = await kobo(message)
-  const result = ia.answer
+    kobo(message)
+  const result = answer
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
@@ -826,8 +826,8 @@ app.get('/api/ai-alicia', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-  let iar = await alicia(message)
-  const result = iar.answer
+  alicia(message)
+  const result = answer
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
@@ -937,14 +937,17 @@ app.get('/api/npmstalk', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-    npmstalk(message)
-    .then((result) => {
-    res.status(200).json({
-      status: 200,
-      creator: "RIAN X EXONITY",
-      result 
-    });
-    })
+    fetch(encodeURI(`https://registry.npmjs.org/${query}`))
+        .then(response => response.json())
+        .then(data => {
+        var result = data;
+             res.json({
+                 status : true,
+                 creator: "RIAN X EXONITY",
+                 result
+             })
+         })
+    
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
