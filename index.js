@@ -147,6 +147,48 @@ async function alicia(input) {
   }
 }
 // fitur ai🤖
+async function fbdl(url) {
+  return new Promise((resolve, reject) => {
+    axios("https://getmyfb.com/process", {
+      headers: {
+        "cookie": "PHPSESSID=mtkljtmk74aiej5h6d846gjbo4 __cflb=04dToeZfC9vebXjRcJCMjjSQh5PprejufZXs2vHCt5 _token=K5Qobnj4QvoYKeLCW6uk"
+      },
+      data: {
+        id: url,
+        locale: "en"
+      },
+      "method": "POST"
+    }).then(res => {
+      let $ = cheerio.load(res.data)
+      let result =
+      result.caption = $("div.results-item-text").eq(0).text().trim()
+      result.thumb = $(".results-item-image-wrapper img").attr("src")
+      result.result = $("a").attr("href")
+      resolve(result)
+    })
+  })
+}
+// gabut bikin fitur gini
+function styleText(text) {
+  return new Promise((resolve,
+    reject) => {
+    axios.get('http://qaz.wtf/u/convert.cgi?text=' + text)
+    .then(({
+      data
+    }) => {
+      let $ = cheerio.load(data)
+      let result = []
+      $('table > tbody > tr').each(function (a, b) {
+        result.push({
+          text: $(b).find('td:nth-child(2)').text().trim()
+        })
+      }),
+      resolve(result)
+    })
+  })
+}
+
+// batas 🤓
   var {
   ytDonlodMp3,
   ytDonlodMp4,
@@ -810,12 +852,13 @@ app.get('/api/kobo', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
     kobo(message)
-  const result = responseData.answer
+  .then((answer) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-       result
+       answer
     });
+  }) 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -827,12 +870,13 @@ app.get('/api/ai-alicia', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
   alicia(message)
-  const result = responseData.answer
+  .then((answer) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result 
+      answer 
     });
+  }) 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -964,6 +1008,42 @@ app.get('/api/Hero', async (req, res) => {
       status: 200,
       creator: "RIAN X EXONITY",
       anu 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/fbdl', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+    fbdl(message)
+    .then((result) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/styleText', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+    styleText(message)
+    .then((result) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
     });
     })
   } catch (error) {
