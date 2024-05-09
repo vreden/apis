@@ -810,7 +810,7 @@ app.get('/api/kobo', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
     kobo(message)
-  const result = answer
+  const result = responseData.answer
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
@@ -827,7 +827,7 @@ app.get('/api/ai-alicia', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
   alicia(message)
-  const result = answer
+  const result = responseData.answer
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
@@ -937,7 +937,7 @@ app.get('/api/npmstalk', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-    fetch(encodeURI(`https://registry.npmjs.org/${query}`))
+    fetch(encodeURI(`https://registry.npmjs.org/${message}`))
         .then(response => response.json())
         .then(data => {
         var result = data;
