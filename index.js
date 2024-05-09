@@ -1016,7 +1016,7 @@ app.get('/api/Hero', async (req, res) => {
 });
 app.get('/api/fbdl', async (req, res) => {
   try {
-    const message = req.query.query;
+    const message = req.query.url;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
