@@ -660,7 +660,7 @@ app.get('/api/remini', async (req, res) => {
     if (!url) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-var hasil = await remini(url, enhance) 
+var hasil = await remini(url, "enhance") 
 var requestSettings = {
         url: hasil,
         method: 'GET',
