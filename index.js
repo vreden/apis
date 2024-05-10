@@ -613,13 +613,16 @@ app.get('/api/remini', async (req, res) => {
     if (!url) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
+let hasil = await (
+    await fetch(`https://api.lolhuman.xyz/api/upscale?apikey=gata_dios&img=${url}`)
+  ).buffer();
 var requestSettings = {
-        url: `https://api.lolhuman.xyz/api/upscale?apikey=gata_dios&img=${url}`,
+        url: hasil,
         method: 'GET',
         encoding: null
     };
     request(requestSettings, function (error, response, body) {
-        res.set('Content-Type', 'image/jpeg');
+        res.set('Content-Type', 'image/png');
         res.send(body);
     });    
 });
@@ -745,18 +748,14 @@ app.get('/api/nobg', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-  const img = `${message}`
-const { data } = await axios.post("https://backend.zyro.com/v1/ai/remove-background", { 
-image: "data:image/jpeg;base64," + img.toString("base64") 
-})
-const image = Buffer.from(data.result.split(",")[1], "base64")
+  
     var requestSettings = {
-        url: image,
+        url: `https://api.lolhuman.xyz/api/removebg?apikey=gata_dios&img=${message}`,
         method: 'GET',
         encoding: null
     };
     request(requestSettings, function (error, response, body) {
-        res.set('Content-Type', 'image/jpeg');
+        res.set('Content-Type', 'image/png');
         res.send(body);
     });
 });
