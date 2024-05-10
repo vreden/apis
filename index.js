@@ -613,9 +613,7 @@ app.get('/api/remini', async (req, res) => {
     if (!url) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-let hasil = await (
-    await fetch(`https://api.lolhuman.xyz/api/upscale?apikey=gata_dios&img=${url}`)
-  ).buffer();
+var hasil = await fetch(`https://api.lolhuman.xyz/api/upscale?apikey=gata_dios&img=${url}`)
 var requestSettings = {
         url: hasil,
         method: 'GET',
@@ -928,6 +926,23 @@ app.get('/api/characterai', async (req, res) => {
   res.status(500).json({ error: error.message });
   }
 });
+app.get('/api/randomgambar', async (req, res) => {
+    const urlgam = `pamandangan malam anime`;
+     
+var tio = await pinterest(urlgam); 
+      let url = tio.hasil[Math.floor(Math.random() * tio.hasil.length)];
+
+var requestSettings = {
+        url: url,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'image/jpeg');
+        res.send(body);
+    });    
+});
+
 app.get('/api/binjie', async (req, res) => {
   try{
     const message = req.query.query;
