@@ -748,11 +748,11 @@ app.get('/api/nobg', async (req, res) => {
     }
   
     var requestSettings = {
-        url: `https://api.lolhuman.xyz/api/removebg?apikey=gata_dios&img=${message}`,
+        url: `https://skizo.tech/api/removebg?apikey=nana&url=${message}`,
         method: 'GET',
         encoding: null
     };
-    request(requestSettings, function (error, response, body) {
+    request(requestSettings, function (error, response, body) 
         res.set('Content-Type', 'image/png');
         res.send(body);
     });
