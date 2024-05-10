@@ -660,14 +660,14 @@ app.get('/api/remini', async (req, res) => {
     if (!url) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-var hasil = await remini(url, "enhance") 
+var hasil = await remini(url) 
 var requestSettings = {
         url: hasil,
         method: 'GET',
         encoding: null
     };
     request(requestSettings, function (error, response, body) {
-        res.set('Content-Type', 'image/jpeg');
+        res.set('Content-Type', 'image/jpg');
         res.send(body);
     });    
 });
