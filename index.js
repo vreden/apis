@@ -662,7 +662,7 @@ app.get('/api/remini', async (req, res) => {
     }
 var hasil = await remini(url) 
 
-        res.set('Content-Type', 'image/jpg');
+        res.set('Content-Type', 'image/png');
         res.send(hasil);
 
 });
