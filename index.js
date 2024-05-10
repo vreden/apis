@@ -656,19 +656,19 @@ app.get('/api/ytplaymp4', async (req, res) => {
   }
 });
 app.get('/api/remini', async (req, res) => {
-    const url = req.query.url;
-    if (!url) {
+    const img = req.query.url;
+    if (!img) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-var hasil = await remini(url, "enhance") 
+const This = await reminicoy(img, "enhance");
 	var requestSettings = {
         url: hasil,
         method: 'GET',
         encoding: null
     };
 request(requestSettings, function (error, response, body) {
-        res.set('Content-Type', 'image/jpg');
-        res.send(body);
+        res.set('Content-Type', 'image/png');
+        res.send(This);
 	}); 
 });
   app.get('/api/capcutdl', async (req, res) => {
