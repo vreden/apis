@@ -752,10 +752,10 @@ app.get('/api/nobg', async (req, res) => {
         method: 'GET',
         encoding: null
     };
-    request(requestSettings, function (error, response, body) 
+    request(requestSettings, function (error, response, body) {
         res.set('Content-Type', 'image/png');
         res.send(body);
-    });
+});
 });
 app.get('/api/asupan', async (req, res) => {
   var data = ["https://api.miftahganzz.my.id/api/random/asupanrandom?type=video&apikey=zex"] 
