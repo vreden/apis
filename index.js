@@ -764,7 +764,7 @@ app.get('/api/ssweb', async (req, res) => {
     }
   
     var requestSettings = {
-        url: `https://skizo.tech/api/ssweb?apikey=nana&url=${url}&type=&language=id&fullpage=1&width=&height=`,
+        url: `https://skizo.tech/api/ssweb?apikey=nana&url=${message}&type=&language=id&fullpage=1&width=&height=`,
         method: 'GET',
         encoding: null
     };
