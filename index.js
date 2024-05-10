@@ -86,6 +86,38 @@ async function chatgptss(message) {
     }
 }
 // got ai
+async function bartai(message) {
+    const url = 'https://bartai.org';
+    const formData = new FormData();
+
+    try {
+        const html = await (await fetch(url)).text();
+        const $ = cheerio.load(html);
+
+        const chatData = $('.wpaicg-chat-shortcode').map((index, element) => {
+            return Object.fromEntries(Object.entries(element.attribs));
+        }).get();
+
+        formData.append('_wpnonce', chatData[0]['data-nonce']);
+        formData.append('post_id', chatData[0]['data-post-id']);
+        formData.append('action', 'wpaicg_chatbox_message');
+        formData.append('message', message);
+
+        const response = await fetch('https://bartai.org/wp-admin/admin-ajax.php', {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) throw new Error('Network response was not ok');
+
+        let resultan = await response.json();
+        return resultan.data
+    } catch (error) {
+        console.error('An error occurred:', error.message);
+        throw error;
+    }
+}
+// testtt
 async function kobo(input) {
   const messages = [
     {
@@ -504,17 +536,20 @@ app.get('/api/bingimg', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "text" tidak ditemukan' });
     }
-    const img2 = new BingImageCreator({
+    const imgc = new BingImageCreator({
       cookie: `1lVjcgPnXLSccoYZ1_QxlVsh2GUoIvwXRkMCYur5Q_fgtQRMeSs_DmnDTNKixYXAN9Tr5eOphlc5qjEfsreCOWx9EELSDG6Pt-oB2Twm_htnoVtQVCMrPM-7pt8z3nReVKGLEQ2cQn5Vxuz9GHJiBtEeHGTdEbzbPRcYr3PD75pkfZWpjCELTxHhskev33pUTeuTLGHpc4gqIh3PQLL6IZw`,
     });
-    const data = await img2.createImage(message);
-            
+    const data = await imgc.createImage(message);
+            if (data.length > 0) 
+      for (let i = 0; i < data.length; i++) 
+          if (!data[i].endsWith(".svg")) {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
       data
     
-    });     
+    }); 
+	  }
   } catch (error) {
     res.status(500).json({ error: error.message });
  }       
