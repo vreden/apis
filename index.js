@@ -757,6 +757,23 @@ app.get('/api/nobg', async (req, res) => {
         res.send(body);
 });
 });
+app.get('/api/ssweb', async (req, res) => {
+  const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+  
+    var requestSettings = {
+        url: `https://skizo.tech/api/ssweb?apikey=nana&url=${url}&type=&language=id&fullpage=1&width=&height=`,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'image/png');
+        res.send(body);
+});
+});
+
 app.get('/api/asupan', async (req, res) => {
   var data = ["https://api.miftahganzz.my.id/api/random/asupanrandom?type=video&apikey=zex"] 
     var result = data[Math.floor(Math.random() * data.length)];
@@ -927,18 +944,13 @@ app.get('/api/characterai', async (req, res) => {
   }
 });
 app.get('/api/randomgambar', async (req, res) => {
-    const urlgam = `pamandangan malam anime`;
-     
-var tio = await pinterest(urlgam); 
-      let url = tio.hasil[Math.floor(Math.random() * tio.hasil.length)];
-
 var requestSettings = {
-        url: url,
+        url: `https://api-rian.shoppanel.my.id/api/search/pinterest?query=pemandangan malam anime&apikey=7Fr9gkpxjq`,
         method: 'GET',
         encoding: null
     };
     request(requestSettings, function (error, response, body) {
-        res.set('Content-Type', 'image/jpeg');
+        res.set('Content-Type', 'image/png');
         res.send(body);
     });    
 });
@@ -961,6 +973,25 @@ app.get('/api/binjie', async (req, res) => {
   } catch (error) {
   res.status(500).json({ error: error.message });
   }
+});
+app.get('/api/diffusionXL', async (req, res) => {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+   var response = await fetch(`https://skizo.tech/api/sdxl?apikey=nana&prompt=${message}`);
+    var data = await response.json();
+    var { url: url } = data;
+    var requestSettings = {
+        url: url,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'image/png');
+        res.send(body);
+    });    
+
 });
 app.get('/api/hentaivid', async (req, res) => {
   try {
