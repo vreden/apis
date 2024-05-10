@@ -178,7 +178,7 @@ function styleText(text) {
 // remini jbt
 
 
-async function remini(urlPath, method) {
+async function reminicoy(urlPath, method) {
 	return new Promise(async (resolve, reject) => {
 		let Methods = ["enhance", "recolor", "dehaze"];
 		Methods.includes(method) ? (method = method) : (method = Methods[0]);
