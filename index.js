@@ -661,15 +661,10 @@ app.get('/api/remini', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
 const This = await reminicoy(img, "enhance");
-	var requestSettings = {
-        url: hasil,
-        method: 'GET',
-        encoding: null
-    };
-request(requestSettings, function (error, response, body) {
-        res.set('Content-Type', 'image/png');
+	
+        res.set('Content-Type', 'image/jpg');
         res.send(This);
-	}); 
+	
 });
   app.get('/api/capcutdl', async (req, res) => {
   try {
