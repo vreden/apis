@@ -1059,7 +1059,7 @@ app.get('/api/characterai', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-    const id = req.id.id;
+    const id = req.query.id;
     if (!id) {
       return res.status(400).json({ error: 'Parameter "id" tidak ditemukan!' });
     }
@@ -1103,7 +1103,7 @@ app.get('/api/pixiv-r18', async (req, res) => {
     }
    var response = await fetch(`https://api.lolicon.app/setu/v2?size=regular&r18=1&num=20&keyword=${message}`)
         var datas = await response.json();
-    var { datas: result } = data;
+    var { datas: result } = datas.data;
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
