@@ -288,7 +288,19 @@ async function reminicoy(urlPath, method) {
 		);
 	});
 }
-// batas 🤓
+// batas 
+async function bufferlah(hm) {
+    const imageUrl = hm;
+    const imagePath = 'gambar.jpg';
+    const response = await axios({
+        method: 'get',
+        url: imageUrl,
+        responseType: 'arraybuffer'
+    })
+    const buffer = Buffer.from(response.data, 'binary');
+    return buffer;
+}
+// buffer
   var {
   ytDonlodMp3,
   ytDonlodMp4,
@@ -751,11 +763,19 @@ app.get('/api/remini', async (req, res) => {
     if (!img) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-const This = await reminicoy(img, "enhance");
-	
+bufferlah(img) 
+.then((buffer) => {
+var imagenya = await reminicoy(buffer, "enhance") 
+var requestSettings = {
+        url: imagenya,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
         res.set('Content-Type', 'image/jpg');
-        res.send(This);
-	
+        res.send(body);
+    });
+})	
 });
   app.get('/api/capcutdl', async (req, res) => {
   try {
