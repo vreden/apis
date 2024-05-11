@@ -1077,6 +1077,44 @@ app.get('/api/characterai', async (req, res) => {
   }
 });
 app.get('/api/randomgambar', async (req, res) => {
+	const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+	const lang = req.query.lang;
+    if (!lang) {
+      return res.status(400).json({ error: 'Parameter "lang" tidak ditemukan' });
+    }
+var requestSettings = {
+        url: `https://nue-api.vercel.app/api/tts?text=${message}lang=${lang}`,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'audio/mp3');
+        res.send(body);
+    });    
+});
+app.get('/api/pixiv-r18', async (req, res) => {
+  try{
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+   axios.get("https://api.lolicon.app/setu/v2?size=regular&r18=1&num=20&keyword=${message}")
+        .then(data => data.data.data);
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      data 
+    });
+        
+  } catch (error) {
+  res.status(500).json({ error: error.message });
+  }
+});
+
+app.get('/api/randomgambar', async (req, res) => {
 var requestSettings = {
         url: `https://api-rian.shoppanel.my.id/api/search/pinterest?query=pemandangan malam anime&apikey=7Fr9gkpxjq`,
         method: 'GET',
@@ -1087,7 +1125,6 @@ var requestSettings = {
         res.send(body);
     });    
 });
-
 app.get('/api/binjie', async (req, res) => {
   try{
     const message = req.query.query;
