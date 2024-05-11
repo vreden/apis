@@ -301,6 +301,17 @@ async function bufferlah(hm) {
     return buffer;
 }
 // buffer
+//function pixiv
+exports.pixiv = async (text) => {
+    return axios.get("https://api.lolicon.app/setu/v2?size=regular&r18=0&num=20&keyword=" + text)
+        .then(data => data.data.data);
+}
+
+exports.pixivr18 = async (text) => {
+    return axios.get("https://api.lolicon.app/setu/v2?size=regular&r18=1&num=20&keyword=" + text)
+        .then(data => data.data.data);
+}
+//
   var {
   ytDonlodMp3,
   ytDonlodMp4,
@@ -1120,14 +1131,14 @@ app.get('/api/pixiv-r18', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   var datas = await axios.get(`https://api.lolicon.app/setu/v2?size=regular&r18=1&num=20&keyword=${message}`)
-    var { datas: result } = datas.data;
+   pixivr18(message) 
+.then((data) => {  
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result 
+      data 
     });
-        
+});   
   } catch (error) {
   res.status(500).json({ error: error.message });
   }
