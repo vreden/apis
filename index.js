@@ -302,12 +302,12 @@ async function bufferlah(hm) {
 }
 // buffer
 //function pixiv
-exports.pixiv = async (text) => {
+async function pixiv(text) {
     return axios.get("https://api.lolicon.app/setu/v2?size=regular&r18=0&num=20&keyword=" + text)
         .then(data => data.data.data);
 }
 
-exports.pixivr18 = async (text) => {
+async function pixivr18(text) {
     return axios.get("https://api.lolicon.app/setu/v2?size=regular&r18=1&num=20&keyword=" + text)
         .then(data => data.data.data);
 }
