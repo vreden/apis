@@ -763,8 +763,8 @@ app.get('/api/remini', async (req, res) => {
     if (!img) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-bufferlah(img) 
-.then((buffer) => {
+let a = await bufferlah(img) 
+var result = a.buffer
 var imagenya = await reminicoy(buffer, "enhance") 
 var requestSettings = {
         url: imagenya,
