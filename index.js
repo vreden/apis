@@ -765,7 +765,7 @@ app.get('/api/remini', async (req, res) => {
     }
 let a = await bufferlah(img) 
 var result = a.buffer
-var imagenya = await reminicoy(buffer, "enhance") 
+var imagenya = await reminicoy(result, "enhance") 
 var requestSettings = {
         url: imagenya,
         method: 'GET',
@@ -774,8 +774,7 @@ var requestSettings = {
     request(requestSettings, function (error, response, body) {
         res.set('Content-Type', 'image/jpg');
         res.send(body);
-    });
-})	
+    });	
 });
   app.get('/api/capcutdl', async (req, res) => {
   try {
