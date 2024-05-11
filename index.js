@@ -765,7 +765,7 @@ app.get('/api/remini', async (req, res) => {
     }
 let a = await bufferlah(img) 
 var result = a.buffer
-var imagenya = await reminicoy(result, "enhance") 
+var imagenya = await reminicoy(result) 
 var requestSettings = {
         url: imagenya,
         method: 'GET',
