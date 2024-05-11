@@ -767,12 +767,12 @@ let a = await bufferlah(img)
 var result = a.buffer
 var imagenya = await reminicoy(result) 
 var requestSettings = {
-        url: imagenya,
+        url: result,
         method: 'GET',
         encoding: null
     };
     request(requestSettings, function (error, response, body) {
-        res.set('Content-Type', 'image/png');
+        res.set('Content-Type', 'image/jpg');
         res.send(body);
     });	
 });
