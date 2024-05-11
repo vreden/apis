@@ -1076,7 +1076,7 @@ app.get('/api/characterai', async (req, res) => {
   res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/randomgambar', async (req, res) => {
+app.get('/api/tts', async (req, res) => {
 	const message = req.query.query;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
@@ -1101,12 +1101,13 @@ app.get('/api/pixiv-r18', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   axios.get("https://api.lolicon.app/setu/v2?size=regular&r18=1&num=20&keyword=${message}")
-        .then(data => data.data.data);
+   var resullt = await axios.get("https://api.lolicon.app/setu/v2?size=regular&r18=1&num=20&keyword=${message}")
+        var data = await resullt.json();
+    var { data: result } = data;
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      data 
+      result 
     });
         
   } catch (error) {
