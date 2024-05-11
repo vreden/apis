@@ -1120,8 +1120,7 @@ app.get('/api/pixiv-r18', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   var response = await fetch(`https://api.lolicon.app/setu/v2?size=regular&r18=1&num=20&keyword=${message}`)
-        var datas = await response.json();
+   var datas = await axios.get(`https://api.lolicon.app/setu/v2?size=regular&r18=1&num=20&keyword=${message}`)
     var { datas: result } = datas.data;
     res.status(200).json({
       status: 200,
