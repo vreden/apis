@@ -636,7 +636,7 @@ app.get('/api/mediafiredl', async (req, res) => {
 });
 app.get('/api/igdownload', async (req, res) => {
   try {
-    const message = req.query.query;
+    const message = req.query.url;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
@@ -1145,16 +1145,17 @@ app.get('/api/characterai', async (req, res) => {
   }
 });
 app.get('/api/tts', async (req, res) => {
-	const message = req.query.query;
-    if (!message) {
-      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
-    }
 	const lang = req.query.lang;
     if (!lang) {
       return res.status(400).json({ error: 'Parameter "lang" tidak ditemukan' });
     }
+	const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+	
 var requestSettings = {
-        url: `https://nue-api.vercel.app/api/tts?text=${message}lang=${lang}`,
+        url: `https://nue-api.vercel.app/api/tts?text=${message}&lang=${lang}`,
         method: 'GET',
         encoding: null
     };
