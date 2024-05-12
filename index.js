@@ -16,7 +16,7 @@ const ptz = require('./function/index')
 var { ttSearch } = require('./function/scraper/api.js');
 const { getBuffer } = require("./function/scraper/buffer");
 const { mediafireDl } = require("./function/scraper/mediafire")
-const { ig } = require("./function/scraper/Ig")
+const { ig } = require("./function/scraper/Ig.js")
 const apis = require("@siputzx/scraper") 
 const api = require("caliph-api")
 const axios = require('axios')
@@ -451,7 +451,7 @@ app.get('/api/smartcontract', async (req, res) => {
 // Endpoint untuk blackboxAIChat
 app.get('/api/blackbox', async (req, res) => {
   try {
-    const message = req.query.query;
+    const message = req.query.message;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "message" tidak ditemukan' });
     }
