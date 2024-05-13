@@ -313,7 +313,40 @@ async function pixivr18(text) {
     return axios.get("https://api.lolicon.app/setu/v2?size=regular&r18=1&num=20&keyword=" + text)
         .then(data => data.data.data);
 }
-//
+// terabox
+async function getLink(payload) {
+  try {
+    const response = await axios.post('https://terabox-dl.qtcloud.workers.dev/api/get-download', payload);
+    return response.data.downloadLink;
+  } catch (error) {
+    return error.response.data;
+  }
+}
+async function terabox(url) {
+  let id = (url.split(/surl=|\/s\//) || [])[1];
+  id = `1${id.replace(/^1/, '')}`;
+
+  const infoResponse = await axios.get(`https://terabox-dl.qtcloud.workers.dev/api/get-info?shorturl=${id}`);
+  const info = infoResponse.data;
+
+  if (info.ok !== true) {
+    throw new Error(info.message);
+  }
+
+  for (const file of info.list) {
+    const payload = {
+      shareid: info.shareid,
+      uk: info.uk,
+      sign: info.sign,
+      timestamp: info.timestamp,
+      fs_id: file.children.length ? file.children[0].fs_id: file.fs_id
+    };
+    const dlUrl = await getLink(payload);
+    file.downloadLink = dlUrl;
+  }
+
+  return info;
+}
   var {
   ytDonlodMp3,
   ytDonlodMp4,
@@ -640,19 +673,36 @@ app.get('/api/igdownload', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    ig(message)
-    .then((result) => {
+    var response = await fetch(`https://api-rian.shoppanel.my.id/api/download/ig?apikey=7Fr9gkpxjq&url=${message}`);
+    var data = await response.json();
+    var { result: result } = data;
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
       result 
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/teraboxdl', async (req, res) => {
+  try {
+    const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+    terabox(message)
+    .then((info) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      info 
     });
     })
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
-
 app.get('/api/ytmp3', async (req, res) => {
   try {
     const message = req.query.url;
