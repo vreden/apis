@@ -56,6 +56,41 @@ async function tiktokdl(url) {
   }
 }
 // ok work
+async function tiktok2(query) {
+  return new Promise(async (resolve, reject) => {
+    try {
+    const encodedParams = new URLSearchParams();
+encodedParams.set('url', query);
+encodedParams.set('hd', '1');
+      const response = await axios({
+        method: 'POST',
+        url: 'https://tikwm.com/api/',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+          'Cookie': 'current_language=en',
+          'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36'
+        },
+        data: encodedParams
+      });
+      const videos = response.data.data;
+        const result = {
+          title: videos.title,
+          cover: videos.cover,
+          origin_cover: videos.origin_cover,
+          no_watermark: videos.play,
+          watermark: videos.wmplay,
+          music: videos.music
+        };
+        resolve(result);
+    } catch (error) {
+      reject(error);
+
+    }
+
+  });
+
+}
+// tiktok2
 async function chatgptss(message) {
     const url = 'https://chatgptss.org';
     const formData = new FormData();
@@ -583,18 +618,20 @@ app.get('/api/tiktok', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/ttsearch', async (req, res) => {
+app.get('/api/tiktok2', async (req, res) => {
   try {
-    const message = req.query.text;
+    const message = req.query.url;
     if (!message) {
-      return res.status(400).json({ error: 'Parameter "text" tidak ditemukan' });
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    const response = await ptz.tiktokserch2(message);
+    tiktok2(message)
+    .then((result) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result: { response }
+      result 
     });
+    })
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -1010,11 +1047,11 @@ app.get('/api/tikmusic', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-  var response = await fetch(`https://aemt.me/download/tikdl?url=${message}`);
-    var data = await response.json();
-    var { nowm: video, audio } = data.result.url;
+  var response = await tiktok2(message);
+    var ayichi = response.result;
+	var tot = ayichi.music
     var requestSettings = {
-        url: audio,
+        url: tot,
         method: 'GET',
         encoding: null
     };
