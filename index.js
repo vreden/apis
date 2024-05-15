@@ -1047,11 +1047,29 @@ app.get('/api/tikmusic', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-  var response = await tiktok2(message);
-    var ayichi = response.result;
-	var tot = ayichi.music
+  var response = await fetch(`https://api.exonity.my.id/api/tiktok2?url=${message}`);
+    var data = await response.json();
+    var { music: music } = data.result;
     var requestSettings = {
-        url: tot,
+        url: music,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'audio/mp3');
+        res.send(body);
+    });
+});
+app.get('/api/spotify2', async (req, res) => {
+  const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+  var response = await fetch(`https://api.exonity.my.id/api/spotify?url=${message}`);
+    var data = await response.json();
+    var { download: download } = data.result;
+    var requestSettings = {
+        url: download,
         method: 'GET',
         encoding: null
     };
