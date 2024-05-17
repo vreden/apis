@@ -9,6 +9,7 @@ const fs = require('fs');
 const FormData = require("form-data");
 const Jimp = require("jimp");
 const cheerio = require("cheerio");
+var gis = require('g-i-s')  
 const fetch = require('node-fetch');
 const { BingImageCreator } = require("./function/scraper/bingimg");
 const { processing } = require("./function/scraper/Anakay");
@@ -936,7 +937,7 @@ app.get('/api/gpt-logic', async (req, res) => {
     }
     var response = await fetch(`https://itzpire.site/ai/gpt-logic?q=${text}`);
     var data = await response.json();
-    var { result: result } = data;
+    var { result: result } = data.data;
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
@@ -1511,8 +1512,10 @@ app.get('/api/pixiv-r18', async (req, res) => {
 });
 
 app.get('/api/randomgambar', async (req, res) => {
+	var anu = await pinterestv2(`pemandangan malam anime`)
+var result = anu[Math.floor(Math.random() * anu.length)]
 var requestSettings = {
-        url: `https://api-rian.shoppanel.my.id/api/search/pinterest?query=pemandangan malam anime&apikey=7Fr9gkpxjq`,
+        url: result,
         method: 'GET',
         encoding: null
     };
