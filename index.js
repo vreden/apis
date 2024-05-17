@@ -1525,7 +1525,7 @@ var requestSettings = {
         res.send(body);
     });    
 });
-app.get('/api/randomgambar', async (req, res) => {
+app.get('/api/gimage', async (req, res) => {
 	const text = req.query.query;
     if (!text) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
