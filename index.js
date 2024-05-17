@@ -1393,6 +1393,7 @@ app.get('/api/kobo', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 app.get('/api/ai-alicia', async (req, res) => {
   try {
     const message = req.query.query;
@@ -1516,6 +1517,25 @@ app.get('/api/randomgambar', async (req, res) => {
 var result = anu[Math.floor(Math.random() * anu.length)]
 var requestSettings = {
         url: result,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'image/png');
+        res.send(body);
+    });    
+});
+app.get('/api/randomgambar', async (req, res) => {
+	const text = req.query.query;
+    if (!text) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+	gis(text, async (error, result) => {
+var n = result
+var images = n[Math.floor(Math.random() * n.length)].url
+  
+	var requestSettings = {
+        url: images,
         method: 'GET',
         encoding: null
     };
