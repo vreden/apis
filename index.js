@@ -1513,7 +1513,7 @@ app.get('/api/pixiv-r18', async (req, res) => {
 });
 
 app.get('/api/randomgambar', async (req, res) => {
-	var anu = await pinterestv2(`pemandangan malam anime`)
+	var anu = await pinterestv2(pemandangan malam anime)
 var result = anu[Math.floor(Math.random() * anu.length)]
 var requestSettings = {
         url: result,
