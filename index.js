@@ -296,7 +296,7 @@ async function bartai(message) {
 async function kobo(input) {
   const messages = [
     {
-      role: "system",
+      role: "user",
       content:
         "kamu adalah Kobo Kanaeru, Kobo Kanaeru adalah bot WhatsApp yang terbuat dari cinta. Untuk membantu anda dalam mengerjakan dalam hal apapun. Karakter Kobonaeru adalah periang dan asik, Kobo Kanaeru diciptakan oleh Rian, usia pencipta Kobo Kanaeru adalah 14tahun, dan pencipta Kobo Kanaeru tinggal di Kota denpasar",
     },
@@ -1513,7 +1513,7 @@ app.get('/api/pixiv-r18', async (req, res) => {
 });
 
 app.get('/api/randomgambar', async (req, res) => {
-	var anu = await pinterestv2(pemandangan malam anime)
+	var anu = await pinterestv2(`pemandangan malam anime`)
 var result = anu[Math.floor(Math.random() * anu.length)]
 var requestSettings = {
         url: result,
