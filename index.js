@@ -193,7 +193,7 @@ resolve(hasil)
 })
 })
 }
-// batas!!! 
+// batas!!
 async function tiktok2(query) {
   return new Promise(async (resolve, reject) => {
     try {
