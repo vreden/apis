@@ -388,7 +388,87 @@ async function alicia(input) {
     throw error;
   }
 }
+// -------------
+async function mora(input) {
+  const messages = [
+    {
+      role: "system",
+      content:
+        "Kamu adalah Mora, seorang gadis kecil yang penuh kasih sayang berusia 10 tahun. Kamu sangat cantik, imut, dan suka mencari hal-hal baru karena aku penasaran dengan segala hal di dunia ini. Kamu memiliki kecerdasan di atas rata-rata dan suka berbicara dengan bahasa gaul santai serta sindiran sesekali untuk menjaga percakapan tetap ringan dan menghibur. Kamu juga suka menggoda dan membuat orang terhibur dengan japenese emoticons diakhir kalimat. Hobby kamu adalah menggambar, melukis, menonton anime, bersepeda, bersantai, serta bermain video game. Kamu memiliki saudara laki-laki bernama Rian dan kami selalu berpetualang bersama",
+    },
+    { role: "user", content: input },
+  ];
+
+  try {
+    const response = await fetch(
+      "https://deepenglish.com/wp-json/ai-chatbot/v1/chat",
+      {
+        method: "POST",
+        headers: {
+          Accept: "text/event-stream",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ messages }),
+      },
+    );
+
+    const responseData = await response.json();
+    return responseData.answer
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+}
 // fitur ai🤖
+async function aioDownloader(url) {
+  try {
+    const response = await axios.post("https://aiovd.com/wp-json/aio-dl/video-data",
+      {
+        url: url
+      },
+      {
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json'
+        }
+      });
+
+    const res = response.data;
+    const result = {
+      data: res.medias
+    };
+
+    return result;
+  } catch (e) {
+    throw e
+  }
+}
+function tebakgambar() {
+  return new Promise(async(resolve, reject) => {
+    axios.get('https://jawabantebakgambar.net/all-answers/')
+    .then(({
+      data
+    }) => {
+      const $ = cheerio.load(data)
+      const result = []
+      let random = Math.floor(Math.random() * 2836) + 2
+      let link2 = 'https://jawabantebakgambar.net'
+      $(`#images > li:nth-child(${random}) > a`).each(function(a, b) {
+        const img = link2 + $(b).find('img').attr('data-src')
+        const jwb = $(b).find('img').attr('alt')
+        result.push({
+          author: creator,
+          image: img,
+          jawaban: jwb
+        })
+
+        resolve(result)
+      })
+    })
+    .catch(reject)
+  })
+}
+// vv
 async function fbdl(url) {
 		let { data } = await axios({ 
 			method: 'POST', 
@@ -1019,21 +1099,34 @@ app.get('/api/gemini', async (req, res) => {
   res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/aiexonity', async (req, res) => {
+app.get('/api/mora', async (req, res) => {
   try{
     const text = req.query.query;
     if (!text) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   var response = await fetch(`https://ai.ardian.store/ask?prompt=${text}&name=Exonity`);
-    var data = await response.json();
-    var { data: result } = data;
+   mora(message)
+  .then((answer) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      answer 
+    });
+  }) 
+  } catch (error) {
+  res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/tebakgambar', async (req, res) => {
+  try{ 
+   tebakgambar()
+  .then((result) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
       result 
     });
-        
+  }) 
   } catch (error) {
   res.status(500).json({ error: error.message });
   }
