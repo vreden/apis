@@ -1211,6 +1211,24 @@ app.get('/api/ytplaymp4', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+app.get('/api/ytplaymp3', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+    ytPlayMp3(message)
+    .then((result) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 app.get('/api/remini', async (req, res) => {
     const img = req.query.url;
     if (!img) {
