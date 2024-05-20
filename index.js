@@ -1105,7 +1105,7 @@ app.get('/api/mora', async (req, res) => {
     if (!text) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   mora(message)
+   mora(text)
   .then((answer) => {
     res.status(200).json({
       status: 200,
