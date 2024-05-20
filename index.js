@@ -1087,9 +1087,10 @@ app.get('/api/gemini', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   const results = await Gemini(message) 
-	const result = results.geminiText
-    res.status(200).json({
+   var response = await fetch(`https://itzpire.site/ai/gemini-ai?q=${message}`);
+    var data = await response.json();
+    var { result: result } = data;  
+res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
       result 
