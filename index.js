@@ -1132,7 +1132,7 @@ app.get('/api/tebakgambar', async (req, res) => {
   res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/chatbot_bitrough', async (req, res) => {
+app.get('/api/simi', async (req, res) => {
   try{
     const message = req.query.query;
     if (!message) {
