@@ -457,7 +457,6 @@ function tebakgambar() {
         const img = link2 + $(b).find('img').attr('data-src')
         const jwb = $(b).find('img').attr('alt')
         result.push({
-          author: creator,
           image: img,
           jawaban: jwb
         })
