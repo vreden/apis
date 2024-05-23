@@ -987,8 +987,9 @@ app.get('/api/txt2img', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    gptPicture(message)
-    var resultg = result.url
+  var texc = await gptPicture(message)
+    var ggg = texc.result
+	var resultg = ggg.url
     var requestSettings = {
         url: resultg,
         method: 'GET',
