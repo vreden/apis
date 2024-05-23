@@ -983,11 +983,11 @@ app.get('/api/tiktok2', async (req, res) => {
   }
 });
 app.get('/api/txt2img', async (req, res) => {
-    const message = req.query.query;
-    if (!message) {
+    const text = req.query.query;
+    if (!text) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-  const { data } = await axios.get(`https://tti.photoleapapp.com/api/v1/generate?prompt=message`) 
+  const { data } = await axios.get("https://tti.photoleapapp.com/api/v1/generate?prompt=" + text) 
 	var resultg = data.result_url
     var requestSettings = {
         url: resultg,
