@@ -1142,7 +1142,7 @@ app.get('/api/igdownload', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    var response = await fetch(`https://api2.exonity.my.id/api/download/igdownload?url=${message}`);
+    var response = await fetch(`https://api2.exonity.my.id/api/igdownload?url=${message}`);
     var data = await response.json();
     var { result: result } = data;
     res.status(200).json({
