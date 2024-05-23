@@ -229,6 +229,146 @@ encodedParams.set('hd', '1');
 
 }
 // tiktok2
+async function ttSlide(url) {
+  try {
+    const response = await axios.post("https://api.ttsave.app/", {
+      id: url,
+      hash: '1e3a27c51eb6370b0db6f9348a481d69',
+      mode: 'slide',
+      locale: 'en',
+      loading_indicator_url: 'https://ttsave.app/images/slow-down.gif',
+      unlock_url: 'https://ttsave.app/en/unlock'
+    }, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0 Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
+    })
+
+    const html = response.data
+    const $ = cheerio.load(html)
+
+    const results = []
+
+    $('div.flex.flex-col.items-center.justify-center.mt-2.mb-5').each((index, element) => {
+      const $element = $(element)
+      const data = {
+        author: author,
+        uniqueId: $element.find('input#unique-id').attr('value'),
+        username: $element.find('div.flex.flex-row.items-center.justify-center h2').text(),
+        profile: $element.find('a').first().find('img').attr('src'),
+        downloads: $element.find('a').first().attr('href'),
+        title: $element.find('a').first().text(),
+        hashtags: $element.find('p.text-gray-600').text().split(' ').filter(Boolean),
+        likes: $element.find('div.flex.flex-row.items-center.justify-center').eq(0).find('span').text(),
+        comments: $element.find('div.flex.flex-row.items-center.justify-center').eq(1).find('span').text(),
+        shares: $element.find('div.flex.flex-row.items-center.justify-center').eq(2).find('span').text(),
+        saveds: $element.find('div.flex.flex-row.items-center.justify-center').eq(3).find('span').text(),
+        views: $element.find('div.flex.flex-row.items-center.justify-center').eq(4).find('span').text()
+      }
+      results.push(data)
+    })
+return results
+  } catch (error) {
+    console.error(error)
+  }
+}
+// ttslide
+async function githubStalk(user) {
+  return new Promise((resolve, reject) => {
+    axios.get('https://api.github.com/users/'+user)
+    .then(({
+      data
+    }) => {
+      let hasil = {
+        username: data.login,
+        nickname: data.name,
+        bio: data.bio,
+        id: data.id,
+        nodeId: data.node_id,
+        profile_pic: data.avatar_url,
+        url: data.html_url,
+        type: data.type,
+        admin: data.site_admin,
+        company: data.company,
+        blog: data.blog,
+        location: data.location,
+        email: data.email,
+        public_repo: data.public_repos,
+        public_gists: data.public_gists,
+        followers: data.followers,
+        following: data.following,
+        ceated_at: data.created_at,
+        updated_at: data.updated_at
+      }
+      return hasil
+    })
+  })
+}
+// txt2img
+async function gptPicture(query) {
+  const playod = {
+    captionInput: query,
+    captionModel: 'default',
+  };
+  try {
+    const response = await axios.post('https://chat-gpt.pictures/api/generateImage',
+      playod,
+      {
+        headers: {
+          Accept: '*/*',
+          'Content-Type': 'application/json',
+          'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Mobile Safari/537.36',
+        }
+      });
+    const data = response.data;
+    const result = {
+      data: data,
+    };
+
+    console.log(result);
+    return result;
+  } catch (error) {
+    console.error(error);
+    return error.message;
+  }
+}
+// yeyhuue
+async function gptLogic(content, prompt) {
+  const payload = {
+    botId: "chatbot-qm966k",
+    customId: null,
+    session: "N/A",
+    chatId: "67uzmr9e1sv",
+    contextId: 5410,
+    messages: [
+      {
+        id: "6myn3fhk0vk",
+        role: "assistant",
+        content: content,
+        who: "AI: ",
+        timestamp: 1715992993960,
+      },
+    ],
+    newMessage: prompt,
+    newFileId: null,
+    stream: false,
+  }
+
+  const response = await axios.post(
+    "https://chatgpt4online.org/wp-json/mwai-ui/v1/chats/submit",
+    payload,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        "X-WP-Nonce": "56bef00553",
+      },
+    }
+  );
+
+  return response.data
+}
 async function chatgptss(message) {
     const url = 'https://chatgptss.org';
     const formData = new FormData();
@@ -853,6 +993,24 @@ app.get('/api/tiktok2', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+app.get('/api/txt2img', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+    gptPicture(message)
+    .then((result) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 app.get('/api/mlstalk', async (req, res) => {
   try {
     const id = req.query.query;
@@ -1010,18 +1168,22 @@ app.get('/api/igdownload', async (req, res) => {
 });
 app.get('/api/gpt-logic', async (req, res) => {
   try {
-    const text = req.query.url;
+    const text = req.query.content;
     if (!text) {
-      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+      return res.status(400).json({ error: 'Parameter "content" tidak ditemukan' });
     }
-    var response = await fetch(`https://itzpire.site/ai/gpt-logic?q=${text}`);
-    var data = await response.json();
-    var { result: result } = data.data;
+	const pro = req.query.content;
+    if (!pro) {
+      return res.status(400).json({ error: 'Parameter "prompt" tidak ditemukan' });
+    }  
+   var goyt = await gptLogic(text, pro) 
+var result = goyt.data
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
       result 
     });
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
