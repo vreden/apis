@@ -983,22 +983,21 @@ app.get('/api/tiktok2', async (req, res) => {
   }
 });
 app.get('/api/txt2img', async (req, res) => {
-  try {
     const message = req.query.query;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
     gptPicture(message)
-    .then((result) => {
-    res.status(200).json({
-      status: 200,
-      creator: "RIAN X EXONITY",
-      result 
-    });
-    })
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
+    var resultg = result.url
+    var requestSettings = {
+        url: resultg,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'image/jpg');
+        res.send(body);
+    }); 
 });
 app.get('/api/mlstalk', async (req, res) => {
   try {
@@ -1143,7 +1142,7 @@ app.get('/api/igdownload', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    var response = await fetch(`https://api-rian.shoppanel.my.id/api/download/ig?apikey=7Fr9gkpxjq&url=${message}`);
+    var response = await fetch(`https://api2.exonity.my.id/api/download/igdownload?url=${message}`);
     var data = await response.json();
     var { result: result } = data;
     res.status(200).json({
