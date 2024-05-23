@@ -987,9 +987,8 @@ app.get('/api/txt2img', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-  var texc = await gptPicture(message)
-    var ggg = texc.result
-	var resultg = ggg.url
+  const { data } = await axios.get(`https://tti.photoleapapp.com/api/v1/generate?prompt=message`) 
+	var resultg = data.result_url
     var requestSettings = {
         url: resultg,
         method: 'GET',
