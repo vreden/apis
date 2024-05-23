@@ -307,31 +307,20 @@ async function githubStalk(user) {
   })
 }
 // txt2img
-async function gptPicture(query) {
-  const playod = {
-    captionInput: query,
-    captionModel: 'default',
-  };
+async function gptPicture(text) {
   try {
-    const response = await axios.post('https://chat-gpt.pictures/api/generateImage',
-      playod,
-      {
-        headers: {
-          Accept: '*/*',
-          'Content-Type': 'application/json',
-          'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Mobile Safari/537.36',
-        }
-      });
-    const data = response.data;
+    const { data } = await axios.get("https://tti.photoleapapp.com/api/v1/generate?prompt=" + text)
     const result = {
-      data: data,
-    };
-
-    console.log(result);
-    return result;
-  } catch (error) {
-    console.error(error);
-    return error.message;
+      url: data.result_url
+    }
+    return result
+  } catch (err) {
+    const result = {
+      status: false,
+      message: String(err)
+    }
+    console.log(result)
+    return result
   }
 }
 // yeyhuue
