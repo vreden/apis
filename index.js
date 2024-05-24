@@ -275,7 +275,48 @@ return results
   }
 }
 // ttslide
-async function githubStalk(user) {
+async function ttStalk(user) {
+  try {
+    const payload = {
+      id: user,
+      hash: "403ee79076089f17fb14e2a5c7a1b57a",
+      mode: "profile",
+      locale: "en",
+      loading_indicator_url: "https://ttsave.app/images/slow-down.gif",
+      unlock_url: "https://ttsave.app/en/unlock"
+    }
+
+    const headers = {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    }
+
+    const response = await axios.post('https://api.ttsave.app/', payload, { headers })
+
+    const $ = cheerio.load(response.data)
+
+    const uniqueId = $('#unique-id').val()
+    const username = $('h2.font-extrabold').text().trim()
+    const thumbnail = $('a[href*="tiktokcdn.com"] img').attr('src')
+    const url = $('a[href*="tiktok.com/@"]').attr('href')
+    const download = $('#button-download-ready a[href*="tiktokcdn.com"]').attr('href')
+
+    let result = {
+      creator,
+      uniqueId,
+      username,
+      thumbnail,
+      url,
+      download
+    }
+return result
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
+// batas! 
+async githubStalk(user) {
   return new Promise((resolve, reject) => {
     axios.get('https://api.github.com/users/'+user)
     .then(({
@@ -1330,15 +1371,14 @@ app.get('/api/tiktokStalk', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   var response = await fetch(`https://apiruulzz.my.id/api/tiktokStalk?query=${message}`);
-    var data = await response.json();
-    var { result: result } = data;
+   ttStalk(message)
+ .then((result) => {  
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
       result 
     });
-        
+ })     
   } catch (error) {
   res.status(500).json({ error: error.message });
   }
