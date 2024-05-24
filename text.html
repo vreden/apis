@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Image online</title>
+    <style>
+        /* CSS Anda */
+                body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #0a3d62; 
+            color: white; 
+        }
+        h2 {
+            color: #fff; 
+        }
+        form {
+            background-color: #000; 
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: white;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #333; 
+            color: white; 
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #imageContainer {
+            margin-top: 20px;
+        }
+        .loader {
+            border: 8px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 8px solid #3498db;
+            width: 50px;
+            height: 50px;
+            -webkit-animation: spin 1s linear infinite; 
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+            display: none;
+        }
+
+        /* Safari */
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Konten Form dan Loader -->
+    <h2>Generate Image online</h2>
+    <form id="generateForm">
+        <label for="model">Model:</label>
+        <select id="model" name="model">
+            <option value="cetusMix_Version35">cetusMix_Version35</option>
+            <option value="3Guofeng3_v34">3Guofeng3_v34</option>
+            <option value="absolutereality_V16">absolutereality_V16</option>
+            <option value="absolutereality_v181">absolutereality_v181</option>
+            <option value="amIReal_V41">amIReal_V41</option>
+            <option value="analog-diffusion-1.0">analog-diffusion-1.0</option>
+            <option value="anythingv3_0-pruned">anythingv3_0-pruned</option>
+            <option value="anything-v4.5-pruned">anything-v4.5-pruned</option>
+            <option value="anythingV5_PrtRE">anythingV5_PrtRE</option>
+            <option value="AOM3A3_orangemixs">AOM3A3_orangemixs</option>
+            <option value="blazing_drive_v10g">blazing_drive_v10g</option>
+            <option value="breakdomain_I2428">breakdomain_I2428</option>
+            <option value="breakdomain_M2150">breakdomain_M2150</option>
+            <option value="childrensStories_v13D">childrensStories_v13D</option>
+            <option value="childrensStories_v1SemiReal">childrensStories_v1SemiReal</option>
+            <option value="childrensStories_v1ToonAnime">childrensStories_v1ToonAnime</option>
+            <option value="Counterfeit_v30">Counterfeit_v30</option>
+            <option value="cuteyukimixAdorable_midchapter3">cuteyukimixAdorable_midchapter3</option>
+            <option value="cyberrealistic_v33">cyberrealistic_v33</option>
+            <option value="dalcefo_v4">dalcefo_v4</option>
+            <option value="deliberate_v2">deliberate_v2</option>
+            <option value="deliberate_v3">deliberate_v3</option>
+            <option value="dreamlike-anime-1.0">dreamlike-anime-1.0</option>
+            <option value="dreamlike-diffusion-1.0">dreamlike-diffusion-1.0</option>
+            <option value="dreamlike-photoreal-2.0">dreamlike-photoreal-2.0</option>
+            <option value="dreamshaper_6BakedVae">dreamshaper_6BakedVae</option>
+            <option value="dreamshaper_7">dreamshaper_7</option>
+            <option value="dreamshaper_8">dreamshaper_8</option>
+            <option value="edgeOfRealism_eorV20">edgeOfRealism_eorV20</option>
+            <option value="EimisAnimeDiffusion_V1">EimisAnimeDiffusion_V1</option>
+            <option value="elldreths-vivid-mix">elldreths-vivid-mix</option>
+            <option value="epicphotogasm_xPlusPlus">epicphotogasm_xPlusPlus</option>
+            <option value="epicrealism_naturalSinRC1VAE">epicrealism_naturalSinRC1VAE</option>
+            <option value="epicrealism_pureEvolutionV3">epicrealism_pureEvolutionV3</option>
+            <option value="ICantBelieveItsNotPhotography_seco">ICantBelieveItsNotPhotography_seco</option>
+            <option value="indigoFurryMix_v75Hybrid">indigoFurryMix_v75Hybrid</option>
+            <option value="juggernaut_aftermath">juggernaut_aftermath</option>
+            <option value="lofi_v4">lofi_v4</option>
+            <option value="lyriel_v16">lyriel_v16</option>
+            <option value="majicmixRealistic_v4">majicmixRealistic_v4</option>
+            <option value="mechamix_v10">mechamix_v10</option>
+            <option value="meinamix_meinaV9">meinamix_meinaV9</option>
+            <option value="meinamix_meinaV11">meinamix_meinaV11</option>
+            <option value="neverendingDream_v122">neverendingDream_v122</option>
+            <option value="openjourney_V4">openjourney_V4</option>
+            <option value="pastelMixStylizedAnime_pruned_fp16">pastelMixStylizedAnime_pruned_fp16</option>
+            <option value="portraitplus_V1.0">portraitplus_V1.0</option>
+            <option value="protogenx34">protogenx34</option>
+            <option value="Realistic_Vision_V1.4-pruned-fp16">Realistic_Vision_V1.4-pruned-fp16</option>
+            <option value="Realistic_Vision_V2.0">Realistic_Vision_V2.0</option>
+            <option value="Realistic_Vision_V4.0">Realistic_Vision_V4.0</option>
+            <option value="Realistic_Vision_V5.0">Realistic_Vision_V5.0</option>
+            <option value="redshift_diffusion-V10">redshift_diffusion-V10</option>
+            <option value="revAnimated_v122">revAnimated_v122</option>
+            <option value="rundiffusionFX25D_v10">rundiffusionFX25D_v10</option>
+            <option value="rundiffusionFX_v10">rundiffusionFX_v10</option>
+            <option value="sdv1_4">sdv1_4</option>
+            <option value="v1-5-pruned-emaonly">v1-5-pruned-emaonly</option>
+            <option value="v1-5-inpainting">v1-5-inpainting</option>
+            <option value="shoninsBeautiful_v10">shoninsBeautiful_v10</option>
+            <option value="theallys-mix-ii-churned">theallys-mix-ii-churned</option>
+            <option value="timeless-1.0">timeless-1.0</option>
+            <option value="toonyou_beta6">toonyou_beta6</option>
+        </select>
+        
+        <label for="prompt">Prompt:</label>
+        <input type="text" id="prompt" name="prompt" value="cute girl, young, masterpiece, HD, SHD">
+        
+        <label for="negativePrompt">Negative Prompt:</label>
+        <input type="text" id="negativePrompt" name="negativePrompt" value="Do not put text or writing on the picture">
+        
+        <label for="style">Style:</label>
+        <select id="style" name="style">
+            <!-- Pilihan style -->
+            <option value="enhance">enhan-art</option>
+            <option value="3d-model">3d-model</option>
+            <option value="analog-film">analog-film</option>
+            <option value="anime">anime</option>
+            <option value="cinematic">cinematic</option>
+            <option value="comic-book">comic-book</option>
+            <option value="digital-art">digital-art</option>
+            <option value="fantasy-art">fantasy-art</option>
+            <option value="isometric">isometric</option>
+            <option value="line-art">line-art</option>
+            <option value="low-poly">low-poly</option>
+            <option value="neon-punk">neon-punk</option>
+            <option value="origami">origami</option>
+            <option value="photographic">photographic</option>
+            <option value="pixel-art">pixel-art</option>
+            <option value="texture">texture</option>
+            <option value="craft-clay">craft-clay</option>
+        </select>
+        
+
+        <label for="sampler">Sampler:</label>
+        <select id="sampler" name="sampler">
+             <option value="DPM++ 2M Karras">DPM++ 2M Karras</option>
+            <option value="DPM++ SDE Karras">DPM++ SDE Karras</option>
+            <option value="DPM++ 2M SDE Exponential">DPM++ 2M SDE Exponential</option>
+            <option value="DPM++ 2M SDE Karras">DPM++ 2M SDE Karras</option>
+            <option value="Euler a">Euler a</option>
+            <option value="Euler">Euler</option>
+            <option value="LMS">LMS</option>
+            <option value="Heun">Heun</option>
+            <option value="DPM2">DPM2</option>
+            <option value="DPM2 a">DPM2 a</option>
+            <option value="DPM++ 2S a">DPM++ 2S a</option>
+            <option value="DPM++ 2M">DPM++ 2M</option>
+            <option value="DPM++ SDE">DPM++ SDE</option>
+            <option value="DPM++ 2M SDE">DPM++ 2M SDE</option>
+            <option value="DPM++ 2M SDE Heun">DPM++ 2M SDE Heun</option>
+            <option value="DPM++ 2M SDE Heun Karras">DPM++ 2M SDE Heun Karras</option>
+            <option value="DPM++ 2M SDE Heun Exponential">DPM++ 2M SDE Heun Exponential</option>
+            <option value="DPM++ 3M SDE">DPM++ 3M SDE</option>
+            <option value="DPM++ 3M SDE Karras">DPM++ 3M SDE Karras</option>
+            <option value="DPM++ 3M SDE Exponential">DPM++ 3M SDE Exponential</option>
+            <option value="DPM fast">DPM fast</option>
+            <option value="DPM adaptive">DPM adaptive</option>
+            <option value="LMS Karras">LMS Karras</option>
+            <option value="DPM2 Karras">DPM2 Karras</option>
+            <option value="DPM2 a Karras">DPM2 a Karras</option>
+            <option value="DPM++ 2S a Karras">DPM++ 2S a Karras</option>
+            <option value="Restart">Restart</option>
+            <option value="DDIM">DDIM</option>
+            <option value="PLMS">PLMS</option>
+            <option value="UniPC">UniPC</option>
+        </select>
+        
+        <button type="button" onclick="generateImage()">Generate Image</button>
+        <div class="loader" id="loader"></div>
+    </form>
+
+    <div id="imageContainer"></div>
+    
+    <!-- JavaScript Anda -->
+    <script>
+        function generateImage() {
+            var formData = {
+                model: document.getElementById("model").value,
+                prompt: document.getElementById("prompt").value,
+                negative_prompt: document.getElementById("negativePrompt").value,
+                style: document.getElementById("style").value,
+                sampler: document.getElementById("sampler").value
+            };
+
+            // Menampilkan loader
+            document.getElementById("loader").style.display = "block";
+
+            fetch('https://api.onesytex.my.id/api/text2image/generate-image', {
+                method: 'POST',
+                headers: {
+                    'Accept': '*/*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => response.blob())
+            .then(blob => {
+                var imgUrl = URL.createObjectURL(blob);
+                document.getElementById("imageContainer").innerHTML = '<img id="generatedImage" src="' + imgUrl + '" alt="Generated Image">';
+                
+                // Menambahkan tombol unduh
+                var downloadLink = document.createElement('a');
+                downloadLink.href = imgUrl;
+                downloadLink.download = 'generated_image.jpg'; // Nama file yang akan diunduh
+                downloadLink.id = 'downloadButton';
+                downloadLink.textContent = 'Unduh Gambar';
+                document.getElementById("imageContainer").appendChild(downloadLink);
+
+                // Menyembunyikan loader setelah gambar dimuat
+                document.getElementById("loader").style.display = "none";
+
+                // Mengatur ukuran gambar menggunakan CSS
+                document.getElementById("generatedImage").style.maxWidth = "100%"; // Menyesuaikan lebar gambar dengan lebar container
+                document.getElementById("generatedImage").style.height = "auto"; // Menjaga aspek rasio gambar
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                
+                // Menyembunyikan loader
+                document.getElementById("loader").style.display = "none";
+            });
+        }
+    </script>
+    <div style="text-align: center; margin-top: 20px;">
+        <p>USE VIA API - <a href="/docs">docs API</a></p>
+    </div>
+    <style>
+    #downloadButton {
+            color: #FF0000; /* Warna merah */
+        }
+    </style>
+</body>
+</html>
+
