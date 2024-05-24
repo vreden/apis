@@ -316,7 +316,7 @@ return result
   }
 }
 // batas! 
-async githubStalk(user) {
+async function githubStalk(user) {
   return new Promise((resolve, reject) => {
     axios.get('https://api.github.com/users/'+user)
     .then(({
