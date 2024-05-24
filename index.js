@@ -217,7 +217,11 @@ encodedParams.set('hd', '1');
           origin_cover: videos.origin_cover,
           no_watermark: videos.play,
           watermark: videos.wmplay,
-          music: videos.music
+          music: videos.music, 
+	  like: videos.digg_count,
+	  play_count: videos.play_count,	
+	  comment_count: videos.comment_count, 
+	  author: videos.author.nickname	
         };
         resolve(result);
     } catch (error) {
