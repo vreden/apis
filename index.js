@@ -888,6 +888,9 @@ app.get('/gte', (req, res) => {
 app.get('/lolhuman', (req, res) => {
   res.sendFile(path.join(__dirname,  'Lolhuman.html'));
 });
+app.get('/text2img/create-image', (req, res) => {
+  res.sendFile(path.join(__dirname,  'text.html'));
+});
 app.get('/api/ragbot', async (req, res) => {
   try {
     const message = req.query.message;
