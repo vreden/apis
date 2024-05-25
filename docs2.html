@@ -9,30 +9,193 @@
 <title>EXONITY API</title>
 <style>
   body {
+    border-radius: cover;
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
+    background-color: #fcfcfc;
+    color: #333333;
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
   }
-  .container {
+  #preloader {
+    background: #000 url(images/giphy.gif) no-repeat center center;
+    height: 100vh;
+    width: 100%;
+    postion: fixed;
+    z-index: 100%;
+    
+  }
+ 
+  
+.container {
     width: 100%;
     padding: 20px;
-    background-color: #fff;
+    background-color: #fcfcfc;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
   }
+  
+  .container-l {
+    width: 100%;
+    padding: 20px;
+    background-color: #fcfcfc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  
+    .container-h {
+    width: 100%;
+    padding: 20px;
+    background-color: #fcfcfc;
+    border-radius: 8px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+
+  .container-i {
+    width: 100%;
+    padding: 20px;
+    background-color: #fcfcfc;
+    border-radius: 8px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+
+
+  .container-j{
+    width: 100%;
+    padding: 20px;
+    background-color: #fcfcfc;
+    border-radius: 8px;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+  }
+
+   .container-k {
+      width: 100%;
+      padding: 20px;
+      background-color: #fcfcfc;
+      border-radius: 8px;
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+    
+    .container-l {
+      width: 100%;
+      padding: 20px;
+      background-color: #fcfcfc;
+      border-radius: 8px;
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+  
+      .container-m {
+      width: 100%;
+      padding: 20px;
+      background-color: #fcfcfc;
+      border-radius: 8px;
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+  .container-m {
+      width: 100%;
+      padding: 20px;
+      background-color: #fcfcfc;
+      border-radius: 8px;
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+  }
+
+  .container-o {
+      width: 100%;
+      padding: 20px;
+      background-color: #fcfcfc;
+      border-radius: 8px;
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+  }
+
+  .container-p {
+      width: 100%;
+      padding: 20px;
+      background-color: #fcfcfc;
+      border-radius: 8px;
+      box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.1);
+      justify-content: center;
+      align-items: center;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+  }
+  
+  .loading {
+    display: flex
+    
+  }
+  
+  .loading > div {
+    width: 2rem;
+    height: 2rem;
+    background-color: #ffd500;
+    margin: 1px;
+    border-radius: 50%;
+    top: 20px;
+    left: 20px;
+    animation: 1.5s bounce infinite ease-in-out;
+    
+  }
+  
+
+  
   h1 {
     color: #007bff;
     text-align: center;
   }
+ 
+  
   h2 {
     color: #343a40;
     margin-top: 20px;
+    margin-right: 100px;
+    position: static;
+    margin-bottom: 20px; /* Tambahkan jarak antara tabel */
+    text-align: auto;
+    
   }
   p {
     line-height: 1.6;
-    color: #6c757d;
+    color: #000000;
+    text-align: justify;
   }
   ul {
     list-style-type: none;
@@ -41,6 +204,7 @@
   }
   li {
     margin-bottom: 10px;
+    color: #333333;
   }
   pre {
     background-color: #f0f6ff;
@@ -49,26 +213,95 @@
     overflow-x: auto;
   }
   .btn-container {
-    margin-top: 20px;
+    margin: 20px 20px 30px 20px;
+    border-radius: 50%;
+    // animation: 1.5s bounce infinite ease-in-out;
+    
   }
-  .btn {
-    display: block;
-    width: calc(100% - 40px);
-    margin: 0 auto;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
+.btn {
+  display: block;
+  width: calc(100% - 40px);
+  margin: 0 auto 20px; /* Menambahkan margin ke bawah sebesar 20px */
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  box-shadow: 10px 8px 1px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
   .btn:hover {
     background-color: #0056b3;
   }
+  input[type="checkbox"]{
+    position: relative;
+    width: 40px;
+    height: 20px;
+    appearance: none;
+    background-color: #434343;
+    outline: none;
+    border-radius: 10px;
+    transision: .5s ease;
+    cursor: pointer;
+  }
+  input[type="checkbox"]:checked{
+    background-color: #3664ff;
+  }
+  input[type="checkbox"]::before{
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-color: #fcfcfc;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+  }
+  input[type="checkbox"]:checked::before{
+    transform: translateX(20px);
+  }
+  .dark {
+    background-color: #333333;
+    color: #ffffff;
+    
+  }
+  
+  @keyframes clickAnimation {
+    0% {
+      transform: scale(1);
+      background-color: #007bff;
+    }
+    50% {
+      transform: scale(0.95);
+      background-color: #0056b3;
+    }
+    100% {
+      transform: scale(1);
+      background-color: #007bff;
+    }
+  }
+
+  .btn:active {
+    animation: clickAnimation 0.2s ease;
+  }
+  
+ @keyframes bounce {
+    0%, 80%, 100% {
+      transform: scale(0);}
+  40% {
+    transform: scale(1);
+  }
+ }
+ 
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 </style>
 </head>
 <body>
@@ -77,9 +310,14 @@
   <p>Welcome to the Exonity API documentation for our service. Below you will find information about the available endpoints and how to use them. I want to tell you something that this rest api was made from start to finish by rian chat and I think that is very cool</p>
   
   <h2>Endpoints</h2>
+         <h1>Media Downloader</h1>
+        <div class="btn-container">
   <div class="btn-container">
     <a href="/api/tiktok?url=https://vt.tiktok.com/ZSFsAecjF/" class="btn">TIKTOK</a>
     <a href="/api/tiktok2?url=https://vt.tiktok.com/ZSFsAecjF/" class="btn">TIKTOK2</a>
+  </div>
+      <div class="container-h">
+          <h1>Artificial Intelegence</h1>    
     <a href="/api/simi?query=hai&lang=id" class="btn">SIMI AI</a>
     <a href="/api/kobo?query=hai" class="btn">KOBO AI</a>
     <a href="/api/chat-gpt?query=hai" class="btn">CHAT-GPT</a>
