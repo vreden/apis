@@ -879,9 +879,6 @@ app.get('/pingpong', (req, res) => {
 app.get('/loading', (req, res) => {
   res.sendFile(path.join(__dirname,  'j.html'));
 });
-app.get('/docss', (req, res) => {
-res.sendFile(path.join(__dirname,  'lah.html'));
-});
 app.get('/gte', (req, res) => {
   res.sendFile(path.join(__dirname,  'LOADING.html'));
 });
@@ -894,7 +891,7 @@ app.get('/text2img/create-image', (req, res) => {
 app.get('/play/spotify', (req, res) => {
   res.sendFile(path.join(__dirname,  'Test.html'));
 });
-app.get('/docs2', (req, res) => {
+app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname,  'docs2.html'));
 });
 app.get('/api/ragbot', async (req, res) => {
