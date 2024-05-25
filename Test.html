@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>YouTube Search</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    #search-input {
+      width: 50%;
+      padding: 10px;
+      font-size: 18px;
+    }
+    #search-btn {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #search-btn:hover {
+      background-color: #3e8e41;
+    }
+  </style>
+</head>
+<body>
+  <h1>YouTube Search</h1>
+  <form>
+    <input type="text" id="search-input" placeholder="Search YouTube...">
+    <button id="search-btn">Search</button>
+  </form>
+  <div id="search-results"></div>
+
+  <script>
+    const searchInput = document.getElementById('search-input');
+    const searchBtn = document.getElementById('search-btn');
+    const searchResults = document.getElementById('search-results');
+
+    searchBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const searchTerm = searchInput.value.trim();
+      if (searchTerm) {
+        const url = `https://www.youtube.com/results?search_query=${searchTerm}`;
+        window.open(url, '_blank');
+      }
+    });
+  </script>
+</body>
+</html>
