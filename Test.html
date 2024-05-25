@@ -1,50 +1,71 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>YouTube Search</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-    }
-    #search-input {
-      width: 50%;
-      padding: 10px;
-      font-size: 18px;
-    }
-    #search-btn {
-      background-color: #4CAF50;
-      color: #fff;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    #search-btn:hover {
-      background-color: #3e8e41;
-    }
-  </style>
+<html lang="en">
+  </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pencarian YouTube</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #search-container {
+            margin-bottom: 20px;
+        }
+        #results {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .video {
+            width: 30%;
+            margin: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .video iframe {
+            width: 100%;
+            height: 200px;
+        }
+    </style>
 </head>
 <body>
-  <h1>YouTube Search</h1>
-  <form>
-    <input type="text" id="search-input" placeholder="Search YouTube...">
-    <button id="search-btn">Search</button>
-  </form>
-  <div id="search-results"></div>
+    <h1>Pencarian YouTube</h1>
+    <div id="search-container">
+        <input type="text" id="search-query" placeholder="Masukkan kata kunci...">
+        <button onclick="searchYouTube()">Cari</button>
+    </div>
+    <div id="results"></div>
 
-  <script>
-    const searchInput = document.getElementById('search-input');
-    const searchBtn = document.getElementById('search-btn');
-    const searchResults = document.getElementById('search-results');
+    <script>
+        function searchYouTube() {
+            const query = document.getElementById('search-query').value;
+            const apiKey = 'AIzaSyDjPFsAMyrb_aqHKtmiJr1HCI7Eig4cbEc'; // Ganti dengan API Key Anda
+            const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&q=${query}&type=video&key=${apiKey}`;
 
-    searchBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const searchTerm = searchInput.value.trim();
-      if (searchTerm) {
-        const url = `https://www.youtube.com/results?search_query=${searchTerm}`;
-        window.open(url, '_blank');
-      }
-    });
-  </script>
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    const resultsContainer = document.getElementById('results');
+                    resultsContainer.innerHTML = '';
+                    data.items.forEach(item => {
+                        const videoId = item.id.videoId;
+                        const videoTitle = item.snippet.title;
+                        const videoDescription = item.snippet.description;
+                        const videoThumbnail = item.snippet.thumbnails.medium.url;
+
+                        const videoElement = document.createElement('div');
+                        videoElement.classList.add('video');
+                        videoElement.innerHTML = `
+                            <h3>${videoTitle}</h3>
+                            <iframe src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <p>${videoDescription}</p>
+                        `;
+                        resultsContainer.appendChild(videoElement);
+                    });
+                })
+                .catch(error => console.error('Error fetching YouTube API:', error));
+        }
+    </script>
 </body>
 </html>
