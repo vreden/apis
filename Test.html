@@ -3,49 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Audio Search</title>
+    <title>Spotify Audio Search</title>
     <style>
-        .video-container {
-            display: none; /* Hide the video */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        #results iframe {
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
-    <h1>YouTube Audio Search</h1>
-    <input type="text" id="search-input" placeholder="Search for YouTube videos">
-    <button onclick="searchYouTube()">Search</button>
+    <h1>Spotify Audio Search</h1>
+    <input type="text" id="query" placeholder="Enter song or artist name">
+    <button onclick="searchSpotify()">Search</button>
     <div id="results"></div>
-    
-    <div class="video-container" id="player">
-        <iframe id="youtube-player" width="560" height="315" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-    </div>
-    
+
     <script>
-        const apiKey = 'AIzaSyDjPFsAMyrb_aqHKtmiJr1HCI7Eig4cbEc'; // Replace with your YouTube Data API key
+        async function searchSpotify() {
+            const query = document.getElementById('query').value;
+            const clientId = '4c4fc8c3496243cbba99b39826e2841f'; // Replace with your Spotify Client ID
+            const clientSecret = 'd598f89aba0946e2b85fb8aefa9ae4c8'; // Replace with your Spotify Client Secret
 
-        function searchYouTube() {
-            const query = document.getElementById('search-input').value;
-            fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=${query}&key=${apiKey}`)
-                .then(response => response.json())
-                .then(data => {
-                    const resultsDiv = document.getElementById('results');
-                    resultsDiv.innerHTML = '';
-                    data.items.forEach(item => {
-                        const videoId = item.id.videoId;
-                        const title = item.snippet.title;
-                        const videoElement = document.createElement('div');
-                        videoElement.innerHTML = `<p>${title}</p><button onclick="playAudio('${videoId}')">Play Audio</button>`;
-                        resultsDiv.appendChild(videoElement);
-                    });
-                })
-                .catch(error => console.error('Error fetching YouTube videos:', error));
-        }
+            // Get Spotify access token
+            const tokenResponse = await fetch('https://accounts.spotify.com/api/token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
+                },
+                body: 'grant_type=client_credentials'
+            });
+            const tokenData = await tokenResponse.json();
+            const accessToken = tokenData.access_token;
 
-        function playAudio(videoId) {
-            const player = document.getElementById('player');
-            const iframe = document.getElementById('youtube-player');
-            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
-            player.style.display = 'block';
+            // Search Spotify API
+            const searchResponse = await fetch(`https://api.spotify.com/v1/search?q=${query}&type=track`, {
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken
+                }
+            });
+            const searchData = await searchResponse.json();
+
+            // Display search results
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+            searchData.tracks.items.forEach(track => {
+                const iframe = document.createElement('iframe');
+                iframe.src = `https://open.spotify.com/embed/track/${track.id}`;
+                iframe.width = '300';
+                iframe.height = '80';
+                iframe.frameBorder = '0';
+                iframe.allow = 'encrypted-media';
+                resultsDiv.appendChild(iframe);
+            });
         }
     </script>
 </body>
