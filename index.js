@@ -891,8 +891,11 @@ app.get('/lolhuman', (req, res) => {
 app.get('/text2img/create-image', (req, res) => {
   res.sendFile(path.join(__dirname,  'text.html'));
 });
-app.get('/ytcuy', (req, res) => {
+app.get('/yoi', (req, res) => {
   res.sendFile(path.join(__dirname,  'Test.html'));
+});
+app.get('/docs2', (req, res) => {
+  res.sendFile(path.join(__dirname,  'docs2.html'));
 });
 app.get('/api/ragbot', async (req, res) => {
   try {
