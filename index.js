@@ -891,7 +891,7 @@ app.get('/lolhuman', (req, res) => {
 app.get('/text2img/create-image', (req, res) => {
   res.sendFile(path.join(__dirname,  'text.html'));
 });
-app.get('/yofi', (req, res) => {
+app.get('/play/spotify', (req, res) => {
   res.sendFile(path.join(__dirname,  'Test.html'));
 });
 app.get('/docs2', (req, res) => {
