@@ -1109,7 +1109,7 @@ app.get('/api/githubstalk', async (req, res) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result: hasil
+      hasil
     });
 	  }); 
   } catch (error) {
@@ -2062,7 +2062,7 @@ app.get('/api/soundcloud', async (req, res) => {
     }
    var response = await fetch(`https://api.xyro.fund/api/soundcloud?url=${message}`);
     var result = await response.json();
-	  var { link: result } = data.data.response;
+	  var { link: result } = result.data.response;
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
