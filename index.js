@@ -1078,22 +1078,38 @@ app.get('/api/txt2img', async (req, res) => {
 });
 app.get('/api/mlstalk', async (req, res) => {
   try {
+    const id = req.query.id;
+    if (!id) {
+      return res.status(400).json({ error: 'id nya mana?' });
+    }
+	  const zona = req.query.zonaid;
+    if (!zona) {
+      return res.status(400).json({ error: 'Parameter "zonaid" tidak ditemukan' });
+    }
+	var response = await fetch(`https://api.miftahganzz.my.id/api/stalking/ml?id=${id}&zoneId=${zona}&apikey=zex`);
+    var data = await response.json(); 
+	var { data: result } = data;  
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/githubstalk', async (req, res) => {
+  try {
     const id = req.query.query;
     if (!id) {
       return res.status(400).json({ error: 'id nya mana?' });
     }
-	  const zona = req.query.query;
-    if (!zona) {
-      return res.status(400).json({ error: 'Parameter "zonaid" tidak ditemukan' });
-    }
-    mlstalk(id, zona) 
-    .then((gameDetail) => {
+	  githubStalk(id) 
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      gameDetail
+      result: hasil
     });
-    }) 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -1209,7 +1225,7 @@ app.get('/api/xnxxsearch', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/m', async (req, res) => {
+app.get('/api/xnxxdl', async (req, res) => {
   try {
     const message = req.query.query;
     if (!message) {
@@ -1638,6 +1654,22 @@ app.get('/api/nobg', async (req, res) => {
         res.send(body);
 });
 });
+app.get('/api/wanted', async (req, res) => {
+  const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+  
+    var requestSettings = {
+        url: `https://api.popcat.xyz/wanted?image=${message}`,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'image/png');
+        res.send(body);
+});
+});
 app.get('/api/waifu', async (req, res) => {
   var response = await fetch(`https://api.waifu.pics/sfw/waifu`);
     var data = await response.json();
@@ -1870,7 +1902,7 @@ app.get('/api/pixiv-r18', async (req, res) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      data 
+      result: data 
     });
 });   
   } catch (error) {
@@ -2009,6 +2041,24 @@ app.get('/api/spotifySearch', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
    var response = await fetch(`https://spotifyapi.caliphdev.com/api/search/tracks?q=${message}`);
+    var result = await response.json();
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+        
+  } catch (error) {
+  res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/soundcloud', async (req, res) => {
+  try{
+    const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+   var response = await fetch(`https://api.xyro.fund/api/soundcloud?url=${message}`);
     var result = await response.json();
     res.status(200).json({
       status: 200,
