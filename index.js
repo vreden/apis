@@ -2060,7 +2060,7 @@ app.get('/api/soundcloud', async (req, res) => {
     }
    var response = await fetch(`https://api.xyro.fund/api/soundcloud?url=${message}`);
     var result = await response.json();
-	  var { response: result } = data.data;
+	  var { link: result } = data.data.response;
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
