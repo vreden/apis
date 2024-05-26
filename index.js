@@ -25,11 +25,7 @@ app.get('/', function (req, res) {
 
 		var statusCode = res.statusCode;
 		var rawHtml = body;
-		$ = cheerio.load(body)
-
-		var respondeArray = [];
-
-	 function(i, elem) {
+		$ = cheerio.load(body) 
 			let link2 = 'https://www.myinstants.com'
 			var title =  $(this).text();
 			var link = link2 + $('.small-button').attr('onclick');
@@ -38,10 +34,7 @@ app.get('/', function (req, res) {
 				link : link
 			};
 
-		 	respondeArray[i] = item;
-		};
-
-		response.send( JSON.stringify(respondeArray) );
+		response.send( JSON.stringify(item) );
 	});
 
 })
