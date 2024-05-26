@@ -643,14 +643,14 @@ function tebakgambar() {
   })
 }
 // myinstant
-const url = 'https://www.myinstants.com/en/index/id/';
 
 async function soundMeme() {
   try {
+const url = 'https://www.myinstants.com/en/index/id/';
     const response = await axios.get(url);
     const html = response.data;
     const $ = cheerio.load(html);
-    const results = [];
+    const result = [];
 
     $('.instant').each((index, element) => {
       const title = $(element).find('.instant-link').text().trim();
