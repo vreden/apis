@@ -30,11 +30,10 @@ app.get('/', function (req, res) {
 		var respondeArray = [];
 
 		$('.instant').each(function(i, elem) {
-			let link = `https://www.myinstants.com`
-			var title =  $(this).text();
-			var link = $(this).children('.small-button').attr link + ('onclick');
+			let linkr = `https://www.myinstants.com`
+			var link = linkr + $('.small-button').attr('onclick');
 			var item = {
-				title : title,
+				title : link,
 				link : link
 			};
 
