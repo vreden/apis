@@ -31,7 +31,7 @@ app.get('/', function (req, res) {
 
 		$('.instant').each(function(i, elem) {
 			let linkr = `https://www.myinstants.com`
-			var link = linkr + $('.small-button').attr('onclick');
+			var link = linkr + $('onclick');
 			var item = {
 				title : link,
 				link : link
