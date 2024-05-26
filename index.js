@@ -1598,6 +1598,20 @@ app.get('/api/nobg', async (req, res) => {
         res.send(body);
 });
 });
+app.get('/api/waifu', async (req, res) => {
+  var response = await fetch(`https://api.waifu.pics/sfw/waifu`);
+    var data = await response.json();
+    var { url: result } = data;
+    var requestSettings = {
+        url: result,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'image/png');
+        res.send(body);
+});
+});
 app.get('/api/ssweb', async (req, res) => {
   const message = req.query.url;
     if (!message) {
