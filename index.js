@@ -642,6 +642,31 @@ function tebakgambar() {
     .catch(reject)
   })
 }
+// myinstant
+const url = 'https://www.myinstants.com/en/index/id/';
+
+async function soundMeme() {
+  try {
+    const response = await axios.get(url);
+    const html = response.data;
+    const $ = cheerio.load(html);
+    const results = [];
+
+    $('.instant').each((index, element) => {
+      const title = $(element).find('.instant-link').text().trim();
+      const soundLinkRelative = $(element).find('button.small-button').attr('onclick').match(/play\('(.+?)'/)[1];
+      const soundLink = 'https://www.myinstants.com' + soundLinkRelative;
+      const pageLink = 'https://www.myinstants.com' + $(element).find('.instant-link').attr('href');
+
+      result.push({ title, soundLink, pageLink });
+    });
+
+    return result;
+  } catch (error) {
+    console.error('Error:', error);
+    return [];
+  }
+}
 // vv
 async function fbdl(url) {
 		let { data } = await axios({ 
@@ -1170,7 +1195,21 @@ app.get('/api/xnxxsearch', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/xnxxdl', async (req, res) => {
+ app.get('/api/myinstants', async (req, res) => {
+  try {
+    soundMeme()
+    .then((result) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/m', async (req, res) => {
   try {
     const message = req.query.query;
     if (!message) {
@@ -1188,6 +1227,7 @@ app.get('/api/xnxxdl', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 app.get('/api/igdownload', async (req, res) => {
   try {
     const message = req.query.url;
