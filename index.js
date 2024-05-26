@@ -1082,7 +1082,7 @@ app.get('/api/mlstalk', async (req, res) => {
     if (!id) {
       return res.status(400).json({ error: 'id nya mana?' });
     }
-	  const zona = req.query.zonaid;
+	  const zona = req.query.zoneid;
     if (!zona) {
       return res.status(400).json({ error: 'Parameter "zonaid" tidak ditemukan' });
     }
@@ -1105,11 +1105,13 @@ app.get('/api/githubstalk', async (req, res) => {
       return res.status(400).json({ error: 'id nya mana?' });
     }
 	  githubStalk(id) 
+	  .then((hasil) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
       result: hasil
     });
+	  }); 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
