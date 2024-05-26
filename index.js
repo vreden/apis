@@ -25,16 +25,23 @@ app.get('/', function (req, res) {
 
 		var statusCode = res.statusCode;
 		var rawHtml = body;
-		$ = cheerio.load(body) 
-			let link2 = 'https://www.myinstants.com'
+		$ = cheerio.load(body)
+
+		var respondeArray = [];
+
+		$('.instant').each(function(i, elem) {
+			let link = `https://www.myinstants.com`
 			var title =  $(this).text();
-			var link = link2 + $('.small-button').attr('onclick');
+			var link = $(this).children('.small-button').attr link + ('onclick');
 			var item = {
 				title : title,
 				link : link
 			};
 
-		response.send( JSON.stringify(item) );
+		 	respondeArray[i] = item;
+		});
+
+		response.send( JSON.stringify(respondeArray) );
 	});
 
 })
