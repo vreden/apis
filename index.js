@@ -57,6 +57,35 @@ async function tiktokdl(url) {
     return result
   }
 }
+// hh
+const clientId = '4c4fc8c3496243cbba99b39826e2841f';
+        const clientSecret = 'd598f89aba0946e2b85fb8aefa9ae4c8';
+        let accessToken = '';
+
+        // Get access token
+        async function getAccessToken() {
+            const response = await fetch('https://accounts.spotify.com/api/token', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Authorization': 'Basic ' + btoa(clientId + ':' + clientSecret)
+                },
+                body: 'grant_type=client_credentials'
+            });
+            const data = await response.json();
+            accessToken = data.access_token;
+        }
+
+        async function searchTracks(query) {
+            const response = await fetch(`https://api.spotify.com/v1/search?q=${encodeURIComponent(query)}&type=track`, {
+                headers: {
+                    'Authorization': 'Bearer ' + accessToken
+                }
+            });
+             const data = await response.json();
+            return data.tracks.items;
+        }
+
 // ok work
 async function xnxxsearch(query) {
   return new Promise((resolve, reject) => {
@@ -2042,14 +2071,13 @@ app.get('/api/spotifySearch', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   var response = await fetch(`https://spotifyapi.caliphdev.com/api/search/tracks?q=${message}`);
-    var result = await response.json();
+   searchTracks(message)  
+	  .then((items) => {
     res.status(200).json({
-      status: 200,
-      creator: "RIAN X EXONITY",
-      result 
+     status: 200,   
+      data: items 
     });
-        
+	  })    
   } catch (error) {
   res.status(500).json({ error: error.message });
   }
