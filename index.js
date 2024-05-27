@@ -83,7 +83,7 @@ const clientId = '4c4fc8c3496243cbba99b39826e2841f';
                 }
             });
              const data = await response.json();
-            return data.tracks;
+            return data;
         }
 
 // ok work
@@ -2072,10 +2072,10 @@ app.get('/api/spotifySearch', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
    searchTracks(message)  
-	  .then((tracks) => {
+	  .then((data) => {
     res.status(200).json({
      status: 200,   
-      data: tracks 
+      data: data 
     });
 	  })    
   } catch (error) {
