@@ -151,11 +151,7 @@ async function convert(ms) {
                preview: v.preview_url,
                url: v.external_urls.spotify
             }))
-            resolve({
-               creator: 'Budy x creator ',
-               status: true,
-               data
-            })
+            resolve(data);
          } catch (e) {
             resolve({
                creator: 'Budy x creator ',
