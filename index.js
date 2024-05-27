@@ -60,7 +60,7 @@ async function tiktokdl(url) {
 // hh
 const clientId = '4c4fc8c3496243cbba99b39826e2841f';
         const clientSecret = 'd598f89aba0946e2b85fb8aefa9ae4c8';
-        let accessToken = '';
+        const accessToken = '';
 
         // Get access token
         async function getAccessToken() {
@@ -73,7 +73,7 @@ const clientId = '4c4fc8c3496243cbba99b39826e2841f';
                 body: 'grant_type=client_credentials'
             });
             const data = await response.json();
-            accessToken = data.access_token;
+           let accessToken = data.access_token;
         }
 
         async function searchTracks(query) {
