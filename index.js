@@ -73,7 +73,7 @@ const clientId = '4c4fc8c3496243cbba99b39826e2841f';
                 body: 'grant_type=client_credentials'
             });
             const data = await response.json();
-           let accessToken = data.access_token;
+           let accessToken = data;
         }
 
         async function searchTracks(query) {
