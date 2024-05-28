@@ -1830,10 +1830,13 @@ app.get('/api/nobg', async (req, res) => {
 });
 });
 app.get('/api/galau', async (req, res) => {
-	const response = await axios.get("https://galau.vercel.app/")
-    return response.data
+	  let response = await fetch('https://raw.githubusercontent.com/Rianofc/apis/master/function/galau.json');
+        var data = await response.json();
+        var randomIndex = Math.floor(Math.random() * data.results.length);
+        var randomResult = data.results[randomIndex];
+        var downloadLink = randomResult.url;
     var requestSettings = {
-        url: data,
+        url: downloadLink,
         method: 'GET',
         encoding: null
     };
@@ -2143,6 +2146,24 @@ var requestSettings = {
         res.send(body);
     });    
 });
+app.get('/api/bocil', async (req, res) => {
+
+  let response = await fetch('https://raw.githubusercontent.com/Rianofc/apis/master/function/bocil.json');
+        var data = await response.json();
+        var randomIndex = Math.floor(Math.random() * data.results.length);
+        var randomResult = data.results[randomIndex];
+        var downloadLink = randomResult.url;
+	var requestSettings = {
+        url: downloadLink,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'video/mp4');
+        res.send(body);
+    });    
+});
+
 app.get('/api/gimage', async (req, res) => {
 	const text = req.query.query;
     if (!text) {
@@ -2277,9 +2298,9 @@ app.get('/api/soundcloud', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   var response = await fetch(`https://api.xyro.fund/api/soundcloud?url=${message}`);
-    var result = await response.json();
-	  var { link: result } = result.data.response;
+   var responset = await fetch(`https://api.xyro.fund/api/soundcloud?url=${message}`);
+    var result = await responset.json();
+	  var { response: result } = result.data;
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
