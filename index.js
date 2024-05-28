@@ -1828,7 +1828,7 @@ app.get('/api/nobg', async (req, res) => {
         res.send(body);
 });
 });
-app.get('/api/nobg', async (req, res) => {
+app.get('/api/meme', async (req, res) => {
 	
   
   const query = `random meme`;
