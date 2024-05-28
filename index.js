@@ -154,7 +154,7 @@ async function convert(ms) {
             resolve(data);
          } catch (e) {
             resolve({
-               creator: 'Budy x creator ',
+               creator: 'rian x creator ',
                status: false,
                msg: e.message
             })
@@ -245,7 +245,27 @@ async function xnxxsearch(query) {
       .catch((err) => reject({ code: 503, status: false, result: err }));
   });
 }
+// jirr
+async function igStalk(username) {
+  const url = `https://igram.world/api/ig/userInfoByUsername/${username}`
 
+  const headers = {
+    'Accept': 'application/json, text/plain, */*',
+    'X-XSRF-TOKEN': 'eyJpdiI6IlUxamZmMDdVd2lDVDkyVkg1ekowM1E9PSIsInZhbHVlIjoiSFpOYkdMRW1ad3QxOGpreGRwMjdKdEtQMEhpSmpYcFJhdVdUMkdzWVNYNDd6aks2TEsrMzN6ZDhIZDkwd0NqbnZDdFIxZ01JZFNUTE1jNmx1VHB4dWZ1RVpET3dkRXFWNTFZYyt6cGZKTzl0dUo1VVJEVmxHWjZ5RmpZd3k3cFkiLCJtYWMiOiIxNzQ2MDYyY2EyMjk3MGFjNDE5MGMwOTlkNWU5YmIxMjJiM2M0OGQ2YThhMDVmZGRiODY2ZjRhZjVjOTUwZWMwIiwidGFnIjoiIn0=',
+    'User-Agent': 'Googlebot-News'
+  }
+
+  try {
+    const response = await axios.get(url, {
+      headers
+    })
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+	     }
+// 😥
 async function xnxxdl(URL) {
   return new Promise((resolve, reject) => {
     fetch(URL, { method: "get" })
@@ -1587,6 +1607,24 @@ app.get('/api/tiktokStalk', async (req, res) => {
   res.status(500).json({ error: error.message });
   }
 });
+app.get('/api/igstalk', async (req, res) => {
+  try{
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+   igStalk(message)
+ .then((data) => {  
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: data
+    });
+ })     
+  } catch (error) {
+  res.status(500).json({ error: error.message });
+  }
+});
 app.get('/api/ytplaymp4', async (req, res) => {
   try {
     const message = req.query.query;
@@ -1791,6 +1829,19 @@ app.get('/api/nobg', async (req, res) => {
         res.send(body);
 });
 });
+app.get('/api/galau', async (req, res) => {
+	const response = await axios.get("https://galau.vercel.app/")
+    return response.data
+    var requestSettings = {
+        url: data,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'video/mp4');
+        res.send(body);
+});
+});
 app.get('/api/wanted', async (req, res) => {
   const message = req.query.url;
     if (!message) {
@@ -1800,6 +1851,38 @@ app.get('/api/wanted', async (req, res) => {
     var requestSettings = {
         url: `https://api.popcat.xyz/wanted?image=${message}`,
         method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'image/png');
+        res.send(body);
+});
+});
+app.get('/api/welcome', async (req, res) => {
+  const background = req.query.background;
+    if (!background) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+	
+  const text1 = req.query.text1;
+    if (!text1) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+	const text2 = req.query.text2;
+    if (!text2) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+	const text3 = req.query.text3;
+    if (!text3) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+	const avatar = req.query.avatar;
+    if (!avatar) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }  
+	var requestSettings = {
+	url: `https://api.popcat.xyz/welcomecard?background=${background}&text1=${text1}&text2=${text2}&text3=${text3}&avatar=${avatar}`,	
+	method: 'GET',
         encoding: null
     };
     request(requestSettings, function (error, response, body) {
