@@ -1829,6 +1829,28 @@ app.get('/api/nobg', async (req, res) => {
         res.send(body);
 });
 });
+app.get('/api/nobg', async (req, res) => {
+	
+  
+  const query = `random meme`;
+  const page = Math.floor(Math.random() * 10);
+  const url = `https://lahelu.com/api/post/get-search?query=${query}&page=${page}`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+    const random = Math.floor(Math.random() * data.postInfos.length);
+    const result = data.postInfos[random];
+    var requestSettings = {
+        url: "https://cache.lahelu.com/" + result.media,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'image/png');
+        res.send(body);
+});
+});	
 app.get('/api/galau', async (req, res) => {
 	  let response = await fetch('https://raw.githubusercontent.com/Rianofc/apis/master/function/galau.json');
         var data = await response.json();
