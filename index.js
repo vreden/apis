@@ -1835,7 +1835,7 @@ app.get('/api/meme', async (req, res) => {
   const page = Math.floor(Math.random() * 10);
   const url = `https://lahelu.com/api/post/get-search?query=${query}&page=${page}`;
 
-  try {
+
     const response = await fetch(url);
     const data = await response.json();
     const random = Math.floor(Math.random() * data.postInfos.length);
