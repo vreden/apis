@@ -1259,8 +1259,8 @@ app.get('/api/githubstalk', async (req, res) => {
     if (!id) {
       return res.status(400).json({ error: 'id nya mana?' });
     }
-	  githubStalk(id) 
-	  .then((hasil) => {
+githubStalk(id) 
+.then((hasil) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
@@ -1525,7 +1525,7 @@ app.get('/api/mora', async (req, res) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      answer 
+      result: answer 
     });
   }) 
   } catch (error) {
@@ -1662,7 +1662,7 @@ app.get('/api/ytplaymp3', async (req, res) => {
   }
 });
 app.get('/api/remini', async (req, res) => {
-	try{
+	
     const img = req.query.url;
     if (!img) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
@@ -1674,9 +1674,8 @@ res.status(200).json({
       result: data
     });
 		}) 
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-	}
+  res.set('Content-Type', 'image/jpg');
+        res.send(data);
 });
   app.get('/api/capcutdl', async (req, res) => {
   try {
