@@ -21,6 +21,7 @@ const { ig } = require("./function/scraper/Ig.js")
 const apis = require("@siputzx/scraper") 
 const api = require("caliph-api")
 const danz = require('d-scrape');
+const ocrapi = require("ocr-space-api-wrapper");
 const axios = require('axios')
 // males benerin:v
 async function tiktokdl(url) {
@@ -1346,6 +1347,22 @@ app.get('/api/mediafiredl', async (req, res) => {
       hasil 
     });
     })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/ocr', async (req, res) => {
+  try {
+    const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+    let hasil = await ocrapi.ocrSpace(message);
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: hasil.ParsedResults[0].ParsedText
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
