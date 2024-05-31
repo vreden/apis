@@ -256,8 +256,6 @@ Channel: https://whatsapp.com/channel/0029VaR0kxuKrWQqNH287b1i
 
 */
 
-const fetch = require('node-fetch');
-
 async function llama3(query, prompt, model) {
 if (!["70b", "8b"].some(qq => model == qq)) model = "70b"; //correct
 try {
