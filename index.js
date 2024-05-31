@@ -1017,6 +1017,12 @@ var app = express();
 app.enable("trust proxy");
 app.set("json spaces", 2);
 app.use(cors());
+let requestCount = 0;
+app.use((req, res, next) => {
+  requestCount++;
+  console.log(`Total requests: ${requestCount}`);
+  next();
+});
 app.use(secure);
 app.use(express.static(path.join(__dirname, 'public')));
 const port = 3000;
