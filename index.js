@@ -246,6 +246,50 @@ async function xnxxsearch(query) {
       .catch((err) => reject({ code: 503, status: false, result: err }));
   });
 }
+// gak tau
+/*
+
+Github: https://github.com/khrlmstfa
+Channel: https://whatsapp.com/channel/0029VaR0kxuKrWQqNH287b1i
+
+*Please don't remove this watermark, try to respect developer @Irull*
+
+*/
+
+const fetch = require('node-fetch');
+
+async function llama3(query, prompt, model) {
+if (!["70b", "8b"].some(qq => model == qq)) model = "70b"; //correct
+try {
+    const BASE_URL = 'https://llama3-enggan-ngoding.vercel.app/api/llama'; //@Irulll
+    const payload = {
+        messages: [
+    {
+      role: "system",
+      content: prompt
+    },
+    {
+      role: "user",
+      content: query
+    }
+  ],
+  model: model
+    };
+    const response = await fetch(BASE_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.1 Mobile/15E148',
+        },
+        body: JSON.stringify(payload),
+    });
+    const data = await response.json();
+    return data;
+        } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
 // jirr
 async function igStalk(username) {
   const url = `https://igram.world/api/ig/userInfoByUsername/${username}`
@@ -1423,7 +1467,32 @@ app.get('/api/xnxxdl', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-
+app.get('/api/llama', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+const message2 = req.query.prompt;
+    if (!message2) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+	const message3 = req.query.model;
+    if (!message3) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }  
+    llama3(message, message2, message3)
+    .then((data) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: data 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 app.get('/api/igdownload', async (req, res) => {
   try {
     const message = req.query.url;
@@ -1524,9 +1593,9 @@ app.get('/api/gemini', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   var response = await fetch(`https://itzpire.site/ai/gemini-ai?q=${message}`);
+   var response = await fetch(`https://api.xyro.fund/api/gemini?message=${message}`);
     var data = await response.json();
-    var { result: result } = data;  
+    var { response: result } = data.data;  
 res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
