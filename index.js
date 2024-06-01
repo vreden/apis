@@ -1215,7 +1215,7 @@ app.set("json spaces", 2);
 app.use(cors());
 app.use(secure);
 app.use(express.static(path.join(__dirname, 'public')));
-const port = 3000;
+const port = process.env.PORT || 8080 || 5000 || 3000
 
 app.get('/stats', (req, res) => {
   const stats = {
