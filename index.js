@@ -1190,7 +1190,7 @@ const api = axios.create({ baseURL: 'https://aivocalremover.com' })
 
 const getKey = async () => (await api.get('/')).data.match(/key:"(\w+)/)[1]
 
-async function vocalRemover(audioBuffer) => {
+async function vocalRemover(audioBuffer) {
 	const form = new FormData()
 	const fileName = Math.random().toString(36) + '.mpeg'
 	form.append('fileName', audioBuffer, fileName)
