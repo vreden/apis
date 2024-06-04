@@ -2032,9 +2032,10 @@ app.get('/api/remini', async (req, res) => {
     }
 	const yourn = await bufferlah(img) 
 		danz.tools.remini(yourn).then(data => {	
-		}) 
+		 
   res.set('Content-Type', 'image/jpg');
         res.send(data);
+});			
 });
   app.get('/api/capcutdl', async (req, res) => {
   try {
