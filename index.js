@@ -413,7 +413,7 @@ Channel: https://whatsapp.com/channel/0029VaR0kxuKrWQqNH287b1i
 */
 
 async function llama3(query, prompt, model) {
-if (!["70b", "8b"].some(qq => model == qq)) model = "70b"; //correct
+if (!["70b", "8b"].some(qq => model == qq)) model = "7b"; //correct
 try {
     const BASE_URL = 'https://llama3-enggan-ngoding.vercel.app/api/llama'; //@Irulll
     const payload = {
@@ -1856,14 +1856,12 @@ app.get('/api/vocalRemover', async (req, res) => {
   .then(response => response.arrayBuffer())
   .then(buffer => {
     // Lakukan sesuatu dengan buffer audio di sini
-  
- const yaya = await exon(buffer); 
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result: yaya
-    });
-  }); 
+      result: buffer
+    })
+    }); 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
