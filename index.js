@@ -2329,6 +2329,7 @@ app.get('/api/neko', async (req, res) => {
         res.set('Content-Type', 'image/png');
         res.send(body);
 });
+});
 app.get('/api/ssweb', async (req, res) => {
   const message = req.query.url;
     if (!message) {
