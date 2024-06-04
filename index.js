@@ -523,7 +523,39 @@ async function xnxxdl(URL) {
   });
 }
 // 😒
-
+async function bufferlahh(hm) {
+    const imageUrlvv = hm;
+    const imagePath = 'audio.mp3';
+    const response = await axios({
+        method: 'get',
+        url: imageUrlvv,
+        responseType: 'arraybuffer'
+    })
+	const buffer = Buffer.from(response.data, 'base64');
+    return buffer;
+}
+// wm buatan ripky rek
+// hapus wm yatim
+async function vocalRemover(audioBuffer) {
+     const api = axios.create({ baseURL: 'https://aivocalremover.com' })
+     const getKey = async () => (await api.get('/')).data.match(/key:"(\w+)/)[1]
+	const form = new FormData()
+	const fileName = Math.random().toString(36) + '.mpeg'
+	form.append('fileName', audioBuffer, fileName)
+	
+	const [key, fileUpload] = await Promise.all([
+		await getKey(),
+		await api.post('/api/v2/FileUpload', form, { headers: form.getHeaders() }).catch(e => e.response)
+	])
+	if (fileUpload.status !== 200) throw fileUpload.data || fileUpload.statusText
+	
+	const processFile = await api.post('/api/v2/ProcessFile', new URLSearchParams({
+		file_name: fileUpload.data.file_name,
+		action: 'watermark_video', key, web: 'web' 
+	})).catch(e => e.response)
+	
+	return processFile.data
+	    }
 // _- <√¶×/>
 function pinterestv2(querry){
 return new Promise(async(resolve,reject) => {
@@ -1852,16 +1884,13 @@ app.get('/api/vocalRemover', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
- fetch(message)
-  .then(response => response.arrayBuffer())
-  .then(buffer => {
+const isin = await bufferlahh(message) 
     // Lakukan sesuatu dengan buffer audio di sini
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result: buffer
-    })
-    }); 
+      result: isin
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
