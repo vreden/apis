@@ -1552,7 +1552,7 @@ app.get('/api/txt2img', async (req, res) => {
 });
 app.get('/api/bingimg', async (req, res) => {
   try {
-    const message = req.query.text;
+    const message = req.query.query;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "text" tidak ditemukan' });
     }
@@ -1618,31 +1618,6 @@ githubStalk(id)
     res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/bingimg', async (req, res) => {
-  try {
-    const message = req.query.text;
-    if (!message) {
-      return res.status(400).json({ error: 'Parameter "text" tidak ditemukan' });
-    }
-    const imgc = new BingImageCreator({
-      cookie: `1JRP1FQIuODnxusBb_8D860AOJnS7C61VICiJY_DHseuPBe6tQn3KNKsAiew_CxMgsMGZiUxqS2Qq4Jgvw7A1ZvPtTByPRoML3SKtpiJSx4Lj9PcVei7j3yF0oit2COAsI10V1ZZWy-vwNYLXfkUz34Ox_ulaSLgy0vAcjHMOhZurRuPcT8yb4tbNzqvgIb5PdytP97ms1np81S1yNPeATQ`,
-    });
-    const data = await imgc.createImage(message);
-            if (data.length > 0) 
-      for (let i = 0; i < data.length; i++) 
-          if (!data[i].endsWith(".svg")) {
-    res.status(200).json({
-      status: 200,
-      creator: "RIAN X EXONITY",
-      data
-    
-    }); 
-	  }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
- }       
-    });
-
 app.get('/api/ytmp4', async (req, res) => {
   try {
     const message = req.query.url;
@@ -2055,12 +2030,8 @@ app.get('/api/remini', async (req, res) => {
     if (!img) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-		danz.tools.remini(img).then(data => {
-res.status(200).json({
-      status: 200,
-      creator: "RIAN X EXONITY", 
-      result: data
-    });
+	const yourn = await bufferlah(img) 
+		danz.tools.remini(yourn).then(data => {	
 		}) 
   res.set('Content-Type', 'image/jpg');
         res.send(data);
