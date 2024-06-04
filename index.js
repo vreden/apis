@@ -1886,10 +1886,11 @@ app.get('/api/vocalRemover', async (req, res) => {
     }
 const isin = await bufferlahh(message) 
     // Lakukan sesuatu dengan buffer audio di sini
+	  const yayaitun = await vocalRemover(isin) 
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result: isin
+      result: yayaitun
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
