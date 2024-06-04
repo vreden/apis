@@ -1855,8 +1855,9 @@ app.get('/api/vocalRemover', async (req, res) => {
   .then(response => response.arrayBuffer())
   .then(buffer => {
     // Lakukan sesuatu dengan buffer audio di sini
-  })
+  
  const yaya = await vocalRemover(buffer)
+  }); 
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
