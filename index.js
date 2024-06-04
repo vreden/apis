@@ -3,6 +3,7 @@
 // jangan dihapus jembud
 var express = require("express"), cors = require("cors"), secure = require("ssl-express-www");
 const path = require('path');
+const { srgan2x, srgan4x } = require('super-resolution-scraper');
 const os = require('os');
 var request = require('request');
 const fs = require('fs');
@@ -1478,6 +1479,40 @@ app.get('/api/tinyurl', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+app.get('/api/reminix2', async (req, res) => {
+ const url = req.query.url;
+    if (!url) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+  const img = await srgan2x(url) 
+  const results = img.result
+    var requestSettings = {
+        url: results,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'image/png');
+        res.send(body);
+    });  
+});
+app.get('/api/reminix4', async (req, res) => {
+ const url = req.query.url;
+    if (!url) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+  const img = await srgan4x(url) 
+  const results = img.result
+    var requestSettings = {
+        url: results,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'image/png');
+        res.send(body);
+    });  
 });
 app.get('/api/tiktok2', async (req, res) => {
   try {
