@@ -19,6 +19,7 @@
     "canvas": "^2.11.2",
     "d-scrape": "^1.1.9",
     "form-data": "4.0.0",
+    "super-resolution-scraper": "^1.0.6",
     "node-fetch": "^2.6.1",
     "g-i-s": "^2.1.6",
     "@bochilteam/scraper": "^4.2.4",
