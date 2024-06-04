@@ -1185,6 +1185,29 @@ Gemini.prototype.question = function(query) {
       return { content: `Error: ${error.message}` };
     });
 };
+
+const api = axios.create({ baseURL: 'https://aivocalremover.com' })
+
+const getKey = async () => (await api.get('/')).data.match(/key:"(\w+)/)[1]
+
+const vocalRemover = async (audioBuffer) => {
+	const form = new FormData()
+	const fileName = Math.random().toString(36) + '.mpeg'
+	form.append('fileName', audioBuffer, fileName)
+	
+	const [key, fileUpload] = await Promise.all([
+		await getKey(),
+		await api.post('/api/v2/FileUpload', form, { headers: form.getHeaders() }).catch(e => e.response)
+	])
+	if (fileUpload.status !== 200) throw fileUpload.data || fileUpload.statusText
+	
+	const processFile = await api.post('/api/v2/ProcessFile', new URLSearchParams({
+		file_name: fileUpload.data.file_name,
+		action: 'watermark_video', key, web: 'web' 
+	})).catch(e => e.response)
+	
+	return processFile.data
+}
   var {
   ytDonlodMp3,
   ytDonlodMp4,
@@ -1818,6 +1841,27 @@ app.get('/api/teraboxdl', async (req, res) => {
       info 
     });
     })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/vocalRemover', async (req, res) => {
+  try {
+    const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+ fetch(message)
+  .then(response => response.arrayBuffer())
+  .then(buffer => {
+    // Lakukan sesuatu dengan buffer audio di sini
+  })
+ const yaya = await vocalRemover(buffer)
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: yaya
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
