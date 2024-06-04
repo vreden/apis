@@ -24,6 +24,7 @@ const api = require("caliph-api")
 const danz = require('d-scrape');
 const ocrapi = require("ocr-space-api-wrapper");
 const axios = require('axios')
+const cookiebing = `1ZI5Qi8fVbJ7MMwFblzU0c7dn5OugdyGvJ5iNVc9EyuUgEAIjlEa3C7q9KWegqSeisR4D_7mA4ncgCVuVCaxGvq9jIfZMpJQUroaGsjc6Rd-dPDReTMcTo48rl1cIGWhn3sfTcvRZPdzRUvsbOrNKFN15vegDXW_VM-pBnUiUQmRDRTDXdfwf7Uk1MiOjG0PIHIoFBbIE2advza_O1F9GsQ`
 // males benerin:v
 async function tiktokdl(url) {
   let result = {}
@@ -1549,6 +1550,34 @@ app.get('/api/txt2img', async (req, res) => {
         res.send(body);
     }); 
 });
+app.get('/api/bingimg', async (req, res) => {
+  try {
+    const message = req.query.text;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "text" tidak ditemukan' });
+    }
+    const imgc = new BingImageCreator({
+      cookie: cookiebing    
+    });
+    const data = await imgc.createImage(message);
+            if (data.length > 0) {
+      for (let i = 0; i < data.length; i++) {
+          if (!data[i].endsWith(".svg")) {
+		var result = data[i]
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result
+    
+    }); 
+	  }
+      }
+      }
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+ }       
+
+    });
 app.get('/api/mlstalk', async (req, res) => {
   try {
     const id = req.query.id;
@@ -2287,6 +2316,19 @@ app.get('/api/waifu', async (req, res) => {
         res.send(body);
 });
 });
+app.get('/api/neko', async (req, res) => {
+  var response = await fetch(`https://api.waifu.pics/nsfw/neko`);
+    var data = await response.json();
+    var { url: result } = data;
+    var requestSettings = {
+        url: result,
+        method: 'GET',
+        encoding: null
+    };
+    request(requestSettings, function (error, response, body) {
+        res.set('Content-Type', 'image/png');
+        res.send(body);
+});
 app.get('/api/ssweb', async (req, res) => {
   const message = req.query.url;
     if (!message) {
@@ -2395,7 +2437,7 @@ app.get('/api/kobo', async (req, res) => {
   }
 });
 
-app.get('/api/ai-alicia', async (req, res) => {
+app.get('/api/alicia', async (req, res) => {
   try {
     const message = req.query.query;
     if (!message) {
