@@ -525,13 +525,13 @@ async function xnxxdl(URL) {
 // 😒
 async function bufferlahh(hm) {
     const imageUrlvv = hm;
-    const imagePath = 'audio.mp3';
+    const imagePath = 'audio.opus';
     const response = await axios({
         method: 'get',
         url: imageUrlvv,
         responseType: 'arraybuffer'
     })
-	const buffer = Buffer.from(response.data, 'base64');
+	const buffer = Buffer.from(response.data, 'binary');
     return buffer;
 }
 // wm buatan ripky rek
