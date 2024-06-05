@@ -24,7 +24,7 @@ const apinn = require("caliph-api")
 const danz = require('d-scrape');
 const ocrapi = require("ocr-space-api-wrapper");
 const axios = require('axios')
-const cookiebing = `1ZI5Qi8fVbJ7MMwFblzU0c7dn5OugdyGvJ5iNVc9EyuUgEAIjlEa3C7q9KWegqSeisR4D_7mA4ncgCVuVCaxGvq9jIfZMpJQUroaGsjc6Rd-dPDReTMcTo48rl1cIGWhn3sfTcvRZPdzRUvsbOrNKFN15vegDXW_VM-pBnUiUQmRDRTDXdfwf7Uk1MiOjG0PIHIoFBbIE2advza_O1F9GsQ`
+const creatot = `RIANGANZ`
 // males benerin:v
 async function tiktokdl(url) {
   let result = {}
@@ -522,7 +522,33 @@ async function xnxxdl(URL) {
       .catch((err) => reject({ code: 503, status: false, result: err }));
   });
 }
-// 😒
+// 😥
+async function exonity(buffer) {
+  try {
+    const { ext, mime } = (await fromBuffer(buffer)) || {};
+    const gg = new FormData();
+    gg.append("file", buffer, {
+      filename: Date.now() + "." + ext,
+    });
+
+    const { data } = await axios.post(
+      "https://cdn.exonity.my.id/upload",
+      gg,
+      {
+        headers: {
+          ...gg.getHeaders(),
+        },
+      }
+    );
+
+    return data.fileUrl;
+  } catch (error) {
+    console.error("Error uploading file:", error);
+    throw new Error(String(error));
+  }
+}
+
+// bataz
 async function bufferlahh(hm) {
     const imageUrlvv = hm;
     const imagePath = 'audio.opus';
@@ -1612,6 +1638,10 @@ app.get('/api/bingimg', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "text" tidak ditemukan' });
     }
+ const cookiebing= req.query.cookie;
+    if (!cookiebing) {
+      return res.status(400).json({ error: 'Parameter "text" tidak ditemukan' });
+    }  
     const imgc = new BingImageCreator({
       cookie: cookiebing    
     });
@@ -1891,6 +1921,24 @@ const isin = await bufferlahh(message)
       status: 200,
       creator: "RIAN X EXONITY",
       result: yayaitun
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/cdn', async (req, res) => {
+  try {
+    const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+const isiin = await bufferlahh(message) 
+    // Lakukan sesuatu dengan buffer audio di sini
+	  const yayaituun = await vocalRemover(isiin) 
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: yayaituun
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
