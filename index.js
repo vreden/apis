@@ -1934,7 +1934,7 @@ app.get('/api/cdn', async (req, res) => {
     }
 const isiin = await bufferlahh(message) 
     // Lakukan sesuatu dengan buffer audio di sini
-	  const yayaituun = await vocalRemover(isiin) 
+	  const yayaituun = await exonity(isiin) 
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
