@@ -5,6 +5,7 @@ var express = require("express"), cors = require("cors"), secure = require("ssl-
 const path = require('path');
 const { srgan2x, srgan4x } = require('super-resolution-scraper');
 const os = require('os');
+const { fromBuffer } = require("file-type");
 var request = require('request');
 const fs = require('fs');
 const FormData = require("form-data");
