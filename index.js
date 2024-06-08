@@ -1380,7 +1380,7 @@ app.get('/total-requests', (req, res) => {
 app.get('/status', (req, res) => {
   const stats = {
     platform: os.platform(),
-    request: requestCount()
+    request: requestCount
   };
   res.json(stats);
 });
@@ -2057,6 +2057,26 @@ res.status(200).json({
   res.status(500).json({ error: error.message });
   }
 });
+
+app.get('/api/gpt-web', async (req, res) => {
+  try{
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+   var response = await fetch(`https://itzpire.com/ai/gpt-web?q=${message}`);
+    var data = await response.json();
+    var { result: results } = data;  
+res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: results 
+    });
+        
+  } catch (error) {
+  res.status(500).json({ error: error.message });
+  }
+});
 app.get('/api/letmegpt', async (req, res) => {
   try{
     const text = req.query.query;
@@ -2485,7 +2505,7 @@ app.get('/api/ssweb', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-  let ayaaa = await anjay22(message) 
+  let ayaaa = await ssweb1234(message) 
             res.set('Content-Type', 'image/png');
         res.send(ayaaa);
 });
