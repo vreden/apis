@@ -1283,7 +1283,7 @@ async function exon(buffer) {
     }
   } 
 async function ssweb1234(url = "", full = false, type = "desktop") {
- let type = type.toLowerCase();
+ type = type.toLowerCase();
   if (!["desktop", "tablet", "phone"].includes(type)) type = "desktop";
   let form = new URLSearchParams();
   form.append("url", url);
