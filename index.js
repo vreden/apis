@@ -848,6 +848,20 @@ async function chatgptss(message) {
         throw error;
     }
 }
+// 😠
+async function fetchTextFromURL(query) {
+  const encodedQuery = encodeURIComponent(query);
+  const url = `https://letmegpt.com/search?q=${encodedQuery}`;
+
+  try {
+    const response = await axios.get(url);
+    const $ = cheerio.load(response.data);
+    return $('#gptans').text();
+  } catch (error) {
+    console.log('Error:', error);
+    return null;
+  }
+  }
 // got ai
 async function bartai(message) {
     const url = 'https://bartai.org';
@@ -1268,6 +1282,56 @@ async function exon(buffer) {
       throw new Error(String(error));
     }
   } 
+async function ssweb1234(url = "", full = false, type = "desktop") {
+ let type = type.toLowerCase();
+  if (!["desktop", "tablet", "phone"].includes(type)) type = "desktop";
+  let form = new URLSearchParams();
+  form.append("url", url);
+  form.append("device", type);
+  if (!!full) form.append("full", "on");
+  form.append("cacheLimit", 0);
+  let res = await axios({
+    url: "https://www.screenshotmachine.com/capture.php",
+    method: "post",
+    data: form,
+  });
+  let cookies = res.headers["set-cookie"];
+  let buffer = await axios({
+    url: "https://www.screenshotmachine.com/" + res.data.link,
+    headers: {
+      cookie: cookies.join(""),
+    },
+    responseType: "arraybuffer",
+  });
+  return Buffer.from(buffer.data);
+}
+
+async function mlbb33(userId, zoneId) {
+  try {
+    const response = await axios.post('https://api.duniagames.co.id/api/transaction/v1/top-up/inquiry/store', {
+      productId: 1,
+      itemId: 66,
+      product_ref: 'REG',
+      product_ref_denom: 'REG',
+      catalogId: 121,
+      paymentId: 6361,
+      gameId: userId,
+      zoneId: zoneId
+    }, {
+      'Accept-Language': 'id',
+      'x-device': 'c8ddbfa5-1e57-4cf3-9450-0b39fa3eb4f2',
+      'Ciam-Type': 'FR',
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json',
+      'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36',
+      'Referer': 'https://duniagames.co.id/top-up/item/mobile-legends'
+    })
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+}
   var {
   ytDonlodMp3,
   ytDonlodMp4,
@@ -1302,26 +1366,21 @@ app.use(secure);
 app.use(express.static(path.join(__dirname, 'public')));
 const port = process.env.PORT || 8080 || 5000 || 3000
 
-app.get('/stats', (req, res) => {
+let requestCount = 0;
+// Middleware untuk menghitung setiap request
+app.use((req, res, next) => {
+  requestCount++;
+  console.log(`Total requests: ${requestCount}`);
+  next();
+});
+// Rute untuk mendapatkan total request
+app.get('/total-requests', (req, res) => {
+  res.send(`Total requests received: ${requestCount}`);
+});
+app.get('/status', (req, res) => {
   const stats = {
     platform: os.platform(),
-    architecture: os.arch(),
-    totalMemory: os.totalmem(),
-    freeMemory: os.freemem(),
-    uptime: os.uptime(),
-    cpuModel: os.cpus()[0].model,
-    numCores: os.cpus().length,
-    loadAverage: os.loadavg(),
-    hostname: os.hostname(),
-    networkInterfaces: os.networkInterfaces(),
-    osType: os.type(),
-    osRelease: os.release(),
-    userInfo: os.userInfo(),
-    processId: process.pid,
-    nodeVersion: process.version,
-    execPath: process.execPath,
-    cwd: process.cwd(),
-    memoryUsage: process.memoryUsage()
+    request: requestCount()
   };
   res.json(stats);
 });
@@ -1675,13 +1734,11 @@ app.get('/api/mlstalk', async (req, res) => {
     if (!zona) {
       return res.status(400).json({ error: 'Parameter "zonaid" tidak ditemukan' });
     }
-	var response = await fetch(`https://api.miftahganzz.my.id/api/stalking/ml?id=${id}&zoneId=${zona}&apikey=zex`);
-    var data = await response.json(); 
-	var { data: result } = data;  
+	let anjay22 = await mlbb33(id, zona) 
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result
+      result: anjay22
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -1987,9 +2044,9 @@ app.get('/api/gemini', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   var response = await fetch(`https://api.xyro.fund/api/gemini?message=${message}`);
+   var response = await fetch(`https://api.onesytex.my.id/api/gemini?text=${message}`);
     var data = await response.json();
-    var { response: result } = data.data;  
+    var { data: result } = data.result;  
 res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
@@ -2000,20 +2057,18 @@ res.status(200).json({
   res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/mora', async (req, res) => {
+app.get('/api/letmegpt', async (req, res) => {
   try{
     const text = req.query.query;
     if (!text) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   mora(text)
-  .then((answer) => {
+  let nahan = await fetchTextFromURL(text)
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result: answer 
+      result: nahan 
     });
-  }) 
   } catch (error) {
   res.status(500).json({ error: error.message });
   }
@@ -2430,16 +2485,9 @@ app.get('/api/ssweb', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-  
-    var requestSettings = {
-        url: `https://skizo.tech/api/ssweb?apikey=nana&url=${message}&type=&language=id&fullpage=1&width=&height=`,
-        method: 'GET',
-        encoding: null
-    };
-    request(requestSettings, function (error, response, body) {
-        res.set('Content-Type', 'image/png');
-        res.send(body);
-});
+  let ayaaa = await anjay22(message) 
+            res.set('Content-Type', 'image/png');
+        res.send(ayaaa);
 });
 
 app.get('/api/asupan', async (req, res) => {
