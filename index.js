@@ -632,9 +632,6 @@ resolve(hasil)
 })
 }
 // batas juga
-const axios = require('axios');
-const cheerio = require('cheerio');
-
 async function stalker(user) {
   try {
     const response = await axios.post(
