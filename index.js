@@ -415,7 +415,7 @@ Channel: https://whatsapp.com/channel/0029VaR0kxuKrWQqNH287b1i
 */
 
 async function llama3(query, prompt, model) {
-if (!["70b", "8b"].some(qq => model == qq)) model = "7b"; //correct
+if (!["70b", "8b"].some(qq => model == qq)) model = "70b"; //correct
 try {
     const BASE_URL = 'https://llama3-enggan-ngoding.vercel.app/api/llama'; //@Irulll
     const payload = {
@@ -631,6 +631,45 @@ resolve(hasil)
 })
 })
 }
+// batas juga
+const axios = require('axios');
+const cheerio = require('cheerio');
+
+async function stalker(user) {
+  try {
+    const response = await axios.post(
+      'https://ttsave.app/download',
+      {
+        query: user,
+        language_id: '1'
+      },
+      {
+        headers: {
+          'Accept': 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+
+    const $ = cheerio.load(response.data);
+
+    const uniqueId = $('#unique-id').val();
+    const username = $('h2').text().trim();
+    const thumbnail = $('a[target="_blank"] img').attr('src');
+    const download = $('a[target="_blank"]').attr('href');
+
+    return {
+      uniqueId,
+      username,
+      thumbnail,
+      download
+    };
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
 // batas!!
 async function tiktok2(query) {
   return new Promise(async (resolve, reject) => {
@@ -1939,12 +1978,13 @@ app.get('/api/VirtualGirlfriends', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-   let resultcuy = VirtualGirlfriends(message)
-    res.status(200).json({
+	  danz.ai.VirtualGirlfriends(message).then(data => {
+res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result: resultcuy
+      result: data
     });
+	  });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -2321,14 +2361,12 @@ app.get('/api/tiktokStalk', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   ttStalk(message)
- .then((result) => {  
+   const tikot = await stalker(message)
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result 
-    });
- })     
+      result: tikot 
+    });    
   } catch (error) {
   res.status(500).json({ error: error.message });
   }
