@@ -77,7 +77,22 @@
     margin-bottom: 10px;
   }
 
-
+.stat-box h3 {
+            margin: 0;
+            font-size: 1.2em;
+            color: #1e90ff;
+            font-weight: 400;
+        }
+.stat-box p {
+            margin: 10px 0 0;
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #333;
+	}
+h2, h3 {
+            color: #1e90ff;
+            font-weight: 400;
+}
   .container-j{
     width: 100%;
     padding: 20px;
@@ -437,13 +452,33 @@
   </pre>
 <footer>© Exonity - <a href="https://profile-dev.exonity.my.id/"</a>apis</
 	footer>
+		<div class="stats-container">
+            <div class="stat-box">
+                <h3>uptime</h3>
+                <p id="uptime">0</p>
+            </div>
+            <div class="stat-box">
+                <h3>Total Requests</h3>
+                <p id="total-requests">0</p>
+	    </div>
          </div>		
        <script>
 window['CboxReady'] = function (Cbox) {
 	Cbox('button', '3-3537447-eImdVD');
 }
 </script>
-<script src="https://static.cbox.ws/embed/2.js" async></script>   
+<script src="https://static.cbox.ws/embed/2.js" async></script> 
+<script>
+    async function fetchStats() {
+        const response = await fetch('/api/status');
+        const data = await response.json();
+
+        document.getElementById('uptime').textContent = data.uptime;
+        document.getElementById('total-requests').textContent = data.request;
+        }
+
+    fetchStats();
+</script>		   
 </div>
 </body>
 </html>
