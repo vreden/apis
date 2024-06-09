@@ -181,7 +181,12 @@ h2, h3 {
     display: flex
     
   }
-  
+  .stats-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
   .loading > div {
     width: 2rem;
     height: 2rem;
@@ -449,10 +454,7 @@ h2, h3 {
       "response": "Response data here"
     }
   }
-  </pre>
-<footer>© Exonity - <a href="https://profile-dev.exonity.my.id/"</a>apis</
-	footer>
-		<div class="stats-container">
+<div class="stats-container">
             <div class="stat-box">
                 <h3>uptime</h3>
                 <p id="uptime">0</p>
@@ -460,7 +462,11 @@ h2, h3 {
             <div class="stat-box">
                 <h3>Total Requests</h3>
                 <p id="total-requests">0</p>
-	    </div>
+	    </div>	  
+  </pre>
+<footer>© Exonity - <a href="https://profile-dev.exonity.my.id/"</a>apis</
+	footer>
+		
          </div>		
        <script>
 window['CboxReady'] = function (Cbox) {
@@ -470,7 +476,7 @@ window['CboxReady'] = function (Cbox) {
 <script src="https://static.cbox.ws/embed/2.js" async></script> 
 <script>
     async function fetchStats() {
-        const response = await fetch('/api/status');
+        const response = await fetch('/status');
         const data = await response.json();
 
         document.getElementById('uptime').textContent = data.uptime;
