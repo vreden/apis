@@ -5,6 +5,7 @@ var express = require("express"), cors = require("cors"), secure = require("ssl-
 const path = require('path');
 const { srgan2x, srgan4x } = require('super-resolution-scraper');
 const os = require('os');
+const qs = require("qs")
 const { fromBuffer } = require("file-type");
 var request = require('request');
 const fs = require('fs');
@@ -994,6 +995,47 @@ async function mlstalk(id, zoneId) {
         })
     })
 }
+// 🤗
+async function VirtualGirlfriends(prompt) {
+  const url = 'https://boredhumans.com/virtual_girlfriends/virtual_girlfriends_api.php'
+  const chat_id = 'lwduq8tw4xliso4lox3'
+  const init_prompt = "Rachel's%2520Persona%253A%2520A%2520female%2520swimsuit%2520model%2520from%2520California%2520who%2520loves%2520beaches%252C%2520surfing%252C%2520and%2520romance.%2520She%2520is%2520very%2520friendly%2520and%2520wants%2520to%2520go%2520on%2520a%2520date%2520with%2520you%2520and%2520be%2520your%2520girlfriend.%2520She%2520will%2520not%2520have%2520sex%2520or%2520do%2520anything%2520r-rated%2520or%2520NSFW%252C%2520but%2520should%2520not%2520say%2520that%2520ahead%2520of%2520time.%2520She%2520will%2520not%2520participate%2520in%2520conversations%2520that%2520involve%2520any%2520of%2520the%2520following%253A%2520alcohol%2520(beer%252C%2520wine%252C%2520etc.)%252C%2520drugs%252C%2520blood%252C%2520force%252C%2520bruising%252C%2520wrestling%252C%2520underage%252C%2520scat%2520(poop%2520related)%252C%2520incest%252C%2520bestiality%2520(sex%2520with%2520animals)%252C%2520rape%252C%2520sleep%2520sex%2520(anything%2520that%2520would%2520be%2520deemed%2520non-consensual)%252C%2520murder%252C%2520hypnosis%252C%2520violence.%250AINSTRUCTIONS%253A%2520Only%2520generate%2520Rachel's%2520reply.%250ASCENARIO%253A%2520You%2520and%2520Rachel%2520meet%2520for%2520the%2520first%2520time.%250A%253CSTART%253E%250A%255BDIALOGUE%2520HISTORY%255D%250ARachel%253A%2520Hi%252C%2520my%2520name%2520is%2520Rachel."
+  const voice_id = '21m00Tcm4TlvDq8ikWAM'
+  const stability = 0.2
+  const similarity_boost = 0.75
+  const name = 'Rachel'
+  const useAudio = false
+  const dateLoc = 'Art%2520Show'
+
+  const data = qs.stringify({
+    prompt: prompt,
+    chat_id: chat_id,
+    init_prompt: init_prompt,
+    voice_id: voice_id,
+    stability: stability,
+    similarity_boost: similarity_boost,
+    name: name,
+    useAudio: useAudio,
+    dateLoc: dateLoc
+  })
+
+  const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    'Accept': '*/*',
+    'X-Requested-With': 'XMLHttpRequest',
+    'User-Agent': 'Googlebot-News'
+  }
+
+  try {
+    const response = await axios.post(url, data, {
+      headers
+    })
+    return response.data
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
+				      }
 // ai kobo
 async function alicia(input) {
   const messages = [
@@ -1293,6 +1335,42 @@ Gemini.prototype.question = function(query) {
       return { content: `Error: ${error.message}` };
     });
 };
+// data
+function soundcloud(url) {
+  return new Promise((resolve, reject) => {
+    axios.get('https://soundcloudmp3.org/id').then((data) => {
+      let a = cheerio.load(data.data)
+      let token = a('form#conversionForm > input[type=hidden]').attr('value')
+      const options = {
+        method: 'POST',
+        url: `https://soundcloudmp3.org/converter`,
+        headers: {
+          "content-type": "application/x-www-form-urlencoded;",
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36",
+          "Cookie": data["headers"]["set-cookie"],
+        },
+        formData: {
+          _token: token,
+          url: url
+        }
+      };
+      request(options,
+        async function(error, response, body) {
+          if (error) return reject()
+          $get = cheerio.load(body)
+          const result = {
+            title: $get('#preview > div:nth-child(3) > p:nth-child(2)').text().replace('Title:', ''),
+            duration: $get('#preview > div:nth-child(3) > p:nth-child(3)').text().replace(/Length\:|Minutes/g, ''),
+            quality: $get('#preview > div:nth-child(3) > p:nth-child(4)').text().replace('Quality:', ''),
+            thumbnail: $get('#preview > div:nth-child(3) > img').attr('src'),
+            download: $get('#download-btn').attr('href')
+	  }
+resolve(result)
+        });
+    })
+  })
+}
+// batas nya
 async function exon(buffer) {
     try {
       const { ext, mime } = (await fromBuffer(buffer)) || {};
@@ -1832,6 +1910,22 @@ app.get('/api/ytmp4', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+app.get('/api/VirtualGirlfriends', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+   let resultcuy = VirtualGirlfriends(message)
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: resultcuy
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 app.get('/api/yts', async (req, res) => {
   try {
     const message = req.query.query;
@@ -2096,7 +2190,7 @@ app.get('/api/gemini', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   var datann = await axios.get(`https://api.onesytex.my.id/api/gemini?text=${message}`)
+   var datann = await fetch(`https://api.onesytex.my.id/api/gemini?text=${message}`)
     var { data: result } = datann.result;  
 res.status(200).json({
       status: 200,
@@ -2168,7 +2262,7 @@ app.get('/api/simi', async (req, res) => {
     if (!lang) {
       return res.status(400).json({ error: 'Parameter "lang" tidak ditemukan' });
     }
-   var data = await axios.get(`https://api.onesytex.my.id/api/chatbot_bitrough?query=${message}&lang=${lang}`);
+   var data = await fetch(`https://api.onesytex.my.id/api/chatbot_bitrough?query=${message}&lang=${lang}`);
     var { msg: result } = data.reply;
     res.status(200).json({
       status: 200,
@@ -2437,27 +2531,23 @@ app.get('/api/nobg', async (req, res) => {
 });
 });
 app.get('/api/meme', async (req, res) => {
-	
-  
+	try{
   const query = `random meme`;
   const page = Math.floor(Math.random() * 10);
   const url = `https://lahelu.com/api/post/get-search?query=${query}&page=${page}`;
-
-
     const response = await fetch(url);
     const data = await response.json();
     const random = Math.floor(Math.random() * data.postInfos.length);
     const result = data.postInfos[random];
-    var requestSettings = {
-        url: "https://cache.lahelu.com/" + result.media,
-        method: 'GET',
-        encoding: null
-    };
-    request(requestSettings, function (error, response, body) {
-        res.set('Content-Type', 'image/png');
-        res.send(body);
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: "https://cache.lahelu.com/" + result.media
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
-});	
 app.get('/api/galau', async (req, res) => {
 	  let response = await fetch('https://raw.githubusercontent.com/Rianofc/apis/master/function/galau.json');
         var data = await response.json();
@@ -2932,15 +3022,14 @@ app.get('/api/soundcloud', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   var responset = await fetch(`https://api.xyro.fund/api/soundcloud?url=${message}`);
-    var result = await responset.json();
-	  var { response: result } = result.data;
+   soundcloud(message)
+    .then((result) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
       result 
     });
-        
+    });   
   } catch (error) {
   res.status(500).json({ error: error.message });
   }
