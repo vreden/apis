@@ -23,6 +23,8 @@
     "super-resolution-scraper": "^1.0.6",
     "node-fetch": "^2.6.1",
     "g-i-s": "^2.1.6",
+    "ws": "^8.17.0",
+    "hash-generator": "^0.1.0",
     "@bochilteam/scraper": "^4.2.4",
     "api-dylux": "^1.2.2",
     "caliph-api": "^1.0.0",
