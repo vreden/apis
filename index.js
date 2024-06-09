@@ -169,6 +169,49 @@ function tiktokslide(url) {
   }
   })
 	  }
+// test
+async function gpt4o(prompt) {
+    let session_hash = Math.random().toString(36).substring(2).slice(1)
+    let resPrompt = await axios.post('https://kingnish-opengpt-4o.hf.space/run/predict?__theme=light', {
+        "data":[{
+            "text":prompt,
+            "files":[]
+        }],
+        "event_data":null,
+        "fn_index":3,
+        "trigger_id":34,
+        "session_hash":session_hash})
+    let res = await axios.post('https://kingnish-opengpt-4o.hf.space/queue/join?__theme=light', {
+        "data":[
+            null,
+            null,
+            "idefics2-8b-chatty",
+            "Top P Sampling",
+            0.5,
+            4096,
+            1,
+            0.9,
+            true
+        ],
+        "event_data":null,
+        "fn_index":5,
+        "trigger_id":34,
+        "session_hash": session_hash
+    })
+    let event_ID = res.data.event_id
+    let anu = await axios.get('https://kingnish-opengpt-4o.hf.space/queue/data?session_hash=' + session_hash)
+    const lines = anu.data.split('\n');
+const processStartsLine = lines.find(line => line.includes('process_completed'));
+
+if (processStartsLine) {
+    const processStartsData = JSON.parse(processStartsLine.replace('data: ', ''));
+    let ress = processStartsData.output.data
+    let result = ress[0][0][1]
+    return result
+} else {
+    return 'error kang!'
+}
+}
 // lumin ai. 
 async function luminAi(teks, pengguna = null, prompt = null, modePencarianWeb = false) {
     try {
@@ -2030,7 +2073,7 @@ app.get('/api/stablediff', async (req, res) => {
     }
     stablediff(message)
     .then((imgArr) => {
-    res.set('Content-Type', 'image/jpg');
+    res.set('Content-Type', 'image/png');
         res.send(imgArr);
     });  
 });
