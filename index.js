@@ -987,19 +987,9 @@ async function kobo(input) {
     throw error;
   }
 }
-// gpt-4o
-*Scrape Huggingface Stable diffusion*
-
-
-/*
-//
 // Dibuat oleh Kaze 
 // https://github.com/KazeDevID
 // https://whatsapp.com/channel/0029VaFNnRTHLHQR6G0fC01O
-//
-*/
-
-
 const generateHash = () => {
   let m = createHash(12);
   return {
