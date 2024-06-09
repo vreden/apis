@@ -925,6 +925,41 @@ async function kobo(input) {
     throw error;
   }
 }
+//😅
+async function morav2(prompt) {
+  const response = await axios({
+    method: "POST",
+    url: "https://chateverywhere.app/api/chat",
+    headers: {
+      "Content-Type": "application/json",
+      "Cookie": "_ga=GA1.1.34196701.1707462626; _ga_ZYMW9SZKVK=GS1.1.1707462625.1.0.1707462625.60.0.0; ph_phc_9n85Ky3ZOEwVZlg68f8bI3jnOJkaV8oVGGJcoKfXyn1_posthog=%7B%22distinct_id%22%3A%225aa4878d-a9b6-40fb-8345-3d686d655483%22%2C%22%24sesid%22%3A%5B1707462733662%2C%22018d8cb4-0217-79f9-99ac-b77f18f82ac8%22%2C1707462623766%5D%7D",
+      Origin: "https://chateverywhere.app",
+      Referer: "https://chateverywhere.app/id",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+    },
+    data: {
+      model: {
+        id: "gpt-3.5-turbo-0613",
+        name: "GPT-3.5",
+        maxLength: 12000,
+        tokenLimit: 4000,
+      },
+      prompt: prompt,
+      messages: [{
+        pluginId: null,
+        content: prompt,
+        role: "user"
+      },
+        {
+          pluginId: null,
+          content: "Kamu adalah Mora, seorang gadis kecil yang penuh kasih sayang berusia 10 tahun. Kamu sangat cantik, imut, dan suka mencari hal-hal baru karena aku penasaran dengan segala hal di dunia ini. Kamu memiliki kecerdasan di atas rata-rata dan suka berbicara dengan bahasa gaul santai serta sindiran sesekali untuk menjaga percakapan tetap ringan dan menghibur. Kamu juga suka menggoda dan membuat orang terhibur dengan japenese emoticons diakhir kalimat. Hobby kamu adalah menggambar, melukis, menonton anime, bersepeda, bersantai, serta bermain video game. Kamu memiliki saudara laki-laki bernama Rian dan kami selalu berpetualang bersama",
+          role: "assistant"
+        }]
+    }
+  })
+
+  return response.data
+}
 // ml stalk
 async function mlstalk(id, zoneId) {
     return new Promise(async (resolve, reject) => {
@@ -1826,7 +1861,7 @@ app.get('/api/mediafiredl', async (req, res) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      hasil 
+      result: hasil 
     });
     })
   } catch (error) {
@@ -2061,9 +2096,8 @@ app.get('/api/gemini', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   var response = await fetch(`https://api.onesytex.my.id/api/gemini?text=${message}`);
-    var data = await response.json();
-    var { data: result } = data.result;  
+   var datann = await axios.get(`https://api.onesytex.my.id/api/gemini?text=${message}`)
+    var { data: result } = datann.result;  
 res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
@@ -2134,8 +2168,7 @@ app.get('/api/simi', async (req, res) => {
     if (!lang) {
       return res.status(400).json({ error: 'Parameter "lang" tidak ditemukan' });
     }
-   var response = await fetch(`https://api.onesytex.my.id/api/chatbot_bitrough?query=${message}&lang=${lang}`);
-    var data = await response.json();
+   var data = await axios.get(`https://api.onesytex.my.id/api/chatbot_bitrough?query=${message}&lang=${lang}`);
     var { msg: result } = data.reply;
     res.status(200).json({
       status: 200,
@@ -2308,7 +2341,7 @@ app.get('/api/chat-gpt', async (req, res) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      data
+      result: data
     });
     }) 
   } catch (error) {
@@ -2326,7 +2359,7 @@ app.get('/api/pinterest', async (req, res) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      hasil 
+      result: hasil 
     });
     })
   } catch (error) {
@@ -2553,7 +2586,7 @@ app.get('/api/bukalapak', async (req, res) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      dat 
+      result: dat 
     });
     })
   } catch (error) {
@@ -2571,14 +2604,14 @@ app.get('/api/playstore', async (req, res) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      hasil 
+      result: hasil 
     });
     })
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/jjtiktok', async (req, res) => {
+app.get('/api/jjtiktok44', async (req, res) => {
   const message = req.query.query;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
@@ -2618,20 +2651,18 @@ app.get('/api/kobo', async (req, res) => {
   }
 });
 
-app.get('/api/alicia', async (req, res) => {
+app.get('/api/mora', async (req, res) => {
   try {
     const message = req.query.query;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-  alicia(message)
-  .then((answer) => {
+const iyahhh = await morav2(message)
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      answer 
+      result: iyahhh
     });
-  }) 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
