@@ -1332,6 +1332,22 @@ async function mlbb33(userId, zoneId) {
     throw error
   }
 }
+function formatUptime(uptime) {
+  let seconds = Math.floor(uptime % 60);
+  let minutes = Math.floor((uptime / 60) % 60);
+  let hours = Math.floor((uptime / (60 * 60)) % 24);
+  let days = Math.floor(uptime / (60 * 60 * 24));
+  let formattedUptime = "";
+
+  if (days > 0) formattedUptime += `${days} days `;
+  if (hours > 0) formattedUptime += `${hours} hours `;
+  if (minutes > 0) formattedUptime += `${minutes} minutes `;
+  if (seconds > 0) formattedUptime += `${seconds} seconds`;
+
+  return formattedUptime;
+}
+const uptime = os.uptime();
+    const uptimeFormatted = formatUptime(uptime);
   var {
   ytDonlodMp3,
   ytDonlodMp4,
@@ -1380,7 +1396,8 @@ app.get('/total-requests', (req, res) => {
 app.get('/status', (req, res) => {
   const stats = {
     platform: os.platform(),
-    request: requestCount
+    request: requestCount, 
+    uptime: uptimeFormatted 
   };
   res.json(stats);
 });
