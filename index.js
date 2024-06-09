@@ -549,7 +549,30 @@ async function exonity(buffer) {
     throw new Error(String(error));
   }
 }
+// batas
+async function aioDownloader(url) {
+  try {
+    const response = await axios.post("https://aiovd.com/wp-json/aio-dl/video-data",
+      {
+        url: url
+      },
+      {
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json'
+        }
+      });
 
+    const res = response.data;
+    const result = {
+      data: res.medias
+    };
+
+    return result;
+  } catch (e) {
+    throw e
+  }
+}
 // bataz
 async function bufferlahh(hm) {
     const imageUrlvv = hm;
@@ -1035,7 +1058,7 @@ async function VirtualGirlfriends(prompt) {
     console.error(error)
     throw error
   }
-				      }
+}  
 // ai kobo
 async function alicia(input) {
   const messages = [
@@ -1357,7 +1380,7 @@ function soundcloud(url) {
       request(options,
         async function(error, response, body) {
           if (error) return reject()
-          $get = cheerio.load(body)
+          let $get = cheerio.load(body)
           const result = {
             title: $get('#preview > div:nth-child(3) > p:nth-child(2)').text().replace('Title:', ''),
             duration: $get('#preview > div:nth-child(3) > p:nth-child(3)').text().replace(/Length\:|Minutes/g, ''),
@@ -2190,7 +2213,7 @@ app.get('/api/gemini', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   var datann = await fetch(`https://api.onesytex.my.id/api/gemini?text=${message}`)
+   var datann = await axios.get(`https://api.onesytex.my.id/api/gemini?text=${message}`)
     var { data: result } = datann.result;  
 res.status(200).json({
       status: 200,
@@ -2262,7 +2285,7 @@ app.get('/api/simi', async (req, res) => {
     if (!lang) {
       return res.status(400).json({ error: 'Parameter "lang" tidak ditemukan' });
     }
-   var data = await fetch(`https://api.onesytex.my.id/api/chatbot_bitrough?query=${message}&lang=${lang}`);
+   var data = await axios.get(`https://api.onesytex.my.id/api/chatbot_bitrough?query=${message}&lang=${lang}`);
     var { msg: result } = data.reply;
     res.status(200).json({
       status: 200,
@@ -2276,17 +2299,15 @@ app.get('/api/simi', async (req, res) => {
 });
 app.get('/api/aio', async (req, res) => {
   try{
-    const message = req.query.query;
+    const message = req.query.url;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   var response = await fetch(`.my.id/api/gemini?query=${message}`);
-    var data = await response.json();
-    var { result: result } = data;
+let coyy = await aioDownloader(message) 
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result 
+      result: coyy
     });
         
   } catch (error) {
