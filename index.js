@@ -6,6 +6,8 @@ const path = require('path');
 const { srgan2x, srgan4x } = require('super-resolution-scraper');
 const os = require('os');
 const qs = require("qs")
+const WebSocket = require('ws');
+const createHash = require('hash-generator');
 const { fromBuffer } = require("file-type");
 var request = require('request');
 const fs = require('fs');
@@ -985,6 +987,86 @@ async function kobo(input) {
     throw error;
   }
 }
+// gpt-4o
+*Scrape Huggingface Stable diffusion*
+
+
+/*
+//
+// Dibuat oleh Kaze 
+// https://github.com/KazeDevID
+// https://whatsapp.com/channel/0029VaFNnRTHLHQR6G0fC01O
+//
+*/
+
+
+const generateHash = () => {
+  let m = createHash(12);
+  return {
+    session_hash: m,
+    fn_index: 2
+  }
+}
+
+async function stablediff(prompt) {
+  return new Promise((resolve, reject) => {
+    let timerCounter = setTimeout(async () => {
+      reject(new Error('Permintaan Anda telah habis waktu. Silakan coba lagi'));
+    }, 129000)
+    const ws = new WebSocket('wss://stabilityai-stable-diffusion.hf.space/queue/join');
+    const hash = generateHash();
+    
+    ws.on('open', () => {});
+    
+    ws.on('message', async (message) => {
+      try {
+        const msg = JSON.parse(`${message}`);
+      
+        if (msg.msg === 'send_hash') {
+          ws.send(JSON.stringify(hash));
+        } else if (msg.msg === 'send_data') {
+          const data = {
+            data: [prompt,"",10],
+            ...hash,
+          };
+          ws.send(JSON.stringify(data));
+        } else if (msg.msg === 'estimation') {
+        } else if (msg.msg === 'process_completed') {
+          clearTimeout(timerCounter)
+          try {
+            const resultsArr = msg.output.data[0];
+            const imgArr = [];
+            const resultsStr = [resultsArr].toString();
+            for (let i = 0; i < resultsArr.length; i++) {
+              const imgData = resultsArr[i].split(',')[1];
+              const buffer = Buffer.from(imgData, 'base64');
+              imgArr.push(buffer);
+            }
+            resolve(imgArr);
+          } catch (error) {
+            console.error(error);
+          } finally {
+            ws.removeAllListeners();
+            ws.close();
+          }
+        } else if (msg.msg === 'queue_full') {
+          try {
+            reject(new Error('Antrean penuh.'));
+          }
+          catch (error) {
+            console.error(error);
+            reject(new Error('Terjadi kesalahan saat menghasilkan gambar'));
+          }
+        }
+      } catch (error) {
+        reject(error);
+      };
+    });
+    ws.on('error', async (error) => {
+      console.error(error)
+    }); 
+  });    
+		 }
 //😅
 async function morav2(prompt) {
   const response = await axios({
@@ -1950,6 +2032,17 @@ githubStalk(id)
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+app.get('/api/stablediff', async (req, res) => {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+    stablediff(message)
+    .then((imgArr) => {
+    res.set('Content-Type', 'image/jpg');
+        res.send(imgArr);
+    });  
 });
 app.get('/api/ytmp4', async (req, res) => {
   try {
