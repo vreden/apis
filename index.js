@@ -1919,6 +1919,7 @@ app.get('/api/luminai', async (req, res) => {
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
+      creatorai: "siputzx",   
       result 
     });
     })
@@ -1978,11 +1979,11 @@ app.get('/api/reminix4', async (req, res) => {
 });
 app.get('/api/speech', async (req, res) => {
  const url43 = req.query.query;
-    if (!url) {
+    if (!url43) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
 	const url23 = req.query.lang;
-    if (!url) {
+    if (!url23) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
   const ttsnya = await srgan4x(url43, url23) 
