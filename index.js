@@ -176,7 +176,7 @@ function tts(text, lang = 'id') {
   return new Promise((resolve, reject) => {
     try {
       let tts = gtts(lang)
-      let filePath = path.join(__dirname, '../tmp', (1 * new Date) + '.wav')
+      let filePath = path.join(__dirname, 'function', (1 * new Date) + '.wav')
       tts.save(filePath, text, () => {
         resolve(fs.readFileSync(filePath))
         fs.unlinkSync(filePath)
@@ -856,7 +856,7 @@ return result
 // batas! 
 async function githubStalk(user) {
   return new Promise((resolve, reject) => {
-    axios.get('https://api.github.com/users/'+user)
+    fetch('https://api.github.com/users/'+user)
     .then(({
       data
     }) => {
@@ -1090,7 +1090,7 @@ async function stablediff(prompt) {
               const buffer = Buffer.from(imgData, 'base64');
               imgArr.push(buffer);
             }
-            resolve(imgArr);
+            return imgArr
           } catch (error) {
             console.error(error);
           } finally {
