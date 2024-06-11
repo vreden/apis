@@ -2099,9 +2099,8 @@ app.get('/api/stablediff', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    stablediff(message)
-    .then((imgArr) => {
-	const imgnyastable = await exonity(imgArr)     
+   const uploadnya = await stablediff(message)
+	const imgnyastable = await exonity(uploadnya)     
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
