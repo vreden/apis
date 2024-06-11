@@ -3,6 +3,7 @@
 // jangan dihapus jembud
 var express = require("express"), cors = require("cors"), secure = require("ssl-express-www");
 const path = require('path');
+const gtts = require('node-gtts')
 const { srgan2x, srgan4x } = require('super-resolution-scraper');
 const os = require('os');
 const qs = require("qs")
@@ -169,6 +170,20 @@ function tiktokslide(url) {
   }
   })
 	  }
+// ttS scraper
+function tts(text, lang = 'id') {
+  console.log(lang, text)
+  return new Promise((resolve, reject) => {
+    try {
+      let tts = gtts(lang)
+      let filePath = path.join(__dirname, '../tmp', (1 * new Date) + '.wav')
+      tts.save(filePath, text, () => {
+        resolve(fs.readFileSync(filePath))
+        fs.unlinkSync(filePath)
+      })
+    } catch (e) { reject(e) }
+  })
+}
 // test
 async function gpt4o(prompt) {
     let session_hash = Math.random().toString(36).substring(2).slice(1)
@@ -1961,6 +1976,19 @@ app.get('/api/reminix4', async (req, res) => {
         res.send(body);
     });  
 });
+app.get('/api/speech', async (req, res) => {
+ const url43 = req.query.query;
+    if (!url) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+	const url23 = req.query.lang;
+    if (!url) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+  const ttsnya = await srgan4x(url43, url23) 
+            res.set('Content-Type', 'image/png');
+        res.send(ttsnya);
+});
 app.get('/api/tiktok2', async (req, res) => {
   try {
     const message = req.query.url;
@@ -2073,8 +2101,12 @@ app.get('/api/stablediff', async (req, res) => {
     }
     stablediff(message)
     .then((imgArr) => {
-    res.set('Content-Type', 'image/png');
-        res.send(imgArr);
+	const imgnyastable = await exonity(imgArr)     
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: imgnyastable
+    });
     });  
 });
 app.get('/api/ytmp4', async (req, res) => {
