@@ -1927,6 +1927,7 @@ app.get('/api/luminai', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+app.get('/api/gpt4o', async (req, res) => {
   try {
     const message = req.query.query;
     if (!message) {
