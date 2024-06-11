@@ -1912,7 +1912,7 @@ app.get('/api/luminai', async (req, res) => {
   try {
     const message = req.query.message;
     if (!message) {
-      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+      return res.status(400).json({ error: 'Parameter "message" tidak ditemukan' });
     }
     luminAi(message)
     .then((result) => {
@@ -1923,6 +1923,21 @@ app.get('/api/luminai', async (req, res) => {
       result 
     });
     })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+    const gpt0 = await gpt4o(message) 
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: gpt0
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -1980,14 +1995,14 @@ app.get('/api/reminix4', async (req, res) => {
 app.get('/api/speech', async (req, res) => {
  const url43 = req.query.query;
     if (!url43) {
-      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
 	const url23 = req.query.lang;
     if (!url23) {
-      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+      return res.status(400).json({ error: 'Parameter "lang" tidak ditemukan' });
     }
   const ttsnya = await srgan4x(url43, url23) 
-            res.set('Content-Type', 'image/png');
+            res.set('Content-Type', 'audio/mp3');
         res.send(ttsnya);
 });
 app.get('/api/tiktok2', async (req, res) => {
@@ -2101,12 +2116,8 @@ app.get('/api/stablediff', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
    const uploadnya = await stablediff(message)
-	const imgnyastable = await exonity(uploadnya)     
-    res.status(200).json({
-      status: 200,
-      creator: "RIAN X EXONITY",
-      result: imgnyastable
-    });
+	res.set('Content-Type', 'image/jpg');
+        res.send(uploadnya);
 });
 app.get('/api/ytmp4', async (req, res) => {
   try {
