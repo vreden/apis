@@ -2106,7 +2106,6 @@ app.get('/api/stablediff', async (req, res) => {
       creator: "RIAN X EXONITY",
       result: imgnyastable
     });
-    });  
 });
 app.get('/api/ytmp4', async (req, res) => {
   try {
