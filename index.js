@@ -1115,6 +1115,114 @@ async function stablediff(prompt) {
     }); 
   });    
 		 }
+// ai
+const IP  = () => {
+    const pilih = () => Math.floor(Math.random() * 256);
+    return `${pilih()}.${pilih()}.${pilih()}.${pilih()}`;
+};
+
+async function chatGpt4(messages, q) {
+    try {
+        const nonceValue = JSON.parse(cheerio.load(await (await axios.get(
+            "https://chatgpt4online.org/chat"
+        )).data)('.mwai-chatbot-container').attr('data-system')).restNonce;
+
+        const {
+            data
+        } = await axios(
+            "https://chatgpt4online.org//wp-json/mwai-ui/v1/chats/submit", {
+                method: "post",
+                data: {
+                    botId: "default",
+                    messages,
+                    newMessage: q,
+                    stream: false,
+                },
+                headers: {
+                    "X-WP-Nonce": nonceValue,
+                    "Content-Type": "application/json",
+                    "x-forwarded-for":  await IP()
+                },
+            }
+        );
+        return data.reply;
+    } catch (err) {
+        
+        return { msg: err }
+    }
+}
+
+
+
+/**
+pungsi Ben ISO ngerti wayah
+**/
+
+let time = new Date(new Date + 3600000)
+let locale = 'id'
+const jam = new Date().toLocaleString("en-US", {timeZone: "Asia/Jakarta"});
+let hari = time.toLocaleDateString(locale, { weekday: 'long' })
+let tgl = time.toLocaleDateString(locale, {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric'
+    })
+    
+    let text = "hai"
+
+    let json = await chatGpt4(
+        [
+            {
+                role: "assistant",
+                content:
+                    `Nama kamu adalah alicia, kamu dibuat dan dikembangkan oleh Rian. Gunakan bahasa gaul seperti kata gue dan lu dalam menjawab semua pertanyaan orang. kamu cerdas. Gunakan emoji yang sesuai dalam setiap kalimat. Gunakan tanggal ${tgl}. Gunakan jam ${jam}. Gunakan hari ${hari}.`
+            },
+            {
+                role: "user",
+                content: text
+            }
+        ],
+        text
+    );
+async function jadianimennya(url) {
+  const { data } = await axios.post(
+    "https://tools.revesery.com/image-anime/convert.php",
+    new URLSearchParams(
+      Object.entries({
+        "image-url": url,
+      }),
+    ),
+  );
+  const animenya = Buffer.from(data.image.split(",")[1], "base64");
+  return animenya
+}
+// ini buktinya
+
+async function getPinterestImages(text) {
+  const url = 'https://www.pinterest.com/resource/BaseSearchResource/get/';
+  const params = {
+    source_url: `/search/pins/?q=${text}`,
+    data: JSON.stringify({
+      options: {
+        isPrefetch: false,
+        query: text,
+        scope: 'pins',
+        no_fetch_context_on_resource: false
+      },
+      context: {}
+    }),
+    _: Date.now() 
+  };
+
+  try {
+    const { data } = await axios.get(url, { params });
+    const imageUrls = data.resource_response.data.results.map(v => v.images.orig.url);
+    return imageUrls.splice(0, 6);
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+	    }
 //😅
 async function morav2(prompt) {
   const response = await axios({
@@ -1957,6 +2065,31 @@ app.get('/api/tinyurl', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
+});
+app.get('/api/pinterest2', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+   const anjayan = await getPinterestImages(message)
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: anjayan
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/animeh', async (req, res) => {
+ const url = req.query.url;
+    if (!url) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+  const imgnime = await jadianimennya(url) 
+     res.set('Content-Type', 'image/jpg');
+        res.send(imgnime);
 });
 app.get('/api/reminix2', async (req, res) => {
  const url = req.query.url;
