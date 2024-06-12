@@ -171,7 +171,7 @@ function tiktokslide(url) {
   })
 	  }
 // ttS scraper
-function tts(text, lang = 'id') {
+function ttsjir(text, lang = 'id') {
   console.log(lang, text)
   return new Promise((resolve, reject) => {
     try {
@@ -2134,8 +2134,8 @@ app.get('/api/speech', async (req, res) => {
     if (!url23) {
       return res.status(400).json({ error: 'Parameter "lang" tidak ditemukan' });
     }
-  const ttsnya = await srgan4x(url43, url23) 
-            res.set('Content-Type', 'audio/opus');
+  const ttsnya = await ttsjir(url43, url23) 
+            res.set('Content-Type', 'audio/mp3');
         res.send(ttsnya);
 });
 app.get('/api/tiktok2', async (req, res) => {
