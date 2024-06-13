@@ -7,6 +7,7 @@ const gtts = require('node-gtts')
 const { srgan2x, srgan4x } = require('super-resolution-scraper');
 const os = require('os');
 const qs = require("qs")
+const ytdl = require('ytdl-core');
 const WebSocket = require('ws');
 const createHash = require('hash-generator');
 const { fromBuffer } = require("file-type");
@@ -2483,7 +2484,7 @@ app.get('/api/gemini', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   var datann = await axios.get(`https://api.onesytex.my.id/api/gemini?text=${message}`)
+   var datann = await fetch(`https://api.onesytex.my.id/api/gemini?text=${message}`)
     var { data: result } = datann.result;  
 res.status(200).json({
       status: 200,
@@ -2495,7 +2496,10 @@ res.status(200).json({
   res.status(500).json({ error: error.message });
   }
 });
-
+app.get('/audionya', (req, res) => {
+    const url = req.query.url;
+    ytdl(url, { filter: 'audioonly' }).pipe(res);
+});
 app.get('/api/gpt-web', async (req, res) => {
   try{
     const message = req.query.query;
@@ -2555,7 +2559,7 @@ app.get('/api/simi', async (req, res) => {
     if (!lang) {
       return res.status(400).json({ error: 'Parameter "lang" tidak ditemukan' });
     }
-   var data = await axios.get(`https://api.onesytex.my.id/api/chatbot_bitrough?query=${message}&lang=${lang}`);
+   var data = await fetch(`https://api.balzz.my.id/api/chatbot_bitrough?query=${message}&lang=${lang}`);
     var { msg: result } = data.reply;
     res.status(200).json({
       status: 200,
