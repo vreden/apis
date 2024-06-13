@@ -2290,6 +2290,16 @@ app.get('/api/xnxxsearch', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+app.get('/download', (req, res) => {
+  const url = req.query.url;
+  if (!ytdl.validateURL(url)) {
+    return res.status(400).send('Invalid YouTube URL');
+  }
+
+  res.header('Content-Disposition', 'attachment; filename="video.mp4"');
+  ytdl(url, { filter: format => format.container === 'mp4' })
+    .pipe(res);
+});
  app.get('/api/myinstants', async (req, res) => {
   try {
     soundMeme()
