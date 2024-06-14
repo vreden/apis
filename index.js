@@ -2290,15 +2290,28 @@ app.get('/api/xnxxsearch', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-app.get('/download', (req, res) => {
-  const url = req.query.url;
-  if (!ytdl.validateURL(url)) {
-    return res.status(400).send('Invalid YouTube URL');
-  }
+app.get('/api/download', async (req, res) => {
+    const url = req.query.url;
+    const resolution = req.query.resolution;
 
-  res.header('Content-Disposition', 'attachment; filename="video.mp4"');
-  ytdl(url, { filter: format => format.container === 'mp4' })
-    .pipe(res);
+    if (!url) {
+        return res.status(400).send('URL video YouTube diperlukan.');
+    }
+
+    try {
+        const info = await ytdl.getInfo(url);
+        const format = ytdl.chooseFormat(info.formats, { quality: resolution });
+
+        if (!format) {
+            return res.status(400).send('Resolusi tidak ditemukan.');
+        }
+
+        res.header('Content-Disposition', `attachment; filename="${info.videoDetails.title}.mp4"`);
+        ytdl(url, { format }).pipe(res);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Terjadi kesalahan saat memproses permintaan Anda.');
+    }
 });
  app.get('/api/myinstants', async (req, res) => {
   try {
@@ -2507,7 +2520,7 @@ app.get('/api/spotify', async (req, res) => {
   res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/gemini', async (req, res) => {
+app.get('/api/geminbbi', async (req, res) => {
   try{
     const message = req.query.query;
     if (!message) {
