@@ -2452,6 +2452,25 @@ const isiin = await bufferlahh(message)
     res.status(500).json({ error: error.message });
   }
 });
+app.get('/api/ytvideo', async (req, res) => {
+  try {
+    const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+	  const ytdlnya = `https://api.exonity.my.id/download?url=${message}`
+const uploadkecdn = await bufferlahh(ytdlnya) 
+    // Lakukan sesuatu dengan buffer audio di sini
+	  const result = await exonity(uploadkecdn) 
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: result
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 app.get('/api/ytmp3', async (req, res) => {
   try {
     const message = req.query.url;
@@ -2494,8 +2513,9 @@ app.get('/api/gemini', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   var datann = await fetch(`https://api.onesytex.my.id/api/gemini?text=${message}`)
-    var { data: result } = datann.result;  
+   var response = await fetch(`https://api.onesytex.my.id/api/gemini?text=${message}`)
+    var datann = await response.json();
+	  var { data: result } = datann.result;  
 res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
@@ -2569,8 +2589,9 @@ app.get('/api/simi', async (req, res) => {
     if (!lang) {
       return res.status(400).json({ error: 'Parameter "lang" tidak ditemukan' });
     }
-   var data = await fetch(`https://api.balzz.my.id/api/chatbot_bitrough?query=${message}&lang=${lang}`);
-    var { msg: result } = data.reply;
+   var response = await fetch(`https://api.balzz.my.id/api/chatbot_bitrough?query=${message}&lang=${lang}`);
+    var data = await response.json();
+	  var { msg: result } = data.reply;
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
