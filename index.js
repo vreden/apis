@@ -32,8 +32,8 @@ const ocrapi = require("ocr-space-api-wrapper");
 const axios = require('axios')
 const creatot = `RIANGANZ`
 // gaktau
-exports.getRandom = (ext) => {
-    return `${Math.floor(Math.random() * 10000)}${ext}`
+function getRandom(hm) {
+    return `${Math.floor(Math.random() * 10000)}${hm}`
 }
 // males benerin:v
 async function tiktokdl(url) {
