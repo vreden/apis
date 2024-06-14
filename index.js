@@ -2590,7 +2590,6 @@ let mp3File = getRandom('.mp3')
     ytdl(url, { filter: 'audioonly' }).pipe(fs.createWriteStream(mp3File));
 res.set('Content-Type', 'audio/mp4');
         res.send(fs.readFileSync(mp3File))
-fs.unlinkSync(mp3File)	
 });
 app.get('/api/gpt-web', async (req, res) => {
   try{
