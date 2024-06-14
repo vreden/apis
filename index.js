@@ -2471,7 +2471,7 @@ app.get('/api/ytvideo', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-	  const ytdlnya = `https://api.exonity.my.id/download?url=${message}`
+	  const ytdlnya = `https://api.exonity.my.id/api/download?url=${message}&resolution=240p`
 const uploadkecdn = await bufferlahh(ytdlnya) 
     // Lakukan sesuatu dengan buffer audio di sini
 	  const result = await exonity(uploadkecdn) 
