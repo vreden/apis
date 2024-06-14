@@ -31,6 +31,10 @@ const danz = require('d-scrape');
 const ocrapi = require("ocr-space-api-wrapper");
 const axios = require('axios')
 const creatot = `RIANGANZ`
+// gaktau
+exports.getRandom = (ext) => {
+    return `${Math.floor(Math.random() * 10000)}${ext}`
+}
 // males benerin:v
 async function tiktokdl(url) {
   let result = {}
