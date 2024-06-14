@@ -1845,7 +1845,28 @@ app.get('/api/blackbox', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+app.post('/download', async (req, res) => {
+    const { url, resolution } = req.body;
 
+    if (!url) {
+        return res.status(400).send('URL video YouTube diperlukan.');
+    }
+
+    try {
+        const info = await ytdl.getInfo(url);
+        const format = ytdl.chooseFormat(info.formats, { quality: resolution });
+
+        if (!format) {
+            return res.status(400).send('Resolusi tidak ditemukan.');
+        }
+
+        res.header('Content-Disposition', `attachment; filename="${info.videoDetails.title}.mp4"`);
+        ytdl(url, { format }).pipe(res);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Terjadi kesalahan saat memproses permintaan Anda.');
+    }
+});
 app.get("/api/gpt", async (req, res) => {
 const text = req.query.text;
 
