@@ -2492,7 +2492,7 @@ app.get('/api/ytvideo', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-	  const ytdlnya = `https://api.exonity.my.id/api/download?url=${message}&resolution=240p`
+	  const ytdlnya = `https://api.exonity.my.id/api/download?url=${message}&resolution=18`
 const uploadkecdn = await bufferlahh(ytdlnya) 
     // Lakukan sesuatu dengan buffer audio di sini
 	  const result = await exonity(uploadkecdn) 
@@ -2562,7 +2562,12 @@ res.status(200).json({
 });
 app.get('/audionya', (req, res) => {
     const url = req.query.url;
-    ytdl(url, { filter: 'audioonly' }).pipe(res);
+	 ytdl.getInfo(url)
+let mp3File = getRandom('.mp3')
+    ytdl(url, { filter: 'audioonly' }).pipe(fs.createWriteStream(mp3File));
+res.set('Content-Type', 'audio/mp4');
+        res.send(fs.readFileSync(mp3File))
+fs.unlinkSync(mp3File)	
 });
 app.get('/api/gpt-web', async (req, res) => {
   try{
