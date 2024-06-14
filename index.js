@@ -19,6 +19,7 @@ const cheerio = require("cheerio");
 var gis = require('g-i-s')  
 const fetch = require('node-fetch');
 const { BingImageCreator } = require("./function/scraper/bingimg");
+const { getTwitterMedia } = require("./function/scraper/twitter");
 const { processing } = require("./function/scraper/Anakay");
 const ptz = require('./function/index') 
 var { ttSearch } = require('./function/scraper/api.js');
@@ -1916,6 +1917,24 @@ app.get('/api/tiktok', async (req, res) => {
       status: 200,
       creator: "RIAN X EXONITY",
       result 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/twitterdl', async (req, res) => {
+  try {
+    const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+    getTwitterMedia(message)
+    .then((output) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: output 
     });
     })
   } catch (error) {
