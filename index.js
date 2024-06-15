@@ -2752,9 +2752,9 @@ app.get('/audionya', (req, res) => {
     }
 	try{
 		const ytdln = require('ytdl-core');
-	 const info = await ytdln.getInfo(url);
+	 const info = ytdln.getInfo(url);
 let mp3File = getRandom('.mp3')
-	res.header('Content-Disposition', `attachment; filename="${info.videoDetails.title}.mp3"`);
+	res.header('Content-Disposition', `attachment; filename="ytdl.mp3"`);
     ytdln(url, { filter: 'audioonly' }).pipe(fs.createWriteStream(mp3File)).on('finish', async () => {
 res.set('Content-Type', 'audio/mp3');
         res.send(fs.readFileSync(mp3File))
