@@ -2376,16 +2376,16 @@ githubStalk(id)
 app.get('/api/stablediff', async (req, res) => {
     const message = req.query.query;
     if (!message) {
-      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
    const uploadnya = await stablediff(message)
-	res.set('Content-Type', 'image/png');
+	res.set('Content-Type', 'image/jpg');
         res.send(uploadnya);
 });
 app.get('/api/legacyDiffusion', async (req, res) => {
     const message = req.query.query;
     if (!message) {
-      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
    const uploadnya = await legacyDiffusion(message)
 	res.set('Content-Type', 'image/png');
