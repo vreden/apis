@@ -8,7 +8,6 @@ const gtts = require('node-gtts')
 const { srgan2x, srgan4x } = require('super-resolution-scraper');
 const os = require('os');
 const qs = require("qs")
-const ytdl = require('ytdl-core');
 const WebSocket = require('ws');
 const createHash = require('hash-generator');
 const { fromBuffer } = require("file-type");
