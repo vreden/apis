@@ -1160,7 +1160,37 @@ async function getPinterestImages(text) {
     console.error(error);
     return [];
   }
-	    }
+}
+async function askSimsimi(text, lang) {
+  const url = 'https://simsimi.vn/web/simtalk';
+  const headers = {
+    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+    Accept: 'application/json, text/javascript, */*; q=0.01',
+    'X-Requested-With': 'XMLHttpRequest',
+    'User-Agent': 'Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36',
+    Referer: 'https://simsimi.vn/'
+  };
+
+  try {
+    const response = await axios.post(url, `text=${encodeURIComponent(text)}&lc=${lang}`, { headers });
+    return response.data.success;
+  } catch (error) {
+    console.error('Error asking SimSimi:', error);
+    throw error;
+  }
+}
+// hahs
+async function gtw(q) {
+  try {
+    const response = await axios.post("https://luminai.siputzx.my.id/", {
+      content: q,
+    });
+    return response.data.result;
+  } catch (error) {
+    console.error("Error fetching:", error);
+    throw error;
+  }
+}
 function getTodayDate() {
       const today = new Date();
       const day = today.getDate();
@@ -1169,7 +1199,8 @@ function getTodayDate() {
       const dayOfWeek = today.toLocaleDateString("id-ID", { weekday: "long" });
 
       return `Hari ini adalah ${dayOfWeek}, ${day}/${month}/${year}.`;
-    }
+}
+
 //😅
 async function morav2(prompt, username) {
     const date = new Date(
@@ -1177,12 +1208,13 @@ async function morav2(prompt, username) {
         timeZone: "Asia/Jakarta",
       }),
     );
+const bard = await gtw(prompt);
     const hours = date.getHours();
     const name = `${username}`;
     const minutes = date.getMinutes();
     const timeNow = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
-      const cook = `Kamu adalah Mora, seorang gadis kecil yang penuh kasih sayang berusia 10 tahun. Kamu sangat cantik, imut, dan suka mencari hal-hal baru karena aku penasaran dengan segala hal di dunia ini. Kamu memiliki kecerdasan di atas rata-rata dan suka berbicara dengan bahasa gaul santai serta sindiran sesekali untuk menjaga percakapan tetap ringan dan menghibur. Kamu juga suka menggoda dan membuat orang terhibur dengan japenese emoticons diakhir kalimat. Hobby kamu adalah menggambar, melukis, menonton anime, bersepeda, bersantai, serta bermain video game. Kamu memiliki saudara laki-laki bernama ${username} dan kami selalu berpetualang bersama, jika ada yang bertanya tentang waktu kamu jawab tandon yang berkaitan dengan ${timeNow} dan ${getTodayDate}, lawan bicara mu adalah ${username}`
-  const response = await axios({
+      const cook = `kamu Adalah Mora seorang gadis imut berumur 10 tahun, jawab setiap pertanyaan dengan jawaban yang edukatif berserta emoji, jika ada yang bertanya tentang waktu kamu jawab tandon yang berkaitan dengan ${timeNow} dan ${getTodayDate()}, lawan bicara mu adalah ${name}, kamu memiliki sifat lucu dan sedikit tsundere imut, pembuat mu adalah bang syaii sekaligus pacarnya, Campur jawaban dengan Jawaban ini ${bard}, kamu memiliki kemampuan untuk membuat Kode program, kamu mahir dalam kode program Terumana javascript Gabungkan jawaban mu Dengan jawaban dari Mora : ${bard}`;
+const response = await axios({
     method: "POST",
     url: "https://chateverywhere.app/api/chat",
     headers: {
@@ -2708,13 +2740,11 @@ app.get('/api/simi', async (req, res) => {
     if (!lang) {
       return res.status(400).json({ error: 'Parameter "lang" tidak ditemukan' });
     }
-   var response = await fetch(`https://api.balzz.my.id/api/chatbot_bitrough?query=${message}&lang=${lang}`);
-    var data = await response.json();
-	  var { msg: result } = data.reply;
-    res.status(200).json({
+const simisiminya = await askSimsimi(message, lang) 
+      res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result 
+      result: simisiminya
     });
         
   } catch (error) {
