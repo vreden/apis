@@ -891,6 +891,70 @@ async function githubStalk(user) {
     })
   })
 }
+/*
+//
+// Dibuat oleh Kaze 
+// https://github.com/KazeDevID
+// https://whatsapp.com/channel/0029VaFNnRTHLHQR6G0fC01O
+//
+*/
+function generateHash() {
+  let hash = createHash(12)
+  return {
+    session_hash: hash,
+    fn_index: 2
+  }
+}
+
+
+async function legacyDiffusion(prompt) {
+  return new Promise((resolve, reject) => {
+    let timerCounter = setTimeout(async () => {
+      reject(new Error('Your request has timed out. Please try again'));
+    }, 45000)
+
+    try {
+      const ws = new WebSocket('wss://runwayml-stable-diffusion-v1-5.hf.space/queue/join');
+      const hash = generateHash();
+      ws.on('open', () => {});
+
+      ws.on('message', async (message) => {
+        const msg = JSON.parse(`${message}`);
+        if (msg.msg === 'send_hash') {
+          ws.send(JSON.stringify(hash));
+        } else if (msg.msg === 'send_data') {
+          const data = {
+            data: [prompt],
+            ...hash,
+          };
+          ws.send(JSON.stringify(data));
+        } else if (msg.msg === 'process_completed') {
+          clearTimeout(timerCounter)
+          try {
+            const results = msg.output.data[0];
+            const resultsToString = [results].toString();
+            const data = resultsToString.split(',')[1];
+            const buffer = Buffer.from(data, 'base64');
+            resolve(buffer);
+          } catch (error) {
+            reject(error);
+          } finally {
+            ws.removeAllListeners();
+            ws.close();
+          }
+        }
+      });
+
+      ws.on('error', async (error) => {
+        console.error(error);
+        reject(error);
+      });
+    } catch (error) {
+      console.error(error);
+      reject(error);
+    }
+  });
+}
 // txt2img
 async function gptPicture(text) {
   try {
@@ -2245,7 +2309,7 @@ app.get('/api/bingimg', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "text" tidak ditemukan' });
     }
- const cookiebing= req.query.cookie;
+ const cookiebing = req.query.cookie;
     if (!cookiebing) {
       return res.status(400).json({ error: 'Parameter "text" tidak ditemukan' });
     }  
@@ -2314,8 +2378,8 @@ app.get('/api/stablediff', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-   const uploadnya = await stablediff(message)
-	res.set('Content-Type', 'image/jpg');
+   const uploadnya = await legacyDiffusion(message)
+	res.set('Content-Type', 'image/png');
         res.send(uploadnya);
 });
 app.get('/api/ytmp4', async (req, res) => {
