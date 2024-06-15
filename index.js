@@ -1178,7 +1178,7 @@ async function morav2(prompt, username) {
       }),
     );
     const hours = date.getHours();
-    const name = await conn.getName(m.sender);
+    const name = ${username}
     const minutes = date.getMinutes();
     const timeNow = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
 
