@@ -2746,14 +2746,21 @@ res.status(200).json({
   }
 });
 app.get('/audionya', (req, res) => {
-    const url = req.query.url;
-	 const info = ytdl.getInfo(url);
+	const url = req.query.url;
+    if (!url) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+	try{
+	 const info = await ytdl.getInfo(url);
 let mp3File = getRandom('.mp3')
 	res.header('Content-Disposition', `attachment; filename="${info.videoDetails.title}.mp3"`);
     ytdl(url, { filter: 'audioonly' }).pipe(fs.createWriteStream(mp3File)).on('finish', async () => {
 res.set('Content-Type', 'audio/mp3');
         res.send(fs.readFileSync(mp3File))
     });
+		} catch (error) {
+  res.status(500).json({ error: error.message });
+	}
 });
 app.get('/api/gpt-web', async (req, res) => {
   try{
