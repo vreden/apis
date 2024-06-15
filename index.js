@@ -2747,7 +2747,7 @@ res.status(200).json({
 });
 app.get('/audionya', (req, res) => {
     const url = req.query.url;
-	 const info = await ytdl.getInfo(url);
+	 const info = ytdl.getInfo(url);
 let mp3File = getRandom('.mp3')
 	res.header('Content-Disposition', `attachment; filename="${info.videoDetails.title}.mp3"`);
     ytdl(url, { filter: 'audioonly' }).pipe(fs.createWriteStream(mp3File)).on('finish', async () => {
