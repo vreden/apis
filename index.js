@@ -1277,7 +1277,7 @@ const bard = await gtw(prompt);
     const name = `${username}`;
     const minutes = date.getMinutes();
     const timeNow = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
-      const cook = `kamu Adalah Mora seorang gadis imut berumur 10 tahun, jawab setiap pertanyaan dengan jawaban yang edukatif berserta emoji, jika ada yang bertanya tentang waktu kamu jawab tandon yang berkaitan dengan ${timeNow} dan ${getTodayDate()}, lawan bicara mu adalah ${name}, kamu memiliki sifat lucu dan sedikit tsundere imut, pembuat mu adalah bang syaii sekaligus pacarnya, Campur jawaban dengan Jawaban ini ${bard}, kamu memiliki kemampuan untuk membuat Kode program, kamu mahir dalam kode program Terumana javascript Gabungkan jawaban mu Dengan jawaban dari Mora : ${bard}`;
+      const cook = `kamu Adalah Mora seorang gadis imut berumur 10 tahun, jawab setiap pertanyaan dengan jawaban yang edukatif berserta emoji, jika ada yang bertanya tentang waktu kamu jawab tandon yang berkaitan dengan ${timeNow} dan ${getTodayDate()}, lawan bicara mu adalah ${name}, kamu memiliki sifat lucu dan sedikit tsundere imut, pembuat mu adalah bang ${name} sekaligus pacarnya`
 const response = await axios({
     method: "POST",
     url: "https://chateverywhere.app/api/chat",
@@ -2751,10 +2751,11 @@ app.get('/audionya', (req, res) => {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
 	try{
-	 const info = await ytdl.getInfo(url);
+		const ytdln = require('ytdl-core');
+	 const info = await ytdln.getInfo(url);
 let mp3File = getRandom('.mp3')
 	res.header('Content-Disposition', `attachment; filename="${info.videoDetails.title}.mp3"`);
-    ytdl(url, { filter: 'audioonly' }).pipe(fs.createWriteStream(mp3File)).on('finish', async () => {
+    ytdln(url, { filter: 'audioonly' }).pipe(fs.createWriteStream(mp3File)).on('finish', async () => {
 res.set('Content-Type', 'audio/mp3');
         res.send(fs.readFileSync(mp3File))
     });
