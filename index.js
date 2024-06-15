@@ -1,7 +1,8 @@
 // script by siputzx
 // recode by rian ofc
 // jangan dihapus jembud
-var express = require("express"), cors = require("cors"), secure = require("ssl-express-www");
+const express = require("express"), cors = require("cors"), secure = require("ssl-express-www");
+const ytdl = require('ytdl-core');
 const path = require('path');
 const gtts = require('node-gtts')
 const { srgan2x, srgan4x } = require('super-resolution-scraper');
@@ -11,18 +12,18 @@ const ytdl = require('ytdl-core');
 const WebSocket = require('ws');
 const createHash = require('hash-generator');
 const { fromBuffer } = require("file-type");
-var request = require('request');
+const request = require('request');
 const fs = require('fs');
 const FormData = require("form-data");
 const Jimp = require("jimp");
 const cheerio = require("cheerio");
-var gis = require('g-i-s')  
+const gis = require('g-i-s')  
 const fetch = require('node-fetch');
 const { BingImageCreator } = require("./function/scraper/bingimg");
 const { getTwitterMedia } = require("./function/scraper/twitter");
 const { processing } = require("./function/scraper/Anakay");
 const ptz = require('./function/index') 
-var { ttSearch } = require('./function/scraper/api.js');
+const { ttSearch } = require('./function/scraper/api.js');
 const { getBuffer } = require("./function/scraper/buffer");
 const { mediafireDl } = require("./function/scraper/mediafire")
 const { ig } = require("./function/scraper/Ig.js")
