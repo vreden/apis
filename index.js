@@ -1160,7 +1160,7 @@ async function stablediff(prompt) {
               const buffer = Buffer.from(imgData, 'base64');
               imgArr.push(buffer);
             }
-            return imgArr
+            resolve(imgArr)
           } catch (error) {
             console.error(error);
           } finally {
@@ -2374,6 +2374,15 @@ githubStalk(id)
   }
 });
 app.get('/api/stablediff', async (req, res) => {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+   const uploadnya = await stablediff(message)
+	res.set('Content-Type', 'image/png');
+        res.send(uploadnya);
+});
+app.get('/api/legacyDiffusion', async (req, res) => {
     const message = req.query.query;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
