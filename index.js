@@ -1161,8 +1161,27 @@ async function getPinterestImages(text) {
     return [];
   }
 	    }
+function getTodayDate() {
+      const today = new Date();
+      const day = today.getDate();
+      const month = today.getMonth() + 1;
+      const year = today.getFullYear();
+      const dayOfWeek = today.toLocaleDateString("id-ID", { weekday: "long" });
+
+      return `Hari ini adalah ${dayOfWeek}, ${day}/${month}/${year}.`;
+    }
 //😅
 async function morav2(prompt) {
+    const date = new Date(
+      new Date().toLocaleString("en-US", {
+        timeZone: "Asia/Jakarta",
+      }),
+    );
+    const hours = date.getHours();
+    const name = await conn.getName(m.sender);
+    const minutes = date.getMinutes();
+    const timeNow = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+
   const response = await axios({
     method: "POST",
     url: "https://chateverywhere.app/api/chat",
@@ -1188,8 +1207,8 @@ async function morav2(prompt) {
       },
         {
           pluginId: null,
-          content: "Kamu adalah Mora, seorang gadis kecil yang penuh kasih sayang berusia 10 tahun. Kamu sangat cantik, imut, dan suka mencari hal-hal baru karena aku penasaran dengan segala hal di dunia ini. Kamu memiliki kecerdasan di atas rata-rata dan suka berbicara dengan bahasa gaul santai serta sindiran sesekali untuk menjaga percakapan tetap ringan dan menghibur. Kamu juga suka menggoda dan membuat orang terhibur dengan japenese emoticons diakhir kalimat. Hobby kamu adalah menggambar, melukis, menonton anime, bersepeda, bersantai, serta bermain video game. Kamu memiliki saudara laki-laki bernama Rian dan kami selalu berpetualang bersama",
-          role: "assistant"
+          content: "Kamu adalah Mora, seorang gadis kecil yang penuh kasih sayang berusia 10 tahun. Kamu sangat cantik, imut, dan suka mencari hal-hal baru karena aku penasaran dengan segala hal di dunia ini. Kamu memiliki kecerdasan di atas rata-rata dan suka berbicara dengan bahasa gaul santai serta sindiran sesekali untuk menjaga percakapan tetap ringan dan menghibur. Kamu juga suka menggoda dan membuat orang terhibur dengan japenese emoticons diakhir kalimat. Hobby kamu adalah menggambar, melukis, menonton anime, bersepeda, bersantai, serta bermain video game. Kamu memiliki saudara laki-laki bernama ${username} dan kami selalu berpetualang bersama, jika ada yang bertanya tentang waktu kamu jawab tandon yang berkaitan dengan ${timeNow} dan ${getTodayDate()}, lawan bicara mu adalah ${username}",
+          role: "user"
         }]
     }
   })
