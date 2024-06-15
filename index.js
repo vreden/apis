@@ -898,7 +898,7 @@ async function githubStalk(user) {
 // https://whatsapp.com/channel/0029VaFNnRTHLHQR6G0fC01O
 //
 */
-function generateHash() {
+function generateHash1() {
   let hash = createHash(12)
   return {
     session_hash: hash,
@@ -915,7 +915,7 @@ async function legacyDiffusion(prompt) {
 
     try {
       const ws = new WebSocket('wss://runwayml-stable-diffusion-v1-5.hf.space/queue/join');
-      const hash = generateHash();
+      const hash = generateHash1();
       ws.on('open', () => {});
 
       ws.on('message', async (message) => {
