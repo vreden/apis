@@ -1901,6 +1901,30 @@ async function mlbb33(userId, zoneId) {
     throw error
   }
 }
+// batas
+const COUNTER_FILE_PATH = path.join(__dirname, './function/counter.json');
+
+// Fungsi untuk membaca jumlah request dari file
+const readCounter = () => {
+  const data = fs.readFileSync(COUNTER_FILE_PATH, 'utf8');
+  const counter = JSON.parse(data);
+  return counter.count;
+};
+
+// Fungsi untuk menulis jumlah request ke file
+const writeCounter = (count) => {
+  const counter = { count };
+  fs.writeFileSync(COUNTER_FILE_PATH, JSON.stringify(counter));
+};
+
+// Middleware untuk menghitung request
+app.use((req, res, next) => {
+  let count = readCounter();
+  count += 1;
+  writeCounter(count);
+  next();
+});
+// batas
 function formatUptime(uptime) {
   let seconds = Math.floor(uptime % 60);
   let minutes = Math.floor((uptime / 60) % 60);
@@ -1966,7 +1990,8 @@ app.get('/status', (req, res) => {
   const stats = {
     platform: os.platform(),
     request: requestCount, 
-    uptime: uptimeFormatted 
+    uptime: uptimeFormatted, 
+    jumlahreq: count
   };
   res.json(stats);
 });
