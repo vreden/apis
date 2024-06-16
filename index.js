@@ -36,6 +36,91 @@ const creatot = `RIANGANZ`
 function getRandom(hm) {
     return `${Math.floor(Math.random() * 10000)}${hm}`
 }
+// scrape 1
+const { chromium } = require('playwright');
+async function soundcloud1(query) {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const browser = await chromium.launch({ headless: true });
+            const context = await browser.newContext({
+                viewport: { width: 375, height: 812 },
+                userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 13_2_3 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.3 Mobile/15E148 Safari/604.1'
+            });
+            const page = await context.newPage();
+
+            await page.goto('https://m.soundcloud.com/search');
+            await page.click('button:has-text("I Accept")');
+            await page.fill('input[type="search"]', query);
+            await page.keyboard.press('Enter');
+            await page.waitForTimeout(5000);
+
+            const html = await page.content();
+            const $ = cheerio.load(html);
+
+            const results = [];
+
+            $('ul.List_VerticalList__2uQYU li').each((index, element) => {
+                const title = $(element).find('div.Information_CellTitle__2KitR').text().trim();
+                const artist = $(element).find('div.Information_CellSubtitle__1mXGx').text().trim();
+                const plays = $(element).find('div.Metadata_CellLabeledMetadata__3s6Tb:nth-child(1) div.Metadata_MetadataLabel__3GU8Y').text().trim();
+                const duration = $(element).find('div.Metadata_CellLabeledMetadata__3s6Tb:nth-child(2) div.Metadata_MetadataLabel__3GU8Y').text().trim();
+                const uploaded = $(element).find('div.Metadata_CellLabeledMetadata__3s6Tb:nth-child(3) div.Metadata_MetadataLabel__3GU8Y').text().trim();
+                const image = $(element).find('img[data-testid="actual-image"]').attr('src');
+                const url = "https://m.soundcloud.com" + $(element).find('a.Cell_CellLink__3yLVS').attr('href');
+
+                results.push({
+                    title,
+                    artist,
+                    plays,
+                    duration,
+                    uploaded,
+                    image,
+                    url
+                });
+            });
+            resolve(results);
+            await browser.close();
+        } catch (error) {
+            reject(error);
+        }
+    });
+}
+const crypto = require("crypto") 
+function generateUUIDv4() {
+  return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
+    (c ^ crypto.randomBytes(1)[0] & 15 >> c / 4).toString(16)
+  );
+}
+
+/*
+  * Scraper By QanyPaw 
+  * Forbidden to sell and delete my wm gw 
+*/
+
+async function sendMessage(text) {
+  try {
+    const conversation_uuid = generateUUIDv4();
+
+    const requestData = {
+      conversation_uuid: conversation_uuid,
+      text: text,
+      sent_messages: 1
+    };
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+        'Accept': '*/*',
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    };
+
+    const response = await axios.post('https://www.timospecht.de/wp-json/cgt/v1/chat', qs.stringify(requestData), config);
+    return response.data;
+  } catch (error) {
+    throw new Error('Terjadi kesalahan:', error);
+  }
+}
 // males benerin:v
 async function tiktokdl(url) {
   let result = {}
@@ -2070,6 +2155,24 @@ app.get('/api/tiktok', async (req, res) => {
       status: 200,
       creator: "RIAN X EXONITY",
       result 
+    });
+    })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/soundcloudsearch', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+    tiktokdl(message)
+    .then((results) => {
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: results
     });
     })
   } catch (error) {
