@@ -1902,28 +1902,55 @@ async function mlbb33(userId, zoneId) {
   }
 }
 // batas
-const COUNTER_FILE_PATH = path.join(__dirname, './function/counter.json');
+async function igdlv2(link) => {
+    try {
+        const data = await axios("https://fastdl.app/api/convert", {
+            method: "POST",
+            headers: {
+                "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36",
+                "Accept": "application/json, text/plain, */*",
+                "Content-Type": "application/json"
+            },
+            data: {
+                "url": link,
+                "ts": 1717886361080,
+                "_ts": 1717498039111,
+                "_tsc": 2178064,
+                "_s": "881325deb3a090678823ebc67026858605bca3f91df3f3b96e0eaac7965a9754"
+            }
+        })
+    let result = data.data
+    return result;
+    } catch (er) {
+    console.error(er)
+    }
+}
+// batas
+async function bardnya(query) {
+  const COOKIE_KEY = "g.a000kAizwbBdNbMHiOjpi3wG6gRWpkyc_b7CpDipldhMCt_UJIpDxrcWnqL7c6jCY-ooclL3NwACgYKAXgSARMSFQHGX2MiZAtXZ3cvSt7VxKSgDFmGzxoVAUF8yKqiRmRoIsjmTMIJrvT-Pm6l0076";
+  const psidCookie = '__Secure-1PSID=' + COOKIE_KEY;
+  const headers = {
+    "Host": "gemini.google.com",
+    "X-Same-Domain": "1",
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36",
+    "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+    "Origin": "https://gemini.google.com",
+    "Referer": "https://gemini.google.com",
+    'Cookie': psidCookie
+  };
 
-// Fungsi untuk membaca jumlah request dari file
-const readCounter = () => {
-  const data = fs.readFileSync(COUNTER_FILE_PATH, 'utf8');
-  const counter = JSON.parse(data);
-  return counter.count;
+  const bardRes = await fetch("https://gemini.google.com/", { method: 'get', headers });
+  const bardText = await bardRes.text();
+
+  const [snlM0e, blValue] = [bardText.match(/"SNlM0e":"(.*?)"/)?.[1], bardText.match(/"cfb2h":"(.*?)"/)?.[1]];
+
+  const bodyData = `f.req=[null,"[[\\"${encodeURIComponent(query)}\\"],null,[\\"\\",\\"\\",\\"\\"]]\"]&at=${snlM0e}`;
+  const response = await fetch(`https://gemini.google.com/_/BardChatUi/data/assistant.lamda.BardFrontendService/StreamGenerate?bl=${blValue}&_reqid=229189&rt=c`, { method: 'post', headers, body: bodyData });
+  const answer = JSON.parse(JSON.parse((await response.text()).split("\n").reduce((a, b) => (a.length > b.length ? a : b), ""))[0][2])[4][0][1];
+
+  return answer;
 };
-
-// Fungsi untuk menulis jumlah request ke file
-const writeCounter = (count) => {
-  const counter = { count };
-  fs.writeFileSync(COUNTER_FILE_PATH, JSON.stringify(counter));
-};
-
-// Middleware untuk menghitung request
-app.use((req, res, next) => {
-  let count = readCounter();
-  count += 1;
-  writeCounter(count);
-  next();
-});
+// stay healthy (≧▽≦)
 // batas
 function formatUptime(uptime) {
   let seconds = Math.floor(uptime % 60);
@@ -2183,6 +2210,22 @@ app.get('/api/soundcloudsearch', async (req, res) => {
       result: results
     });
     })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/gemini', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+    let down = await bardnya(message) 
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: down
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
