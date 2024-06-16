@@ -24,6 +24,7 @@ const { BingImageCreator } = require("./function/scraper/bingimg");
 const { getTwitterMedia } = require("./function/scraper/twitter");
 const { processing } = require("./function/scraper/Anakay");
 const ptz = require('./function/index') 
+const { soundcloudsearch } = require('./function/scraper/scrapernew.js') 
 const { ttSearch } = require('./function/scraper/api.js');
 const { getBuffer } = require("./function/scraper/buffer");
 const { mediafireDl } = require("./function/scraper/mediafire")
@@ -39,6 +40,34 @@ function getRandom(hm) {
     return `${Math.floor(Math.random() * 10000)}${hm}`
 }
 // scrape 1
+async function gdrive(url) {
+    let id = (url.match(/\/?id=(.+)/i) || url.match(/\/d\/(.*?)\//))?.[1];
+    if (!id) throw 'ID Not Found';
+
+    try {
+        const response = await axios(`https://drive.google.com/uc?id=${id}&authuser=0&export=download`, {
+            method: 'post',
+            headers: {
+                'accept-encoding': 'gzip, deflate, br',
+                'content-length': 0,
+                'content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+                'origin': 'https://drive.google.com',
+                'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36',
+                'x-client-data': 'CKG1yQEIkbbJAQiitskBCMS2yQEIqZ3KAQioo8oBGLeYygE=',
+                'x-drive-first-party': 'DriveWebUi',
+                'x-json-requested': 'true'
+            }
+        });
+
+        if (response.status !== 200) {
+            throw new Error(response.statusText);
+        }
+
+        return JSON.parse(response.data.slice(4));
+    } catch (error) {
+        throw error;
+    }
+}
 // ini batas
 function generateUUIDv4() {
   return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
@@ -2119,9 +2148,9 @@ app.get('/api/soundcloudsearch', async (req, res) => {
   try {
     const message = req.query.query;
     if (!message) {
-      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-    tiktokdl(message)
+    soundcloudsearch(message)
     .then((results) => {
     res.status(200).json({
       status: 200,
@@ -2129,6 +2158,22 @@ app.get('/api/soundcloudsearch', async (req, res) => {
       result: results
     });
     })
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/gdrive', async (req, res) => {
+  try {
+    const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
+    }
+    let down = await gdrive(message) 
+    res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: down
+    });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
