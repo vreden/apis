@@ -13,6 +13,8 @@ const createHash = require('hash-generator');
 const { fromBuffer } = require("file-type");
 const request = require('request');
 const fs = require('fs');
+const crypto = require("crypto") 
+const { chromium } = require('playwright');
 const FormData = require("form-data");
 const Jimp = require("jimp");
 const cheerio = require("cheerio");
@@ -37,7 +39,6 @@ function getRandom(hm) {
     return `${Math.floor(Math.random() * 10000)}${hm}`
 }
 // scrape 1
-const { chromium } = require('playwright');
 async function soundcloud1(query) {
     return new Promise(async (resolve, reject) => {
         try {
@@ -85,7 +86,7 @@ async function soundcloud1(query) {
         }
     });
 }
-const crypto = require("crypto") 
+// ini batas
 function generateUUIDv4() {
   return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
     (c ^ crypto.randomBytes(1)[0] & 15 >> c / 4).toString(16)
