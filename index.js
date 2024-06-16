@@ -1902,29 +1902,6 @@ async function mlbb33(userId, zoneId) {
   }
 }
 // batas
-async function igdlv2(link) => {
-    try {
-        const data = await axios("https://fastdl.app/api/convert", {
-            method: "POST",
-            headers: {
-                "User-Agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Mobile Safari/537.36",
-                "Accept": "application/json, text/plain, */*",
-                "Content-Type": "application/json"
-            },
-            data: {
-                "url": link,
-                "ts": 1717886361080,
-                "_ts": 1717498039111,
-                "_tsc": 2178064,
-                "_s": "881325deb3a090678823ebc67026858605bca3f91df3f3b96e0eaac7965a9754"
-            }
-        })
-    let result = data.data
-    return result;
-    } catch (er) {
-    console.error(er)
-    }
-}
 // batas
 async function bardnya(query) {
   const COOKIE_KEY = "g.a000kAizwbBdNbMHiOjpi3wG6gRWpkyc_b7CpDipldhMCt_UJIpDxrcWnqL7c6jCY-ooclL3NwACgYKAXgSARMSFQHGX2MiZAtXZ3cvSt7VxKSgDFmGzxoVAUF8yKqiRmRoIsjmTMIJrvT-Pm6l0076";
@@ -2549,7 +2526,7 @@ app.get('/api/stablediff', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
    const uploadnya = await stablediff(message)
-	res.set('Content-Type', 'image/jpg');
+	res.set('Content-Type', 'image/jpeg');
         res.send(uploadnya);
 });
 app.get('/api/legacyDiffusion', async (req, res) => {
