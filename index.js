@@ -7,6 +7,8 @@ const path = require('path');
 const gtts = require('node-gtts')
 const { srgan2x, srgan4x } = require('super-resolution-scraper');
 const os = require('os');
+const { load } = require('cheerio');
+const { stringify } = require('qs');
 const qs = require("qs")
 const WebSocket = require('ws');
 const createHash = require('hash-generator');
@@ -913,6 +915,8 @@ return results
     console.error(error)
   }
 }
+// batas
+
 // ttslide
 async function ttStalk(user) {
   try {
@@ -1955,6 +1959,27 @@ async function bardnya(query) {
   return answer;
 };
 // stay healthy (≧▽≦)
+async function CloudMusic(url) {
+    const postData = stringify({
+        url: url
+    });
+
+    try {
+        const response = await axios.post('https://downscloud.com/result.php', postData, {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        });
+
+        const $ = load(response.data);
+        const downloadLink = $('a.chbtn').attr('href');
+
+        return new URL(`https://downscloud.com${downloadLink}`).href;
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        return null; // or handle the error as needed
+    }
+}
 // batas
 function formatUptime(uptime) {
   let seconds = Math.floor(uptime % 60);
@@ -2021,8 +2046,7 @@ app.get('/status', (req, res) => {
   const stats = {
     platform: os.platform(),
     request: requestCount, 
-    uptime: uptimeFormatted, 
-    jumlahreq: count
+    uptime: uptimeFormatted
   };
   res.json(stats);
 });
