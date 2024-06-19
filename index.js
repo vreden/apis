@@ -3781,7 +3781,7 @@ app.get('/api/soundcloud', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   soundcloud(message)
+   CloudMusic(message)
     .then((result) => {
     res.status(200).json({
       status: 200,
