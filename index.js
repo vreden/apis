@@ -260,6 +260,38 @@ function ttsjir(text, lang = 'id') {
     } catch (e) { reject(e) }
   })
 }
+// batas
+async function InstagramStalkjir(name) {
+  try {
+    const response = await axios.get(`https://dumpoir.com/v/${name}`);
+    const html = response.data;
+    const $ = cheerio.load(html);
+
+    const profile = $('img.skeleton.rounded-full').attr('src');
+    const username = $('h1.text-4xl.font-serif.text-stone-700.mb-1.w-full.inline.relative').text().trim();
+    const fullName = $('h2.text-2xl.font-serif.text-stone-500.mb-3').text().trim();
+    const bio = $('div.text-sm.font-serif').html().replace(/<br>/g, '\n').replace(/<\/?[^>]+(>|$)/g, "").trim();
+    const posts = $('div.stats .stat').eq(0).find('.stat-value').text().trim();
+    const followers = $('div.stats .stat').eq(1).find('.stat-value').text().trim();
+    const following = $('div.stats .stat').eq(2).find('.stat-value').text().trim();
+
+    const profileData = {
+      profile,
+      username,
+      fullName,
+      bio,
+      posts,
+      followers,
+      following
+    };
+
+    console.log(profileData);
+    return profileData;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}
 // test
 async function gpt4o(prompt) {
     let session_hash = Math.random().toString(36).substring(2).slice(1)
@@ -3074,14 +3106,12 @@ app.get('/api/igstalk', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   igStalk(message)
- .then((data) => {  
+   let igstallk = await InstagramStalkjir(message)
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result: data
+      result: igstallk
     });
- })     
   } catch (error) {
   res.status(500).json({ error: error.message });
   }
