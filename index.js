@@ -600,6 +600,33 @@ async function igStalk(username) {
     throw error
   }
 	     }
+// 6yy
+async function tiktokStalk4344(user) {
+  try {
+    const url = await fetch(`https://tiktok.com/@${user}`, {
+      headers: {
+        'User-Agent': 'PostmanRuntime/7.32.2'
+      }
+    });
+    const html = await url.text();
+    const $ = cheerio.load(html);
+    const data = $('#__UNIVERSAL_DATA_FOR_REHYDRATION__').text();
+    const result = JSON.parse(data);
+    if (result['__DEFAULT_SCOPE__']['webapp.user-detail'].statusCode !== 0) {
+      const ress = {
+        status: 'error',
+        message: 'User not found!',
+      };
+      console.log(ress);
+      return ress;
+    }
+    const res = result['__DEFAULT_SCOPE__']['webapp.user-detail']['userInfo'];
+    return res;
+  } catch (err) {
+    console.log(err);
+    return String(err);
+  }
+};
 // 😥
 async function xnxxdl(URL) {
   return new Promise((resolve, reject) => {
@@ -2012,6 +2039,9 @@ app.get('/', (req, res) => {
 app.get('/pingpong', (req, res) => {
   res.sendFile(path.join(__dirname,  'game.html'));
 });
+app.get('/djviralnya', (req, res) => {
+  res.sendFile(path.join(__dirname,  'ytdl (1).mp3'));
+});
 app.get('/loading', (req, res) => {
   res.sendFile(path.join(__dirname,  'j.html'));
 });
@@ -3004,7 +3034,7 @@ app.get('/api/tiktokStalk', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   const tikot = await stalker(message)
+   const tikot = await tiktokStalk4344(message)
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
