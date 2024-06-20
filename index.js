@@ -1493,9 +1493,7 @@ const bard = await gtw(prompt);
       messages: [{
         id: uuidv4(),
         content: prompt,
-        role: 'user', 
-	content: cook,    
-          role: "assistant"
+        role: 'user'
       }],
       id: uuidv4(),
       previewToken: null,
@@ -2097,6 +2095,16 @@ async function CloudMusic(url) {
     }
 }
 // batas
+function clockString(ms) {
+  var d = isNaN(ms) ? "--" : Math.floor(ms / 86400000);
+  var h = isNaN(ms) ? "--" : Math.floor(ms / 3600000) % 24;
+  var m = isNaN(ms) ? "--" : Math.floor(ms / 60000) % 60;
+  var s = isNaN(ms) ? "--" : Math.floor(ms / 1000) % 60;
+  return [d, "D ", h, "H ", m, "M ", s, "S "]
+    .map((v) => v.toString().padStart(2, 0))
+    .join("");
+}
+// batas
 function formatUptime(uptime) {
   let seconds = Math.floor(uptime % 60);
   let minutes = Math.floor((uptime / 60) % 60);
@@ -2113,6 +2121,16 @@ function formatUptime(uptime) {
 }
 const uptime = os.uptime();
     const uptimeFormatted = formatUptime(uptime);
+var _muptime;
+  if (process.send) {
+    process.send("uptime");
+    _muptime =
+      (await new Promise((resolve) => {
+        process.once("message", resolve);
+        setTimeout(resolve, 1000);
+      })) * 1000;
+  }
+var muptime = clockString(_muptime);
   var {
   ytDonlodMp3,
   ytDonlodMp4,
@@ -2164,7 +2182,8 @@ app.get('/status', (req, res) => {
   const stats = {
     platform: os.platform(),
     request: requestCount, 
-    uptime: uptimeFormatted
+    uptime: uptimeFormatted, 
+    api: muptime
   };
   res.json(stats);
 });
