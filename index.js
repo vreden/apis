@@ -2124,11 +2124,10 @@ const uptime = os.uptime();
 var _muptime;
   if (process.send) {
     process.send("uptime");
-    _muptime =
-      (await Promise((resolve) => {
+     _muptime = await new Promise((resolve) => {
         process.once("message", resolve);
         setTimeout(resolve, 1000);
-      })) * 1000;
+      }) * 1000;
   }
 var muptime = clockString(_muptime);
   var {
