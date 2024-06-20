@@ -2101,8 +2101,8 @@ app.get('/djviralnya', (req, res) => {
 app.get('/loading', (req, res) => {
   res.sendFile(path.join(__dirname,  'j.html'));
 });
-app.get('/gte', (req, res) => {
-  res.sendFile(path.join(__dirname,  'LOADING.html'));
+app.get('/docs', (req, res) => {
+  res.sendFile(path.join(__dirname,  'openapi.html'));
 });
 app.get('/lolhuman', (req, res) => {
   res.sendFile(path.join(__dirname,  'Lolhuman.html'));
