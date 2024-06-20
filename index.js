@@ -106,6 +106,7 @@ async function sendMessage(text) {
     throw new Error('Terjadi kesalahan:', error);
   }
 }
+// bbata
 // males benerin:v
 async function tiktokdl(url) {
   let result = {}
@@ -1289,9 +1290,8 @@ async function stablediff(prompt) {
             for (let i = 0; i < resultsArr.length; i++) {
               const imgData = resultsArr[i].split(',')[1];
               const buffer = Buffer.from(imgData, 'base64');
-              imgArr.push(buffer);
             }
-            resolve(imgArr)
+            resolve(buffer)
           } catch (error) {
             console.error(error);
           } finally {
@@ -2594,14 +2594,12 @@ app.get('/api/githubstalk', async (req, res) => {
     if (!id) {
       return res.status(400).json({ error: 'id nya mana?' });
     }
-githubStalk(id) 
-.then((hasil) => {
+    let result = await axios.get('https://api.github.com/users/'+id)
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      hasil
+      result
     });
-	  }); 
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -3106,7 +3104,7 @@ app.get('/api/igstalk', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   let igstallk = await InstagramStalkjir(message)
+   let igstallk = await igStalk(message)
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
