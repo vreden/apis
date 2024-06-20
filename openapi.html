@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>API Documentation - ONESYTEX</title>
+    <title>API Documentation - Exonity</title>
     <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
   </head>
   <body>
@@ -16,14 +16,14 @@
         spec: {
   "openapi": "3.0.1",
   "info": {
-    "title": "ONESYTEX API",
+    "title": "Exonity API",
     "version": "1.0.0",
-    "description": "WARNING!: use server 2 if stuck or error occurs. especially if you experience an error `504: GETEWAY_TIMEOUT` or `An error occurred with your deployment` on server 1, try using server 2",
-    "termsOfService": "https://onesytex.my.id/about/contact",
+    "description": "WELCOME TO EXONITY API FREE REST APIS🎉",
+    "termsOfService": "https://profile-dev.exonity.my.id",
     "contact": {
-      "email": "onesenpai469@gmail.com",
-      "name": "mr.one",
-      "url": "https://onesytex.my.id/about/dev_info"
+      "email": "rian546@gmail.com",
+      "name": "rianganzz",
+      "url": "https://profile-dev.exonity.my.id"
     }
   },
   "tags": [
@@ -79,9 +79,9 @@
         "security": []
       }
     },
-    "/voicevox-synthesis": {
+    "/text2tospeech": {
       "get": {
-        "summary": "Audio Processing - voicevox-synthesis",
+        "summary": "Audio Processing - text2to-speech",
         "deprecated": false,
         "description": "",
         "tags": [
@@ -97,41 +97,7 @@
               "type": "string"
             }
           },
-          {
-            "name": "speaker",
-            "in": "query",
-            "description": "speaker id in json `style name id: 1`",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {}
-                }
-              }
-            }
-          }
-        },
-        "security": []
-      }
-    },
-    "/voicevox-speaker": {
-      "get": {
-        "summary": "Audio Processing - voicevox-speaker",
-        "deprecated": false,
-        "description": "",
-        "tags": [
-          "Audio Processing"
-        ],
-        "parameters": [],
         "responses": {
           "200": {
             "description": "Successful response",
@@ -218,7 +184,7 @@
         }
       }
     },
-    "/pixiv": {
+    "/pixiv-r18": {
       "get": {
         "summary": "search & download - pixiv",
         "deprecated": false,
@@ -315,9 +281,9 @@
         "security": []
       }
     },
-    "/gemini-vision": {
+    "/lumin": {
       "get": {
-        "summary": "Ai Chat - gemini-vision",
+        "summary": "Ai Chat - lumin-ai",
         "deprecated": false,
         "description": "",
         "tags": [
@@ -333,15 +299,6 @@
               "type": "string"
             }
           },
-          {
-            "name": "url",
-            "in": "query",
-            "description": "Enter URL images question",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
         ],
         "responses": {
           "200": {
@@ -417,133 +374,7 @@
             }
         }
     }
-},
-"/vits_inference": {
-  "get": {
-    "summary": "Variational Inference with adversarial learning for end-to-end Text-to-Speech",
-    "description": "Perform inference using the VITS `(Variational Inference with adversarial learning for end-to-end Text-to-Speech)` model with the provided text and model ID.",
-    "tags": [
-      "Audio Processing"
-    ],
-    "parameters": [
-      {
-        "name": "text",
-        "in": "query",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "description": "The input text for= inference"
-        }
-      },
-      {
-        "name": "model_id",
-        "in": "query",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "description": "The ID of the VITS model to be used `id is number`"
-        }
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "Successful operation",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "format": "binary",
-                "example": "base64-encoded-audio"
-              }
-            }
-          }
-        }
-      }
     }
-  }
-},
-"/vits_inference/emotion": {
-  "get": {
-    "summary": "Perform VITS inference with emotion",
-    "description": "Perform inference using the VITS model with the provided text, model ID, and emotion. `emotion = number 0 > 2000+`",
-    "tags": [
-      "Audio Processing"
-    ],
-    "parameters": [
-      {
-        "name": "text",
-        "in": "query",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "description": "The input text for inference"
-        }
-      },
-      {
-        "name": "model_id",
-        "in": "query",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "description": "The ID of the VITS model to be used `id is number`"
-        }
-      },
-      {
-        "name": "emotion",
-        "in": "query",
-        "required": true,
-        "schema": {
-          "type": "string",
-          "description": "The emotion to be considered during inference"
-        }
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "Successful operation",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "format": "binary",
-                "example": "base64-encoded-audio"
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-},
-"/vits_model": {
-  "get": {
-    "summary": "Get available VITS models",
-    "description": "Retrieve the list of available VITS `models_id`.",
-    "tags": [
-      "Audio Processing"
-    ],
-    "responses": {
-      "200": {
-        "description": "Successful operation",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "description": "The ID of a VITS model"
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-},
 "/pixiv-r18": {
       "get": {
         "summary": "search & download - pixiv-r18",
@@ -604,7 +435,7 @@
         "security": []
       }
     },
-    "/removeBackground": {
+    "/nobg": {
       "get": {
         "summary": "Ai Image Generation - remove background",
         "deprecated": false,
@@ -1899,9 +1730,9 @@
         }
       }
     },
-    "/gpt-4_adv": {
+    "/gpt4o": {
       "get": {
-        "summary": "Ai Chat - GPT 4-adv",
+        "summary": "Ai Chat - GPT 4o",
         "deprecated": false,
         "description": "",
         "tags": [
@@ -1934,7 +1765,7 @@
         "security": []
       }
     },
-    "/tiktok-dl": {
+    "/tiktok": {
       "get": {
         "summary": "search & download - tiktok-dl (slide & video)",
         "deprecated": false,
@@ -2119,7 +1950,7 @@
         }
       }
     },
-    "/Instagram": {
+    "/igdl": {
       "get": {
         "summary": "search & download - insta-dl",
         "deprecated": false,
@@ -2154,7 +1985,7 @@
         "security": []
       }
     },
-    "/Facebook": {
+    "/fbdl": {
       "get": {
         "summary": "search & download - facebook-dl",
         "deprecated": false,
@@ -2189,9 +2020,9 @@
         "security": []
       }
     },
-    "/chatbot_bitrough": {
+    "/simi": {
       "get": {
-        "summary": "Ai Chat - chatbot bit rough🗿",
+        "summary": "Ai Chat - simi-ai",
         "deprecated": false,
         "description": "",
         "tags": [
@@ -2233,7 +2064,7 @@
         "security": []
       }
     },
-    "/tiktok_stalk": {
+    "/tiktokStalk": {
       "get": {
         "summary": "search & download - tiktok-stalk",
         "deprecated": false,
@@ -2363,7 +2194,7 @@
         "security": []
       }
     },
-    "/sfile-dl": {
+    "/sfile": {
     "post": {
       "summary": "Sfile Downloader",
       "description": "paste your sfile url",
@@ -2393,7 +2224,7 @@
       }
     }
   },
-  "/spotify-search": {
+  "/spotifysearch": {
       "get": {
         "summary": "sfile searching",
         "deprecated": false,
@@ -2428,7 +2259,7 @@
         "security": []
       }
     },
-    "/spotify-dl": {
+    "/spotifydl": {
     "post": {
       "summary": "Spotify Downloader",
       "description": "paste your Spotify url",
@@ -2458,7 +2289,7 @@
       }
     }
   },
-    "/twitter-dl": {
+    "/twitterdl": {
     "post": {
       "summary": "Twitter Downloader",
       "description": "paste your Twitter url",
@@ -2489,7 +2320,7 @@
       }
     }
   },
-    "/gdrive-dl": {
+    "/gdrive": {
     "post": {
       "summary": "google Drive Downloader ",
       "description": "paste your google Drive url",
@@ -2519,7 +2350,7 @@
       }
     }
   },
-   "/mediafire": {
+   "/mediafiredl": {
       "get": {
         "summary": "search & download - MediaFire-dl",
         "deprecated": false,
@@ -2561,17 +2392,9 @@
   },
   "servers": [
     {
-      "url": "https://api.onesytex.my.id/api",
+      "url": "https://api.exonity.my.id/api",
       "description": "server 1"
     },
-    {
-      "url": "https://onesytex.my.id/api",
-      "description": "server 2"
-    },
-    {
-      "url": "https://www.onesytex.my.id/api",
-      "description": "server 3"
-    }
   ]
 },
         dom_id: '#swagger-ui',
