@@ -1482,7 +1482,6 @@ const date = new Date(
         timeZone: "Asia/Jakarta",
       }),
     );
-const bard = await gtw(prompt);
     const hours = date.getHours();
     const name = `${username}`;
     const minutes = date.getMinutes();
