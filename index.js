@@ -7,6 +7,9 @@ const path = require('path');
 const gtts = require('node-gtts')
 const { srgan2x, srgan4x } = require('super-resolution-scraper');
 const os = require('os');
+const {
+  v4: uuidv4
+} = require("uuid")
 const bodyParser = require('body-parser');
 const { load } = require('cheerio');
 const { stringify } = require('qs');
@@ -279,7 +282,7 @@ function ttsjir(text, lang = 'id') {
   return new Promise((resolve, reject) => {
     try {
       let tts = gtts(lang)
-      let filePath = path.join(__dirname, 'function', (1 * new Date) + '.wav')
+      let filePath = path.join(__dirname, 'tmp', (1 * new Date) + '.wav')
       tts.save(filePath, text, () => {
         resolve(fs.readFileSync(filePath))
         fs.unlinkSync(filePath)
@@ -1423,7 +1426,7 @@ function getTodayDate() {
 }
 
 //😅
-async function morav2(prompt, username) {
+async function morav2h(prompt, username) {
     const date = new Date(
       new Date().toLocaleString("en-US", {
         timeZone: "Asia/Jakarta",
@@ -1467,6 +1470,61 @@ const response = await axios({
   })
 
   return response.data
+}
+/**
+* DannTeam
+* ig: @dannapacoba
+* Blackbox AI
+*/
+async function morav2(prompt, username) {
+const date = new Date(
+      new Date().toLocaleString("en-US", {
+        timeZone: "Asia/Jakarta",
+      }),
+    );
+const bard = await gtw(prompt);
+    const hours = date.getHours();
+    const name = `${username}`;
+    const minutes = date.getMinutes();
+    const timeNow = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+      const cook = `kamu Adalah Mora seorang gadis imut berumur 10 tahun, jawab setiap pertanyaan dengan jawaban yang edukatif berserta emoji, jika ada yang bertanya tentang waktu kamu jawab tandon yang berkaitan dengan ${timeNow} dan ${getTodayDate()}, lawan bicara mu adalah ${name}, kamu memiliki sifat lucu dan sedikit tsundere imut, pembuat mu adalah bang ${name} sekaligus pacarnya`	
+  try {
+    const response = await axios.post('https://www.blackbox.ai/api/chat', {
+      messages: [{
+        id: uuidv4(),
+        content: prompt,
+        role: 'user', 
+	content: cook,    
+          role: "user"
+      }],
+      id: uuidv4(),
+      previewToken: null,
+      userId: '47b37fe9-1ac9-4097-a719-2cc1a0729b10',
+      codeModelMode: true,
+      agentMode: {},
+      trendingAgentMode: {},
+      isMicMode: false,
+      isChromeExt: false,
+      githubToken: null,
+      clickedAnswer2: false,
+      clickedAnswer3: false,
+      clickedForceWebSearch: false,
+      visitFromDelta: null
+    }, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    let result = response.data
+    result = result.replace(/\$@v=v1\.10-rv2\$@\$/g, '')
+    .replace(/Sources:.*/g, '')
+    .replace(/$/g, '')
+    const content = result.match(/content":"(.*?)"/)
+    return content
+  } catch (error) {
+    console.error(error)
+    throw error
+  }
 }
 // ml stalk
 async function mlstalk(id, zoneId) {
