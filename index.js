@@ -7,6 +7,7 @@ const path = require('path');
 const gtts = require('node-gtts')
 const { srgan2x, srgan4x } = require('super-resolution-scraper');
 const os = require('os');
+const bodyParser = require('body-parser');
 const { load } = require('cheerio');
 const { stringify } = require('qs');
 const qs = require("qs")
