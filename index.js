@@ -143,6 +143,31 @@ async function tiktokdl(url) {
     return result
   }
 }
+// batas
+const keynya = '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';
+
+async function txt2imgAnime(data) {
+  try {
+    const response = await axios.post(
+      'https://api-inference.huggingface.co/models/stablediffusionapi/anime-model-v2',
+      data,
+      {
+        headers: {
+          'Authorization': `Bearer ${keynya}`,
+          'Content-Type': 'application/json',
+        },
+        responseType: 'arraybuffer',
+      }
+    );
+
+    const imageBuffer = Buffer.from(response.data);
+    
+    return imageBuffer
+  } catch (error) {
+    console.error('Error generating anime:', error);
+    throw error;
+  }
+}
 // tt slide.
 function tiktokslide(url) {
   return new Promise(async (resolve) => {
@@ -2449,12 +2474,12 @@ app.get('/api/pinterest2', async (req, res) => {
   }
 });
 app.get('/api/animeh', async (req, res) => {
- const url = req.query.url;
+ const url = req.query.q;
     if (!url) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-  const imgnime = await jadianimennya(url) 
-     res.set('Content-Type', 'image/jpg');
+  const imgnime = await txt2imgAnime(url) 
+     res.set('Content-Type', 'image/png');
         res.send(imgnime);
 });
 app.get('/api/reminix2', async (req, res) => {
@@ -2597,7 +2622,7 @@ app.get('/api/githubstalk', async (req, res) => {
     if (!id) {
       return res.status(400).json({ error: 'id nya mana?' });
     }
-    let result = await axios.get('https://api.github.com/users/'+id)
+    let result = await axios.get(`https://api.github.com/users/${id}`)
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
