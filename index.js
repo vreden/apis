@@ -2125,7 +2125,7 @@ var _muptime;
   if (process.send) {
     process.send("uptime");
     _muptime =
-      (await new Promise((resolve) => {
+      (await Promise((resolve) => {
         process.once("message", resolve);
         setTimeout(resolve, 1000);
       })) * 1000;
