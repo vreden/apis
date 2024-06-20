@@ -2061,6 +2061,8 @@ app.set("json spaces", 2);
 app.use(cors());
 app.use(secure);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 const port = process.env.PORT || 8080 || 5000 || 3000
 
 let requestCount = 0;
