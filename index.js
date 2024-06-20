@@ -1495,7 +1495,7 @@ const bard = await gtw(prompt);
         content: prompt,
         role: 'user', 
 	content: cook,    
-          role: "user"
+          role: "assistant"
       }],
       id: uuidv4(),
       previewToken: null,
