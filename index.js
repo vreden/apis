@@ -2175,10 +2175,11 @@ app.get('/total-requests', (req, res) => {
 app.get('/status', (req, res) => {
   const stats = {
     Platform: os.platform(),
-    Ram: free_ram/ram, 
+    Freeram: free_ram, 
+    ram: ram, 
     Request: requestCount, 
     Uptime: uptimeFormatted, 
-    Spi: muptime
+    Api: muptime
   };
   res.json(stats);
 });
