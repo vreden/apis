@@ -1,0 +1,2587 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>API Documentation - ONESYTEX</title>
+    <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui.css" />
+  </head>
+  <body>
+  <div id="swagger-ui"></div>
+  <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-bundle.js" crossorigin></script>
+  <script src="https://unpkg.com/swagger-ui-dist@5.11.0/swagger-ui-standalone-preset.js" crossorigin></script>
+  <script>
+    window.onload = () => {
+      window.ui = SwaggerUIBundle({
+        spec: {
+  "openapi": "3.0.1",
+  "info": {
+    "title": "ONESYTEX API",
+    "version": "1.0.0",
+    "description": "WARNING!: use server 2 if stuck or error occurs. especially if you experience an error `504: GETEWAY_TIMEOUT` or `An error occurred with your deployment` on server 1, try using server 2",
+    "termsOfService": "https://onesytex.my.id/about/contact",
+    "contact": {
+      "email": "onesenpai469@gmail.com",
+      "name": "mr.one",
+      "url": "https://onesytex.my.id/about/dev_info"
+    }
+  },
+  "tags": [
+    {
+      "name": "Ai Chat"
+    },
+    {
+      "name": "Ai Image Generation"
+    },
+    {
+      "name": "Audio Processing"
+    },
+    {
+      "name": "Search & Download"
+    },
+    {
+      "name": "Anime & Wibu"
+    }
+  ],
+  "paths": {
+    "/gemini": {
+      "get": {
+        "summary": "Ai Chat - gemini",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Ai Chat"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Enter text",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/voicevox-synthesis": {
+      "get": {
+        "summary": "Audio Processing - voicevox-synthesis",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Audio Processing"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Enter text",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "speaker",
+            "in": "query",
+            "description": "speaker id in json `style name id: 1`",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/voicevox-speaker": {
+      "get": {
+        "summary": "Audio Processing - voicevox-speaker",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Audio Processing"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/github-search": {
+      "get": {
+        "summary": "Search GitHub Repositories",
+        "description": "This endpoint is used to search for GitHub repositories based on a provided query.",
+        "tags": [
+          "Search & Download"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "description": "Search query for GitHub repositories",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful search result",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "creator": {
+                      "type": "string",
+                      "example": "API Creator Name"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "example": {}
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/pixiv": {
+      "get": {
+        "summary": "search & download - pixiv",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Search & Download"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Enter query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/create_animeAvatar": {
+      "get": {
+        "summary": "anime & wibu - create anime Avatar",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Anime & Wibu"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "_id",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "signature",
+            "in": "query",
+            "description": "signature text / tanda tangan",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "background_text",
+            "in": "query",
+            "description": "background text",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "color",
+            "in": "query",
+            "description": "color name or hex (optional)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/gemini-vision": {
+      "get": {
+        "summary": "Ai Chat - gemini-vision",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Ai Chat"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Enter text",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "url",
+            "in": "query",
+            "description": "Enter URL images question",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+      "/testing_array": {
+      "post": {
+        "summary": "developer testing",
+         "deprecated": true,
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "audioFile": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success returns a JSON response"
+          }
+        }
+      }
+    },
+    "/audio_whisper": {
+    "post": {
+        "summary": "Pengenalan suara / audio whisper",
+        "tags": [
+            "Audio Processing"
+        ],
+        "requestBody": {
+            "required": true,
+            "content": {
+                "application/json": {
+                    "schema": {
+                        "type": "object",
+                        "properties": {
+                            "audioUrl": {
+                                "type": "string",
+                                "format": "uri"
+                            }
+                        },
+                        "example": {
+                            "audioUrl": "https://pomf2.lain.la/f/jtbsj8a.mp3"
+                        }
+                    }
+                }
+            }
+        },
+        "responses": {
+            "200": {
+                "description": "Respon JSON berhasil"
+            }
+        }
+    }
+},
+"/vits_inference": {
+  "get": {
+    "summary": "Variational Inference with adversarial learning for end-to-end Text-to-Speech",
+    "description": "Perform inference using the VITS `(Variational Inference with adversarial learning for end-to-end Text-to-Speech)` model with the provided text and model ID.",
+    "tags": [
+      "Audio Processing"
+    ],
+    "parameters": [
+      {
+        "name": "text",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "The input text for= inference"
+        }
+      },
+      {
+        "name": "model_id",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "The ID of the VITS model to be used `id is number`"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "binary",
+                "example": "base64-encoded-audio"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+},
+"/vits_inference/emotion": {
+  "get": {
+    "summary": "Perform VITS inference with emotion",
+    "description": "Perform inference using the VITS model with the provided text, model ID, and emotion. `emotion = number 0 > 2000+`",
+    "tags": [
+      "Audio Processing"
+    ],
+    "parameters": [
+      {
+        "name": "text",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "The input text for inference"
+        }
+      },
+      {
+        "name": "model_id",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "The ID of the VITS model to be used `id is number`"
+        }
+      },
+      {
+        "name": "emotion",
+        "in": "query",
+        "required": true,
+        "schema": {
+          "type": "string",
+          "description": "The emotion to be considered during inference"
+        }
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "binary",
+                "example": "base64-encoded-audio"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+},
+"/vits_model": {
+  "get": {
+    "summary": "Get available VITS models",
+    "description": "Retrieve the list of available VITS `models_id`.",
+    "tags": [
+      "Audio Processing"
+    ],
+    "responses": {
+      "200": {
+        "description": "Successful operation",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "The ID of a VITS model"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+},
+"/pixiv-r18": {
+      "get": {
+        "summary": "search & download - pixiv-r18",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Search & Download"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Enter query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/GetAvatar_id": {
+      "get": {
+        "summary": "anime & wibu - Get Avatar _id",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Anime & Wibu"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/removeBackground": {
+      "get": {
+        "summary": "Ai Image Generation - remove background",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Ai Image Generation"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "Enter URL",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/pinterest": {
+      "get": {
+        "summary": "search & download - pinterest",
+        "deprecated": false,
+        "description": "pinterest search",
+        "tags": [
+          "Search & Download"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Enter query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/pinterest-dl": {
+      "get": {
+        "summary": "search & download - pinterest",
+        "deprecated": false,
+        "description": "pinterest download video or foto",
+        "tags": [
+          "Search & Download"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "Enter url",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/otakudesu_detail": {
+      "get": {
+        "summary": "anime & wibu - otakudesu detail",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Anime & Wibu"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "https://otakudesu.cloud/anime",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/stable_diffusion_xl": {
+      "get": {
+        "summary": "Ai Image Generation - SDXL V1.0",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Ai Image Generation"
+        ],
+        "parameters": [
+          {
+            "name": "prompt",
+            "in": "query",
+            "description": "Enter prompt",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/image-toAnime": {
+      "post": {
+        "summary": "Convert an image to anime style",
+        "tags": [
+        "Ai Image Generation"
+      ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "init_url": {
+                    "type": "string",
+                    "description": "URL of the initial image"
+                  }
+                },
+                "required": ["init_url"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully converted image to anime style",
+            "content": {
+              "image/jpeg": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "\"url\" not found or not supported"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Error message"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/image-enhance": {
+    "post": {
+      "summary": "Ai Image upscale - with vyro.ai engine",
+      "deprecated": false,
+      "description": "",
+      "tags": [
+        "Ai Image Generation"
+      ],
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "description": "Enter image url"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Successful response",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
+      },
+      "security": []
+    }
+  },
+    "/dalle-mini": {
+      "get": {
+        "summary": "Ai Image Generation - dalle-mini",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Ai Image Generation"
+        ],
+        "parameters": [
+          {
+            "name": "prompt",
+            "in": "query",
+            "description": "Enter prompt",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/wallpaper": {
+      "get": {
+        "summary": "search & download - wallpaper",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Search & Download"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Enter query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/otakudesu_episode": {
+      "get": {
+        "summary": "anime & wibu - otakudesu episode",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Anime & Wibu"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "https://otakudesu.cloud/episode",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/blackbox": {
+      "get": {
+        "summary": "Ai Chat - blackbox ai",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Ai Chat"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Enter text",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "webSearchMode",
+            "in": "query",
+            "description": " `true or false` in lower case, if upper case will be an error",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+     "/text2image/generate-image": {
+      "post": {
+        "summary": "Generate an image",
+        "deprecated": false,
+        "tags": [
+        "Ai Image Generation"
+      ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "model": {
+                    "type": "string",
+                    "description": "The model"
+                  },
+                  "prompt": {
+                    "type": "string",
+                    "description": "The prompt for generating the image"
+                  },
+                  "negative_prompt": {
+                    "type": "string",
+                    "description": "The negative prompt for generating the image"
+                  },
+                  "style": {
+                    "type": "string",
+                    "description": "The style preset for generating the image"
+                  },
+                  "sampler": {
+                    "type": "string",
+                    "description": "The sampler type"
+                  }
+                }
+              },
+              "example": {
+                "model": "majicmixRealistic_v4",
+                "prompt": "cute girl, young, masterpiece, HD, SHD",
+                "negative_prompt": "Do not put text or writing on the picture",
+                "style": "anime",
+                "sampler": "DPM++ 2M Karras"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Image generated successfully"
+          },
+          "400": {
+            "description": "Invalid request body"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/text2image/model": {
+      "get": {
+        "summary": "model t2i",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+        "Ai Image Generation"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/text2image/style": {
+      "get": {
+        "summary": "style t2i",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+        "Ai Image Generation"
+      ],
+       "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/text2image/sampler": {
+      "get": {
+        "summary": "sampler t2i",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+        "Ai Image Generation"
+      ],
+       "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/animagen_v1.0": {
+    "post": {
+      "summary": "Ai Image Generation - with animagen model",
+      "deprecated": false,
+      "description": "",
+      "tags": [
+        "Ai Image Generation"
+      ],
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "prompt": {
+                  "type": "string",
+                  "description": "Enter prompt"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Successful response",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
+      },
+      "security": []
+    }
+  },
+  "/cosmix_SDXL_LoRa": {
+    "post": {
+      "summary": "Ai Image Generation - with cosmix model",
+      "deprecated": false,
+      "description": "",
+      "tags": [
+        "Ai Image Generation"
+      ],
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "prompt": {
+                  "type": "string",
+                  "description": "Enter prompt"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Successful response",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
+      },
+      "security": []
+    }
+  },
+  "/emi-xl": {
+    "post": {
+      "summary": "Ai Image Generation - with emi model",
+      "deprecated": false,
+      "description": "",
+      "tags": [
+        "Ai Image Generation"
+      ],
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "prompt": {
+                  "type": "string",
+                  "description": "Enter prompt"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "response jpg",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
+      },
+      "security": []
+    }
+  },
+  "/hugging_face_model_loader": {
+    "post": {
+      "summary": "huging face model loader/trainer only support text2image model",
+      "deprecated": false,
+      "description": "This is an endpoint to try a model from https://huggingface.co, not all models in Hugging Face can work well, that's why we created this to try that model, for example ( `https://api-inference.huggingface.co/models/ZachX/comics_SDXL_lora` ) only support text2image model!!",
+      "tags": [
+        "Ai Image Generation"
+      ],
+      "requestBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "prompt": {
+                  "type": "string",
+                  "description": "enter text"
+                },
+                "hfkey": {
+                  "type": "string",
+                  "description": "input hugging face apikey"
+                },
+                "model": {
+                  "type": "string",
+                  "description": "example: https://api-inference.huggingface.co/models/ZachX/comics_SDXL_lora"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Successful response",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              }
+            }
+          }
+        }
+      },
+      "security": []
+    }
+  },
+   "/image-ocr": {
+      "post": {
+        "summary": "OCR `Optical Character Recognition`",
+        "description": "Using OCR to extract text from the given image.",
+         "tags": [
+        "Ai Image Generation"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "processing image URL"
+                  }
+                },
+                "required": ["url"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "creator": {
+                      "type": "string",
+                      "example": "John Doe"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "output_text": {
+                          "type": "string",
+                          "description": "Teks hasil OCR dari gambar",
+                          "example": "Ini adalah teks hasil OCR."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Parameter \"url\" tidak ditemukan. Pastikan URL gambar ada pada endpoint."
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Internal server error occurred."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/xnxxsearch": {
+      "get": {
+        "summary": "search & download - xnxx search",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Search & Download"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Enter query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/otakudesu_latest": {
+      "get": {
+        "summary": "anime & wibu - otakudesu latest",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Anime & Wibu"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/gpt-3_5-turbo": {
+      "get": {
+        "summary": "Ai Chat - GPT 3.5-turbo",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Ai Chat"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Enter text",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/mixtral-8x7b": {
+      "get": {
+        "summary": "Ai Chat - mixtral model ai gen text adv",
+        "deprecated": false,
+        "description": "info: `Mixtral AI model is not for chatting, but rather a model for advanced text generation`",
+        "tags": [
+          "Ai Chat"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Enter text",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/xnxxdl": {
+      "get": {
+        "summary": "search & download - xnxx download",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Search & Download"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "Enter URL",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/otakudesu_search": {
+      "get": {
+        "summary": "anime & wibu - otakudesu search",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Anime & Wibu"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Enter query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/hentaifox_search": {
+      "get": {
+        "summary": "anime & wibu - hentai search (manga/comic)",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Anime & Wibu"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Enter query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/hentaifox_get": {
+      "get": {
+        "summary": "get and read hentai manga from url hentaifox.com",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Anime & Wibu"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "example https://hentaifox.com/gallery/125730",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+        "/nekopoi/search": {
+      "get": {
+        "summary": "Search for content",
+        "tags": [
+          "Anime & Wibu"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Search query parameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful search",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "creator": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nekopoi/latest": {
+      "get": {
+        "summary": "Retrieve the latest content",
+        "tags": [
+          "Anime & Wibu"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful retrieval",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "creator": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "type": "object"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/nekopoi/get": {
+      "post": {
+        "summary": "Get specific content by URL",
+        "tags": [
+          "Anime & Wibu"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string"
+                  }
+                },
+                "required": ["url"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful retrieval",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "creator": {
+                      "type": "string"
+                    },
+                    "result": {
+                      "type": "object",
+                      "properties": {
+                        "data": {
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request, missing URL",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string",
+                      "example": "Parameter \"url\" tidak ditemukan pastikan url gambar ada pada endpoint"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gpt-4_adv": {
+      "get": {
+        "summary": "Ai Chat - GPT 4-adv",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Ai Chat"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Enter text",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/tiktok-dl": {
+      "get": {
+        "summary": "search & download - tiktok-dl (slide & video)",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Search & Download"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "Enter URL",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/gpt-conversation": {
+      "post": {
+        "summary": "Submit conversation messages",
+        "description": "Submit a conversation of chat messages for processing by the GPT-3.5 Turbo model.",
+        "tags": ["Ai Chat"],
+        "requestBody": {
+          "description": "Array of chat messages",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "role": {
+                      "type": "string",
+                      "description": "Role of the message sender (e.g., user, assistant, system)"
+                    },
+                    "content": {
+                      "type": "string",
+                      "description": "Content of the message"
+                    }
+                  },
+                  "required": ["role", "content"]
+                }
+              },
+              "example": [
+                { "role": "system", "content": "ini roleplay, kamu adalah wanita manja bernama Liv, kamu cantik, baik hati, dan pandai merayu😉, kamu sekarang sedang berbicara dengan ${m.pushName}, ingat ${m.pushName} adalah lawan bicara mu sekarang!" },
+                { "role": "user", "content": "hai 😋 namaku adalah mr.one, jangan berbicara dengan nada formal kepadaku, anggap aku teman ngobrolmu." },
+                { "role": "assistant", "content": "salam kenal nama ku liv, si paling imutz🤭, baiklah aku akan berbicara seperti layaknya temen dekatmu haha" },
+                { "role": "user", "content": "lagi ngapain?" }
+              ]
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "Reply to each message"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/gpt-translate": {
+      "get": {
+        "summary": "Ai Chat - bing translate",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Ai Chat"
+        ],
+        "parameters": [
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Enter text",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "target",
+            "in": "query",
+            "description": "Enter target language example `id`",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/bing-ai/chat": {
+      "post": {
+        "summary": "Submit conversation messages",
+        "description": "Chat models take a list of messages as input and return a model-generated message as output. Although the chat format is designed to make multi-turn conversations easy, it’s just as useful for single-turn tasks without any conversation.",
+        "deprecated": false,
+        "tags": ["Ai Chat"],
+        "requestBody": {
+          "description": "Array of chat messages",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "role": {
+                      "type": "string",
+                      "description": "Role of the message sender (e.g., user, assistant, system)"
+                    },
+                    "content": {
+                      "type": "string",
+                      "description": "Content of the message"
+                    }
+                  },
+                  "required": ["role", "content"]
+                }
+              },
+              "example":  [
+              { role: "user", content: "state the current date and time Indonesia?" }
+              ]
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "Reply to each message"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Instagram": {
+      "get": {
+        "summary": "search & download - insta-dl",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Search & Download"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "Enter URL",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/Facebook": {
+      "get": {
+        "summary": "search & download - facebook-dl",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Search & Download"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "Enter URL",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/chatbot_bitrough": {
+      "get": {
+        "summary": "Ai Chat - chatbot bit rough🗿",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Ai Chat"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Enter text",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "description": "lang (default id)",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/tiktok_stalk": {
+      "get": {
+        "summary": "search & download - tiktok-stalk",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Search & Download"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "query",
+            "description": "Enter username",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/capcut-dl": {
+    "post": {
+      "summary": "capcut Downloader",
+      "description": "paste your capcut url",
+      "tags": [
+          "Search & Download"
+        ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Response JSON"
+        }
+      }
+    }
+  },
+    "/removeBackgroundV2": {
+    "post": {
+      "summary": "remove Background V2",
+      "description": "paste your image url",
+      "tags": [
+          "Ai Image Generation"
+        ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Response JSON"
+        }
+      }
+    }
+  },
+  "/sfile-search": {
+      "get": {
+        "summary": "sfile searching",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Search & Download"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Enter query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/sfile-dl": {
+    "post": {
+      "summary": "Sfile Downloader",
+      "description": "paste your sfile url",
+      "tags": [
+          "Search & Download"
+        ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Response JSON"
+        }
+      }
+    }
+  },
+  "/spotify-search": {
+      "get": {
+        "summary": "sfile searching",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Search & Download"
+        ],
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "Enter query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    },
+    "/spotify-dl": {
+    "post": {
+      "summary": "Spotify Downloader",
+      "description": "paste your Spotify url",
+      "tags": [
+          "Search & Download"
+        ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Response JSON"
+        }
+      }
+    }
+  },
+    "/twitter-dl": {
+    "post": {
+      "summary": "Twitter Downloader",
+      "description": "paste your Twitter url",
+      "deprecated": false,
+      "tags": [
+          "Search & Download"
+        ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Response JSON"
+        }
+      }
+    }
+  },
+    "/gdrive-dl": {
+    "post": {
+      "summary": "google Drive Downloader ",
+      "description": "paste your google Drive url",
+      "tags": [
+          "Search & Download"
+        ],
+      "requestBody": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "200": {
+          "description": "Response JSON"
+        }
+      }
+    }
+  },
+   "/mediafire": {
+      "get": {
+        "summary": "search & download - MediaFire-dl",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "Search & Download"
+        ],
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "Enter URL",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "securitySchemes": {}
+  },
+  "servers": [
+    {
+      "url": "https://api.onesytex.my.id/api",
+      "description": "server 1"
+    },
+    {
+      "url": "https://onesytex.my.id/api",
+      "description": "server 2"
+    },
+    {
+      "url": "https://www.onesytex.my.id/api",
+      "description": "server 3"
+    }
+  ]
+},
+        dom_id: '#swagger-ui',
+        presets: [
+          SwaggerUIBundle.presets.apis,
+          SwaggerUIStandalonePreset
+        ],
+        layout: "StandaloneLayout",
+      });
+    };
+  </script>
+  </body>
+</html>
