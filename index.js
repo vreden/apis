@@ -2121,15 +2121,10 @@ function formatUptime(uptime) {
 }
 const uptime = os.uptime();
     const uptimeFormatted = formatUptime(uptime);
-var _muptime;
-  if (process.send) {
-    process.send("uptime");
-     _muptime = await new Promise((resolve) => {
-        process.once("message", resolve);
-        setTimeout(resolve, 1000);
-      }) * 1000;
-  }
-var muptime = clockString(_muptime);
+ let _uptime = process.uptime() * 1000;
+var muptime = clockString(_uptime);
+const ram = (os.totalmem() / Math.pow(1024, 3)).toFixed(2) + " GB";
+  const free_ram = (os.freemem() / Math.pow(1024, 3)).toFixed(2) + " GB";
   var {
   ytDonlodMp3,
   ytDonlodMp4,
@@ -2179,10 +2174,11 @@ app.get('/total-requests', (req, res) => {
 });
 app.get('/status', (req, res) => {
   const stats = {
-    platform: os.platform(),
-    request: requestCount, 
-    uptime: uptimeFormatted, 
-    api: muptime
+    Platform: os.platform(),
+    Ram: free_ram/ram, 
+    Request: requestCount, 
+    Uptime: uptimeFormatted, 
+    Spi: muptime
   };
   res.json(stats);
 });
