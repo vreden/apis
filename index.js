@@ -1533,7 +1533,7 @@ async function morav2(prompt, username) {
     const minutes = date.getMinutes();
     const timeNow = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
       const cook = `kamu Adalah Mora seorang gadis imut berumur 10 tahun, jawab setiap pertanyaan dengan jawaban yang edukatif berserta emoji, jika ada yang bertanya tentang waktu kamu jawab tandon yang berkaitan dengan ${timeNow} dan ${getTodayDate()}, lawan bicara mu adalah ${name}, kamu memiliki sifat lucu dan sedikit tsundere imut, pembuat mu adalah bang ${name} sekaligus pacarnya`	
-  const response = await axios({
+  const response = await fetch({
     method: "POST",
     url: "https://chateverywhere.app/api/chat",
     headers: {
@@ -2163,7 +2163,7 @@ function formatUptime(uptime) {
 }
 const uptime = os.uptime();
     const uptimeFormatted = formatUptime(uptime);
- let _uptime = process.uptime() * 1000;
+ let _uptime = process.uptime()
 var muptime = clockString(_uptime);
 const ram = (os.totalmem() / Math.pow(1024, 3)).toFixed(2) + " GB";
   const free_ram = (os.freemem() / Math.pow(1024, 3)).toFixed(2) + " GB";
@@ -2217,8 +2217,9 @@ app.get('/total-requests', (req, res) => {
 app.get('/status', (req, res) => {
   const stats = {
     Platform: os.platform(),
+    CpuModel: os.cpus()[0].model, 
     Freeram: free_ram, 
-    ram: ram, 
+    Ram: ram, 
     Request: requestCount, 
     Uptime: uptimeFormatted, 
     Api: muptime
@@ -2753,8 +2754,11 @@ app.get('/api/stablediff', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
    const uploadnya = await stablediff(message)
-	res.set('Content-Type', 'image/jpeg');
-        res.send(uploadnya);
+	     res.status(200).json({
+      status: 200,
+      creator: "RIAN X EXONITY",
+      result: uploadnya
+    });
 });
 app.get('/api/legacyDiffusion', async (req, res) => {
     const message = req.query.query;
@@ -2762,6 +2766,7 @@ app.get('/api/legacyDiffusion', async (req, res) => {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
    const uploadnya = await legacyDiffusion(message)
+	     res.header('Content-Disposition', `attachment; filename="result-legacyDiffusion.png"`);
 	res.set('Content-Type', 'image/png');
         res.send(uploadnya);
 });
@@ -3301,7 +3306,8 @@ app.get('/api/remini', async (req, res) => {
     }
 	const yourn = await bufferlah(img) 
 		danz.tools.remini(yourn).then(data => {	
-		 
+     res.header('Content-Disposition', `attachment; filename="result-remini.jpg"`);
+       		 
   res.set('Content-Type', 'image/jpg');
         res.send(data);
 });			
