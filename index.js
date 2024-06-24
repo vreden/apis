@@ -2115,6 +2115,43 @@ async function bardnya(query) {
   return answer;
 };
 // stay healthy (≧▽≦)
+async function igdlv2(url) {
+  return new Promise(async (resolve, reject) => {
+    const payload = new URLSearchParams(
+      Object.entries({
+        url: url,
+        host: "instagram"
+      })
+    )
+    await axios.request({
+      method: "POST",
+      baseURL: "https://saveinsta.io/core/ajax.php",
+      data: payload,
+      headers: {
+        "content-type": "application/x-www-form-urlencoded; charset=UTF-8",
+        cookie: "PHPSESSID=rmer1p00mtkqv64ai0pa429d4o",
+        "user-agent": "Mozilla/5.0 (Linux; Android 10; K) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36"
+      }
+    })
+    .then(( response ) => {      
+      const $ = cheerio.load(response.data)
+      const mediaURL = $("div.row > div.col-md-12 > div.row.story-container.mt-4.pb-4.border-bottom").map((_, el) => {
+        return "https://saveinsta.io/" + $(el).find("div.col-md-8.mx-auto > a").attr("href")
+      }).get()
+      const res = {
+        media: mediaURL
+      }
+      resolve(res)
+    })
+    .catch((e) => {
+      console.log(e)
+      throw {
+        status: 400,
+        message: "error",
+      }
+    })
+  })
+}
 async function CloudMusic(url) {
     const postData = stringify({
         url: url
@@ -2437,7 +2474,7 @@ app.get('/api/gemini', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/gdrive', async (req, res) => {
+app.get('/api/drive', async (req, res) => {
   try {
     const message = req.query.url;
     if (!message) {
@@ -2962,13 +2999,11 @@ app.get('/api/igdownload', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    var response = await fetch(`https://api2.exonity.my.id/api/igdownload?url=${message}`);
-    var data = await response.json();
-    var { result: result } = data;
+    var response = await igdlv2(message) 
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY",
-      result 
+      result: { response }
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
