@@ -613,13 +613,12 @@ Channel: https://whatsapp.com/channel/0029VaR0kxuKrWQqNH287b1i
 */
 
 async function llama3(query, prompt, model) {
-if (!["70b", "8b"].some(qq => model == qq)) model = "70b"; //correct
 try {
     const BASE_URL = 'https://llama3-enggan-ngoding.vercel.app/api/llama'; //@Irulll
     const payload = {
         messages: [
     {
-      role: "system",
+      role: "user",
       content: prompt
     },
     {
@@ -1523,7 +1522,7 @@ const date = new Date(
     throw error
   }
 }
-async function morav2(prompt) {
+async function morav2(prompt, username) {
 	const date = new Date(
       new Date().toLocaleString("en-US", {
         timeZone: "Asia/Jakarta",
