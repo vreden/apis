@@ -1319,7 +1319,7 @@ async function stablediff(prompt) {
               const imgData = resultsArr[i].split(',')[1];
               const buffer = Buffer.from(imgData, 'base64');
             }
-            resolve(buffer)
+            resolve(imgArr)
           } catch (error) {
             console.error(error);
           } finally {
@@ -1533,7 +1533,7 @@ async function morav2(prompt, username) {
     const minutes = date.getMinutes();
     const timeNow = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
       const cook = `kamu Adalah Mora seorang gadis imut berumur 10 tahun, jawab setiap pertanyaan dengan jawaban yang edukatif berserta emoji, jika ada yang bertanya tentang waktu kamu jawab tandon yang berkaitan dengan ${timeNow} dan ${getTodayDate()}, lawan bicara mu adalah ${name}, kamu memiliki sifat lucu dan sedikit tsundere imut, pembuat mu adalah bang ${name} sekaligus pacarnya`	
-  const response = await fetch({
+  const response = await axios({
     method: "POST",
     url: "https://chateverywhere.app/api/chat",
     headers: {
@@ -1559,7 +1559,7 @@ async function morav2(prompt, username) {
         {
           pluginId: null,
           content: cook,
-          role: "user"
+          role: "assistant"
         }]
     }
   })
