@@ -2247,6 +2247,7 @@ app.set("json spaces", 2);
 app.use(cors());
 app.use(secure);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/file', express.static(path.join(__dirname, 'tmp')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 const port = process.env.PORT || 8080 || 5000 || 3000
@@ -2311,6 +2312,14 @@ app.get('/dashboard', (req, res) => {
 app.post('/upload', upload.single('file'), (req, res) => {
   if (!req.file) {
     return res.status(400).send('No file uploaded.');
+	  const fileName = req.file.filename;
+	  const fileUrl = `https://apikita.exonity.xyz/file/${fileName}`;
+	  const responseData = {
+        fileName: fileName,
+        fileUrl: fileUrl, 
+        message: "File uploaded successfully",
+      };
+      res.json(responseData);
   }
   res.send(`File uploaded: ${req.file.path}`);
 });
