@@ -38,9 +38,21 @@ const { ig } = require("./function/scraper/Ig.js")
 const apis = require("@siputzx/scraper") 
 const apinn = require("caliph-api")
 const danz = require('d-scrape');
+const fileType = require('file-type');
+const { request } = require('undici');
+const multer = require('multer');
 const ocrapi = require("ocr-space-api-wrapper");
 const axios = require('axios')
 const creatot = `RIANGANZ`
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'tmp');
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${uuidv4()}-${file.originalname}`);
+  },
+});
+const upload = multer({ storage });
 // gaktau
 function getRandom(hm) {
     return `${Math.floor(Math.random() * 10000)}${hm}`
@@ -2296,6 +2308,12 @@ app.get('/play/spotify', (req, res) => {
 });
 app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname,  'docs2.html'));
+});
+app.post('/upload', upload.single('file'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).send('No file uploaded.');
+  }
+  res.send(`File uploaded: ${req.file.path}`);
 });
 app.get('/api/ragbot', async (req, res) => {
   try {
