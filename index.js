@@ -52,9 +52,8 @@ const storage = multer.diskStorage({
   },
 });
 const uploader = multer({
-  storage: storage,
-  limits: { fileSize: 10 * 1024 * 1024 }, // Limit file size to 10MB
-}).single("file");
+	storage: storage
+});
 // gaktau
 function getRandom(hm) {
     return `${Math.floor(Math.random() * 10000)}${hm}`
@@ -2247,11 +2246,10 @@ var {
 var app = express();
 app.enable("trust proxy");
 app.set("json spaces", 2);
-app.use(cors());
-app.use(secure);
+app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/file', express.static(path.join(__dirname, 'file')));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 const port = process.env.PORT || 8080 || 5000 || 3000
 
@@ -2312,18 +2310,18 @@ app.get('/play/spotify', (req, res) => {
 app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname,  'docs2.html'));
 });
-app.post("/upload", (req, res) => {
-  uploader(req, res, (err) => {  
-    res.status(400).send('No file uploaded.');
-	  const fileName = req.file.filename;
-	  const fileUrl = `https://apikita.exonity.xyz/file/${fileName}`;
+app.post('/upload', uploader.single('file'), async (req, res) => {
+ res.status(400).send('No file uploaded.');
+	  const file = req.file
+	  const fileExtension = '.' + file.originalname.split('.').pop();
+	
+	  const fileUrl = `https://apikita.exonity.xyz/file/${fileExtension}`;
 	  const responseData = {
         fileName: fileName,
         fileUrl: fileUrl, 
         message: "File uploaded successfully",
       };
       res.json(responseData);
-  });
   });
 app.get('/api/ragbot', async (req, res) => {
   try {
