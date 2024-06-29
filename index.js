@@ -2317,7 +2317,6 @@ app.post('/upload', uploader.single('file'), async (req, res) => {
 	
 	  const fileUrl = `https://apikita.exonity.xyz/file/${fileExtension}`;
 	  const responseData = {
-        fileName: fileName,
         fileUrl: fileUrl, 
         message: "File uploaded successfully",
       };
