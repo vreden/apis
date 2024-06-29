@@ -24,6 +24,8 @@
     "mongodb": "^5.5.0",
     "mongoose": "^6.11.1",
     "node-gtts": "^2.0.2",
+    "nodemailer": "^6.7.2",
+    "multer": "^1.4.2",
     "super-resolution-scraper": "^1.0.6",
     "node-fetch": "^2.6.1",
     "g-i-s": "^2.1.6",
@@ -49,6 +51,8 @@
     "ytdl-core":"github:officialdittaz/node-ytdl-core", 
     "cors": "^2.8.5",
     "express": "^4.19.2",
+    "express-rate-limit": "^5.5.1",
+    "express-session": "^1.17.1",
     "ssl-express-www": "^3.2.1"
   }
 }
