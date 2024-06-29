@@ -45,13 +45,16 @@ const axios = require('axios')
 const creatot = `RIANGANZ`
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, './tmp/');
+    cb(null, './file/');
   },
   filename: (req, file, cb) => {
     cb(null, `${uuidv4()}-${file.originalname}`);
   },
 });
-const upload = multer({ storage });
+const uploader = multer({
+  storage: storage,
+  limits: { fileSize: 10 * 1024 * 1024 }, // Limit file size to 10MB
+}).single("file");
 // gaktau
 function getRandom(hm) {
     return `${Math.floor(Math.random() * 10000)}${hm}`
@@ -2247,7 +2250,7 @@ app.set("json spaces", 2);
 app.use(cors());
 app.use(secure);
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/file', express.static(path.join(__dirname, 'tmp')));
+app.use('/file', express.static(path.join(__dirname, 'file')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 const port = process.env.PORT || 8080 || 5000 || 3000
@@ -2309,9 +2312,9 @@ app.get('/play/spotify', (req, res) => {
 app.get('/dashboard', (req, res) => {
   res.sendFile(path.join(__dirname,  'docs2.html'));
 });
-app.post('/upload', upload.single('file'), (req, res) => {
-  if (!req.file) {
-    return res.status(400).send('No file uploaded.');
+app.post("/upload", (req, res) => {
+  uploader(req, res, (err) => {  
+    res.status(400).send('No file uploaded.');
 	  const fileName = req.file.filename;
 	  const fileUrl = `https://apikita.exonity.xyz/file/${fileName}`;
 	  const responseData = {
@@ -2320,7 +2323,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
         message: "File uploaded successfully",
       };
       res.json(responseData);
-  }
+  });
   });
 app.get('/api/ragbot', async (req, res) => {
   try {
