@@ -45,7 +45,7 @@ const axios = require('axios')
 const creatot = `RIANGANZ`
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'tmp');
+    cb(null, './tmp/');
   },
   filename: (req, file, cb) => {
     cb(null, `${uuidv4()}-${file.originalname}`);
@@ -2321,8 +2321,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
       };
       res.json(responseData);
   }
-  res.send(`File uploaded: ${req.file.path}`);
-});
+  });
 app.get('/api/ragbot', async (req, res) => {
   try {
     const message = req.query.message;
