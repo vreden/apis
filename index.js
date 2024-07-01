@@ -1613,6 +1613,83 @@ async function mlstalk(id, zoneId) {
         })
     })
 }
+const {
+  GoogleGenerativeAI,
+  HarmCategory,
+  HarmBlockThreshold,
+} = require("@google/generative-ai");
+
+const apiKey = 'AIzaSyAz2fGwSGMNb0QN4ovSLYhIFHcAi1-e8CA';
+const genAI = new GoogleGenerativeAI(apiKey);
+const model = genAI.getGenerativeModel({
+  model: 'gemini-1.5-flash',
+});
+
+const generationConfig = {
+  temperature: 1,
+  topP: 0.95,
+  topK: 64,
+  maxOutputTokens: 8192,
+  responseMimeType: 'text/plain',
+};
+
+async function gemini(inputText, prompt) {
+  try {
+    const chatSession = await model.startChat({
+      generationConfig,
+      history: [
+        {
+          role: 'user',
+          parts: [
+            {
+              text: inputText,
+            },
+          ],
+        },
+        {
+          role: 'model',
+          parts: [
+            { text: prompt },
+          ],
+        },
+      ],
+    });
+
+    const result = await chatSession.sendMessage(inputText);
+    return result.response.text();
+  } catch (error) {
+    console.error('Error dalam fungsi gemini:', error);
+    throw error; 
+  }
+}
+async function getRequest(url) {
+  const requestData = {
+    url: url
+  };
+
+  try {
+    let { data: responseData } = await axios.post('https://api.teknogram.id/v1/capcut', requestData, {
+      headers: {
+        'Content-Type': 'application/json; charset=UTF-8'
+      }
+    });
+
+    const modifiedUrl = responseData.url.replace("open.", "");
+
+    return {
+      status: responseData.status,
+      title: responseData.title,
+      size: responseData.size,
+      url: modifiedUrl
+    };
+  } catch (error) {
+    console.error("Error:", error);
+    return null;
+  }
+}
+
+// const url = "https://www.capcut.com/t/Zs8MPAKjG/";
+// return getRequest(url)
 // 🤗
 async function VirtualGirlfriends(prompt) {
   const url = 'https://boredhumans.com/virtual_girlfriends/virtual_girlfriends_api.php'
@@ -3378,12 +3455,11 @@ app.get('/api/remini', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-   let a = await capcut(message)
-    var video = a.video;
+   let a = await getRequest(message)
     res.status(200).json({
       status: 200,
       creator: "RIAN X EXONITY", 
-      video
+      result: a
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -4005,7 +4081,7 @@ app.get('/api/spotifySearch', async (req, res) => {
 	  .then((data) => {
     res.status(200).json({
      status: 200,   
-      data: data 
+      result: data 
     });
 	  })    
   } catch (error) {
