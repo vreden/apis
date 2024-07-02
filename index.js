@@ -3570,7 +3570,7 @@ app.get('/api/spotify2', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-  var response = await fetch(`https://api.exonity.my.id/api/spotify?url=${message}`);
+  var response = await fetch(`https://apikita.exonity.xyz/api/spotify?url=${message}`);
     var data = await response.json();
     var { download: download } = data.result;
     var requestSettings = {
