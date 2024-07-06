@@ -125,7 +125,7 @@ async function sendMessage(text) {
 }
 // bbata
 // males benerin:v
-async function tiktokdl(url) {
+async function tiktok3(url) {
   let result = {}
   const bodyForm = new FormData()
   bodyForm.append("q", url)
@@ -185,7 +185,7 @@ async function txt2imgAnime(data) {
   }
 }
 // tt slide.
-function tiktokslide(url) {
+function tiktok(url) {
   return new Promise(async (resolve) => {
   try{
   function formatNumber(integer) {
@@ -1732,35 +1732,49 @@ async function VirtualGirlfriends(prompt) {
   }
 }  
 // ai kobo
-async function alicia(input) {
-  const messages = [
-    {
-      role: "system",
-      content:
-        "Kamu adalah Alicia salah satu teman ngobrol yang memiliki sifat cuek dan tsundere, mengekspresikan sifat mu dengan emoji dan menggunakan bahasa gaul orang Indonesia Lu, gua, anjir, gtw, bodo amat,gak peduli, goblok, bego banget 😴, kamu di tugaskan untuk menjadi teman berbicara terima pertanyaan terkait hal hal random, sulit, romance, dan kamu mempunyai pacar bernama Rian",
-    },
-    { role: "user", content: input },
-  ];
-
-  try {
-    const response = await fetch(
-      "https://deepenglish.com/wp-json/ai-chatbot/v1/chat",
-      {
-        method: "POST",
-        headers: {
-          Accept: "text/event-stream",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ messages }),
-      },
+async function qioov2(prompt, username) {
+	const date = new Date(
+      new Date().toLocaleString("en-US", {
+        timeZone: "Asia/Jakarta",
+      }),
     );
+    const hours = date.getHours();
+    const name = `${username}`;
+    const minutes = date.getMinutes();
+    const timeNow = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+      const cook = `kamu Adalah Qioo seorang gadis imut berumur 10 tahun, jawab setiap pertanyaan dengan jawaban yang edukatif berserta emoji, jika ada yang bertanya tentang waktu kamu jawab tandon yang berkaitan dengan ${timeNow} dan ${getTodayDate()}, lawan bicara mu adalah ${name}, kamu memiliki sifat lucu dan sedikit tsundere imut, pembuat mu adalah bang ${name} sekaligus pacarnya`	
+  const response = await axios({
+    method: "POST",
+    url: "https://chateverywhere.app/api/chat",
+    headers: {
+      "Content-Type": "application/json",
+      "Cookie": "_ga=GA1.1.34196701.1707462626; _ga_ZYMW9SZKVK=GS1.1.1707462625.1.0.1707462625.60.0.0; ph_phc_9n85Ky3ZOEwVZlg68f8bI3jnOJkaV8oVGGJcoKfXyn1_posthog=%7B%22distinct_id%22%3A%225aa4878d-a9b6-40fb-8345-3d686d655483%22%2C%22%24sesid%22%3A%5B1707462733662%2C%22018d8cb4-0217-79f9-99ac-b77f18f82ac8%22%2C1707462623766%5D%7D",
+      Origin: "https://chateverywhere.app",
+      Referer: "https://chateverywhere.app/id",
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
+    },
+    data: {
+      model: {
+        id: "gpt-3.5-turbo-0613",
+        name: "GPT-3.5",
+        maxLength: 12000,
+        tokenLimit: 4000,
+      },
+      prompt: prompt,
+      messages: [{
+        pluginId: null,
+        content: prompt,
+        role: "user"
+      },
+        {
+          pluginId: null,
+          content: cook,
+          role: "assistant"
+        }]
+    }
+  })
 
-    const responseData = await response.json();
-    return responseData.answer
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error;
-  }
+  return response.data
 }
 // -------------
 async function mora(input) {
@@ -2205,6 +2219,44 @@ async function bardnya(query) {
   return answer;
 };
 // stay healthy (≧▽≦)
+async function igdown(q) {
+    try {
+        const response = await axios.post("https://saveig.app/api/ajaxSearch", new URLSearchParams({
+            q,
+            t: "media",
+            lang: "id"
+        }));
+        const html = response.data.data;
+        const $ = cheerio.load(html);
+        const data = $('ul.download-box li').map((index, element) => {
+            const $thumb = $(element).find('.download-items__thumb img');
+            const $btn = $(element).find('.download-items__btn a');
+            const $options = $(element).find('.photo-option select option');
+            const type = $btn.attr('onclick')?.includes('click_download_video') ? 'video' : 'image';
+            return {
+                type,
+                thumb: $thumb.attr('src') || '',
+                url: $btn.attr('href')?.replace('&dl=1', '') || '',
+                quality: $options.filter(':selected').text() || '',
+                options: $options.map((i, opt) => ({
+                    type,
+                    url: $(opt).val() || '',
+                    quality: $(opt).text() || ''
+                })).get()
+            };
+        }).get();
+        const result = {
+            data: data
+        };
+        return result;
+    } catch (error) {
+        console.error("Error fetching Instagram media:", error);
+        return {
+            error: "Failed to fetch media"
+        };
+    }
+}
+
 async function igdlv2(url) {
   return new Promise(async (resolve, reject) => {
     const payload = new URLSearchParams(
@@ -2524,13 +2576,13 @@ console.error(error);
 res.status(500).send("Internal Server Error");
 }
 });
-app.get('/api/tiktok', async (req, res) => {
+app.get('/api/tiktok3', async (req, res) => {
   try {
     const message = req.query.url;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    tiktokdl(message)
+    tiktok3(message)
     .then((result) => {
     res.status(200).json({
       status: 200,
@@ -2610,13 +2662,13 @@ app.get('/api/twitterdl', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/tiktokslide', async (req, res) => {
+app.get('/api/tiktok', async (req, res) => {
   try {
     const message = req.query.url;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    tiktokslide(message)
+    tiktok(message)
     .then((json) => {
     res.status(200).json({
       status: 200,
@@ -3101,7 +3153,7 @@ app.get('/api/igdownload', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    var response = await igdlv2(message) 
+    var response = await igdown(message) 
     res.status(200).json({
       status: 200,
       creator: "Vreden Official",
@@ -3552,7 +3604,7 @@ app.get('/api/tikmusic', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-  var response = await fetch(`https://api.exonity.my.id/api/tiktok2?url=${message}`);
+  var response = await fetch(`https://api.vreden.my.id/api/tiktok2?url=${message}`);
     var data = await response.json();
     var { music: music } = data.result;
     var requestSettings = {
@@ -3821,6 +3873,25 @@ const username = req.query.username;
       return res.status(400).json({ error: 'Parameter "username" tidak ditemukan' });
     }	  
 const iyahhh = await morav2(message, username)
+    res.status(200).json({
+      creator: "Vreden Official",
+      result: iyahhh
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/qioo', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+const username = req.query.username;
+    if (!username) {
+      return res.status(400).json({ error: 'Parameter "username" tidak ditemukan' });
+    }	  
+const iyahhh = await qioov2(message, username)
     res.status(200).json({
       creator: "Vreden Official",
       result: iyahhh
