@@ -2408,7 +2408,7 @@ app.get('/api/ragbot', async (req, res) => {
     const response = await ptz.ragBot(message);
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       data: { response }
     });
   } catch (error) {
@@ -2426,7 +2426,7 @@ app.get('/api/degreeguru', async (req, res) => {
     const response = await ptz.degreeGuru(message);
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       data: { response }
     });
   } catch (error) {
@@ -2444,7 +2444,7 @@ app.get('/api/smartcontract', async (req, res) => {
     const response = await ptz.smartContract(message);
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       data: { response }
     });
   } catch (error) {
@@ -2462,7 +2462,7 @@ app.get('/api/blackbox', async (req, res) => {
     const response = await ptz.blackboxAIChat(message);
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       data: { response }
     });
   } catch (error) {
@@ -2534,7 +2534,7 @@ app.get('/api/tiktok', async (req, res) => {
     .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
     })
@@ -2552,7 +2552,7 @@ app.get('/api/soundcloudsearch', async (req, res) => {
     .then((results) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: results
     });
     })
@@ -2569,7 +2569,7 @@ app.get('/api/gemini', async (req, res) => {
     let down = await bardnya(message) 
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: down
     });
   } catch (error) {
@@ -2585,7 +2585,7 @@ app.get('/api/drive', async (req, res) => {
     let down = await gdrive(message) 
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: down
     });
   } catch (error) {
@@ -2602,7 +2602,7 @@ app.get('/api/twitterdl', async (req, res) => {
     .then((output) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: output 
     });
     })
@@ -2620,7 +2620,7 @@ app.get('/api/tiktokslide', async (req, res) => {
     .then((json) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: json 
     });
     })
@@ -2637,7 +2637,7 @@ app.get('/api/sfile', async (req, res) => {
     const asu = await sfileDl(message)
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: asu 
     });
   } catch (error) {
@@ -2654,7 +2654,7 @@ app.get('/api/sfile-search', async (req, res) => {
     .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
     })
@@ -2689,7 +2689,7 @@ app.get('/api/gpt4o', async (req, res) => {
     const gpt0 = await gpt4o(message) 
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: gpt0
     });
   } catch (error) {
@@ -2705,7 +2705,7 @@ app.get('/api/tinyurl', async (req, res) => {
    const anjay = await shortlink(message)
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: anjay
     });
   } catch (error) {
@@ -2721,7 +2721,7 @@ app.get('/api/pinterest2', async (req, res) => {
    const anjayan = await getPinterestImages(message)
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: anjayan
     });
   } catch (error) {
@@ -2794,7 +2794,7 @@ app.get('/api/tiktok2', async (req, res) => {
     .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
     })
@@ -2839,7 +2839,7 @@ app.get('/api/bingimg', async (req, res) => {
 		var result = data[i]
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result
     
     }); 
@@ -2864,7 +2864,7 @@ app.get('/api/mlstalk', async (req, res) => {
 	let anjay22 = await mlbb33(id, zona) 
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: anjay22
     });
   } catch (error) {
@@ -2880,7 +2880,7 @@ app.get('/api/githubstalk', async (req, res) => {
     let result = await axios.get(`https://api.github.com/users/${id}`)
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result
     });
   } catch (error) {
@@ -2895,7 +2895,7 @@ app.get('/api/stablediff', async (req, res) => {
    const uploadnya = await stablediff(message)
 	     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: uploadnya
     });
 });
@@ -2919,7 +2919,7 @@ app.get('/api/ytmp4', async (req, res) => {
     .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
     })
@@ -2936,7 +2936,7 @@ app.get('/api/VirtualGirlfriends', async (req, res) => {
 	  danz.ai.VirtualGirlfriends(message).then(data => {
 res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: data
     });
 	  });
@@ -2954,7 +2954,7 @@ app.get('/api/yts', async (req, res) => {
     .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
     })
@@ -2972,7 +2972,7 @@ app.get('/api/mediafiredl', async (req, res) => {
     .then((hasil) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: hasil 
     });
     })
@@ -2989,7 +2989,7 @@ app.get('/api/ocr', async (req, res) => {
     let hasil = await ocrapi.ocrSpace(message);
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: hasil.ParsedResults[0].ParsedText
     });
   } catch (error) {
@@ -3006,7 +3006,7 @@ app.get('/api/xnxxsearch', async (req, res) => {
     .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
     })
@@ -3043,7 +3043,7 @@ app.get('/api/download', async (req, res) => {
     .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
     })
@@ -3061,7 +3061,7 @@ app.get('/api/xnxxdl', async (req, res) => {
     .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
     })
@@ -3087,7 +3087,7 @@ const message2 = req.query.prompt;
     .then((data) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: data 
     });
     })
@@ -3104,7 +3104,7 @@ app.get('/api/igdownload', async (req, res) => {
     var response = await igdlv2(message) 
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: { response }
     });
   } catch (error) {
@@ -3125,7 +3125,7 @@ app.get('/api/gpt-logic', async (req, res) => {
 var result = goyt.data
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
 
@@ -3143,7 +3143,7 @@ app.get('/api/teraboxdl', async (req, res) => {
     .then((info) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       info 
     });
     })
@@ -3162,7 +3162,7 @@ const isin = await bufferlahh(message)
 	  const yayaitun = await vocalRemover(isin) 
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: yayaitun
     });
   } catch (error) {
@@ -3180,7 +3180,7 @@ const isiin = await bufferlahh(message)
 	  const yayaituun = await exonity(isiin) 
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: yayaituun
     });
   } catch (error) {
@@ -3199,7 +3199,7 @@ const uploadkecdn = await bufferlahh(ytdlnya)
 	  const result = await exonity(uploadkecdn) 
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: result
     });
   } catch (error) {
@@ -3216,7 +3216,7 @@ app.get('/api/ytmp3', async (req, res) => {
     .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
     })
@@ -3234,7 +3234,7 @@ app.get('/api/spotify', async (req, res) => {
     .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
     })
@@ -3253,7 +3253,7 @@ app.get('/api/geminbbi', async (req, res) => {
 	  var { data: result } = datann.result;  
 res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
         
@@ -3290,7 +3290,7 @@ app.get('/api/gpt-web', async (req, res) => {
     var { result: results } = data;  
 res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: results 
     });
         
@@ -3307,7 +3307,7 @@ app.get('/api/letmegpt', async (req, res) => {
   let nahan = await fetchTextFromURL(text)
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: nahan 
     });
   } catch (error) {
@@ -3320,7 +3320,7 @@ app.get('/api/tebakgambar', async (req, res) => {
   .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
   }) 
@@ -3341,7 +3341,7 @@ app.get('/api/simi', async (req, res) => {
 const simisiminya = await askSimsimi(message, lang) 
       res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: simisiminya
     });
         
@@ -3358,7 +3358,7 @@ app.get('/api/aio', async (req, res) => {
 let coyy = await aioDownloader(message) 
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: coyy
     });
         
@@ -3376,7 +3376,7 @@ app.get('/api/tiktokStalk', async (req, res) => {
    const tikot = await tiktokStalk4344(message)
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: tikot 
     });    
   } catch (error) {
@@ -3392,7 +3392,7 @@ app.get('/api/igstalk', async (req, res) => {
    let igstallk = await igStalk(message)
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: igstallk
     });
   } catch (error) {
@@ -3409,7 +3409,7 @@ app.get('/api/ytplaymp4', async (req, res) => {
     .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
     })
@@ -3427,7 +3427,7 @@ app.get('/api/ytplaymp3', async (req, res) => {
     .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
     })
@@ -3458,7 +3458,7 @@ app.get('/api/remini', async (req, res) => {
    let a = await getRequest(message)
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY", 
+      creator: "Vreden Official", 
       result: a
     });
   } catch (error) {
@@ -3471,7 +3471,7 @@ app.get('/api/HariLibur', async (req, res) => {
     .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
     })
@@ -3485,7 +3485,7 @@ app.get('/api/quotesAnime', async (req, res) => {
     .then((hasil) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       hasil 
     });
     })
@@ -3503,7 +3503,7 @@ app.get('/api/chat-gpt', async (req, res) => {
     .then((data) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: data
     });
     }) 
@@ -3521,7 +3521,7 @@ app.get('/api/pinterest', async (req, res) => {
     .then((hasil) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: hasil 
     });
     })
@@ -3539,7 +3539,7 @@ app.get('/api/searchsticker', async (req, res) => {
     .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
     })
@@ -3610,7 +3610,7 @@ app.get('/api/meme', async (req, res) => {
     const result = data.postInfos[random];
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: "https://cache.lahelu.com/" + result.media
     });
   } catch (error) {
@@ -3744,7 +3744,7 @@ app.get('/api/bukalapak', async (req, res) => {
     .then((dat) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: dat 
     });
     })
@@ -3762,7 +3762,7 @@ app.get('/api/playstore', async (req, res) => {
     .then((hasil) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: hasil 
     });
     })
@@ -3801,7 +3801,7 @@ app.get('/api/kobo', async (req, res) => {
   .then((answer) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
        answer
     });
   }) 
@@ -3822,7 +3822,7 @@ const username = req.query.username;
     }	  
 const iyahhh = await morav2(message, username)
     res.status(200).json({
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: iyahhh
     });
   } catch (error) {
@@ -3840,7 +3840,7 @@ app.get('/api/search-character', async (req, res) => {
     var { result: result } = data;
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
         
@@ -3859,7 +3859,7 @@ app.get('/api/info-character', async (req, res) => {
     var { result: result } = data;
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
         
@@ -3882,7 +3882,7 @@ app.get('/api/characterai', async (req, res) => {
     var { result: result } = data;
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
         
@@ -3920,7 +3920,7 @@ app.get('/api/pixiv-r18', async (req, res) => {
 .then((data) => {  
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result: data 
     });
 });   
@@ -3991,7 +3991,7 @@ app.get('/api/binjie', async (req, res) => {
     var { result: result } = data;
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
         
@@ -4024,7 +4024,7 @@ app.get('/api/hentaivid', async (req, res) => {
     .then((hasil) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       hasil 
     });
     })
@@ -4044,7 +4044,7 @@ app.get('/api/npmstalk', async (req, res) => {
         var result = data;
              res.json({
                  status : true,
-                 creator: "RIAN X EXONITY",
+                 creator: "Vreden Official",
                  result
              })
          })
@@ -4063,7 +4063,7 @@ app.get('/api/Hero', async (req, res) => {
     .then((anu) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       anu 
     });
     })
@@ -4098,7 +4098,7 @@ app.get('/api/soundcloud', async (req, res) => {
     .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
     });   
@@ -4116,7 +4116,7 @@ app.get('/api/fbdl', async (req, res) => {
     .then((data) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       data 
     });
     })
@@ -4134,7 +4134,7 @@ app.get('/api/styleText', async (req, res) => {
     .then((result) => {
     res.status(200).json({
       status: 200,
-      creator: "RIAN X EXONITY",
+      creator: "Vreden Official",
       result 
     });
     })
