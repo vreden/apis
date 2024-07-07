@@ -1742,7 +1742,7 @@ async function qioov2(prompt, username) {
     const name = `${username}`;
     const minutes = date.getMinutes();
     const timeNow = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
-      const cook = `kamu Adalah Qioo seorang anak laki laki berumur 10 tahun, jawab setiap pertanyaan dengan jawaban yang edukatif berserta emoji, jika ada yang bertanya tentang waktu kamu jawab tandon yang berkaitan dengan ${timeNow} dan ${getTodayDate()}, lawan bicara mu adalah ${name}, kamu memiliki sifat lucu dan sedikit tsundere imut, pembuat mu adalah bang ${name} sekaligus pacarnya`	
+      const cook = `kamu Adalah Qioo seorang cowok berumur 10 tahun, jawab setiap pertanyaan dengan jawaban yang edukatif berserta emoji, jika ada yang bertanya tentang waktu kamu jawab tandon yang berkaitan dengan ${timeNow} dan ${getTodayDate()}, lawan bicara mu adalah ${name}, kamu memiliki sifat lucu dan sedikit tsundere imut, pembuat mu adalah bang ${name} sekaligus pacarnya`	
   const response = await axios({
     method: "POST",
     url: "https://chateverywhere.app/api/chat",
@@ -2406,14 +2406,14 @@ app.get('/status', (req, res) => {
   res.json(stats);
 });
 
-app.get('/mt', (req, res) => {
-  res.sendFile(path.join(__dirname,  'index.html'));
-});
-app.get('/profile', (req, res) => {
-  res.sendFile(path.join(__dirname,  'profile.html'));
-});
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname,  'home.html'));
+});
+app.get('/dev', (req, res) => {
+  res.sendFile(path.join(__dirname,  'dev.html'));
+});
+app.get('/contacts', (req, res) => {
+  res.sendFile(path.join(__dirname,  'contacts.html'));
 });
 app.get('/pingpong', (req, res) => {
   res.sendFile(path.join(__dirname,  'game.html'));
@@ -2421,23 +2421,8 @@ app.get('/pingpong', (req, res) => {
 app.get('/djviralnya', (req, res) => {
   res.sendFile(path.join(__dirname,  'ytdl (1).mp3'));
 });
-app.get('/loading', (req, res) => {
-  res.sendFile(path.join(__dirname,  'j.html'));
-});
-app.get('/docs', (req, res) => {
-  res.sendFile(path.join(__dirname,  'openapi.html'));
-});
-app.get('/lolhuman', (req, res) => {
-  res.sendFile(path.join(__dirname,  'Lolhuman.html'));
-});
-app.get('/text2img/create-image', (req, res) => {
-  res.sendFile(path.join(__dirname,  'text.html'));
-});
-app.get('/play/spotify', (req, res) => {
-  res.sendFile(path.join(__dirname,  'Test.html'));
-});
 app.get('/dashboard', (req, res) => {
-  res.sendFile(path.join(__dirname,  'docs2.html'));
+  res.sendFile(path.join(__dirname,  'dashboard.html'));
 });
 app.post('/upload', uploader.single('file'), async (req, res) => {
  res.status(400).send('No file uploaded.');
