@@ -379,6 +379,8 @@ if (processStartsLine) {
 }
 }
 //YouTube dl
+
+async function youtubedlv2(url) {
 async function convertv2(url, v_id, ftype, fquality, token, timeExpire, fname) {
   try {
     const params = {
@@ -433,7 +435,6 @@ async function convertv2(url, v_id, ftype, fquality, token, timeExpire, fname) {
     console.error(error);
   }
 }
-async function youtubedlv2(url) {
   const response = await fetch('https://yt5s.com/en32', {
     method: 'GET',
     headers: {
