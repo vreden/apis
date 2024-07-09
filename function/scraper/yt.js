@@ -29,7 +29,7 @@ async function ytDonlodMp3(url) {
           channel: channel,
           published: published,
           views: views,
-          url: audio[1]
+          url: audio[1],
           size: size[1]
         }
         return(result)
@@ -70,7 +70,7 @@ async function ytDonlodMp4(url) {
           channel: channel,
           published: published,
           views: views,
-          url: video[0]
+          url: video[0],
           size: size[0]
         }
         return(result)
@@ -123,7 +123,7 @@ async function ytPlayMp3(query) {
                     channel: channel,
                     published: published,
                     views: views,
-                    url: audio[0]
+                    url: audio[0],
                     size: size[0]
                     }
                     return(result)
@@ -175,7 +175,7 @@ async function ytPlayMp4(query) {
                     channel: channel,
                     published: published,
                     views: views,
-                    url: video[0]
+                    url: video[0],
                     size: size[0]
                     }
                     return(result)
