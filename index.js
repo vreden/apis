@@ -415,7 +415,7 @@ async function youtubedlv2(url) {
       quality: k,
       fileSizeH: size,
       fileSize: parseFloat(size) * (/MB$/.test(size) ? 1000 : 1),
-      download: convertv2.bind(null, urlConvert, json.vid, 'mp4', k, json.token, parseInt(json.timeExpires), json.fn)
+      download: await convertv2(null, urlConvert, json.vid, 'mp4', k, json.token, parseInt(json.timeExpires), json.fn)
     };
   });
   const audio = {};
