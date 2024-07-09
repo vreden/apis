@@ -9,10 +9,12 @@ async function ytDonlodMp3(url) {
       .then((data) => {
         let pormat = data.formats
         let audio = []
+        let size = []
         for (let i = 0; i < pormat.length; i++) {
           if (pormat[i].mimeType == 'audio/webm; codecs=\"opus\"') {
             let aud = pormat[i]
             audio.push(aud.url)
+            size.push(aud.contentLength)
           }
         }
         const title = data.player_response.microformat.playerMicroformatRenderer.title.simpleText
@@ -28,6 +30,7 @@ async function ytDonlodMp3(url) {
           published: published,
           views: views,
           url: audio[1]
+          size: size[1]
         }
         return(result)
       })
@@ -47,10 +50,12 @@ async function ytDonlodMp4(url) {
       .then((data) => {
         let pormat = data.formats
         let video = []
+        let size = []
         for (let i = 0; i < pormat.length; i++) {
           if (pormat[i].container == 'mp4' && pormat[i].hasVideo == true && pormat[i].hasAudio == true) {
             let vid = pormat[i]
             video.push(vid.url)
+            size.push(vid.contentLength)
           }
         }
         const title = data.player_response.microformat.playerMicroformatRenderer.title.simpleText
@@ -66,6 +71,7 @@ async function ytDonlodMp4(url) {
           published: published,
           views: views,
           url: video[0]
+          size: size[0]
         }
         return(result)
       })
@@ -95,11 +101,12 @@ async function ytPlayMp3(query) {
                 .then((data) => {
                     let pormat = data.formats
                     let audio = []
-                    let video = []
+                    let size = []
                     for (let i = 0; i < pormat.length; i++) {
                     if (pormat[i].mimeType == 'audio/webm; codecs=\"opus\"') {
                         let aud = pormat[i]
                         audio.push(aud.url)
+            size.push(aud.contentLength)
                     }
                     }
                     const title = data.player_response.microformat.playerMicroformatRenderer.title.simpleText
@@ -117,6 +124,7 @@ async function ytPlayMp3(query) {
                     published: published,
                     views: views,
                     url: audio[0]
+                    size: size[0]
                     }
                     return(result)
                 })
@@ -148,10 +156,12 @@ async function ytPlayMp4(query) {
                 .then((data) => {
                     let pormat = data.formats
                     let video = []
+                    let size = []
                     for (let i = 0; i < pormat.length; i++) {
                     if (pormat[i].container == 'mp4' && pormat[i].hasVideo == true && pormat[i].hasAudio == true) {
                         let vid = pormat[i]
                         video.push(vid.url)
+                        size.push(vid.contentLength)
                     }
                    }
                     const title = data.player_response.microformat.playerMicroformatRenderer.title.simpleText
@@ -166,6 +176,7 @@ async function ytPlayMp4(query) {
                     published: published,
                     views: views,
                     url: video[0]
+                    size: size[0]
                     }
                     return(result)
                 })
