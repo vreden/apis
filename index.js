@@ -379,8 +379,6 @@ if (processStartsLine) {
 }
 }
 //YouTube dl
-
-async function youtubedlv2(url) {
 async function convertv2(url, v_id, ftype, fquality, token, timeExpire, fname) {
   try {
     const params = {
@@ -435,6 +433,7 @@ async function convertv2(url, v_id, ftype, fquality, token, timeExpire, fname) {
     console.error(error);
   }
 }
+async function youtubedlv2(url) {
   const response = await fetch('https://yt5s.com/en32', {
     method: 'GET',
     headers: {
@@ -466,11 +465,12 @@ async function convertv2(url, v_id, ftype, fquality, token, timeExpire, fname) {
   }
   const video = {}; // slice -5 to limit quality max 720p
   ((Object.values(json.links.mp4)).slice(-5)).forEach(({ k, size }) => {
+let videoo = await convertv2(null, urlConvert, json.vid, 'mp4', k, json.token, parseInt(json.timeExpires), json.fn)
     video[k] = {
       quality: k,
       fileSizeH: size,
       fileSize: parseFloat(size) * (/MB$/.test(size) ? 1000 : 1),
-      download: await convertv2(null, urlConvert, json.vid, 'mp4', k, json.token, parseInt(json.timeExpires), json.fn)
+      download: videoo
     };
   });
   const audio = {};
@@ -479,7 +479,7 @@ async function convertv2(url, v_id, ftype, fquality, token, timeExpire, fname) {
       quality: key,
       fileSizeH: size,
       fileSize: parseFloat(size) * (/MB$/.test(size) ? 1000 : 1),
-      download: await convertv2(null, urlConvert, json.vid, 'mp3', key.replace(/kbps/i, ''), json.token, parseInt(json.timeExpires), json.fn)
+      download: convertv2.bind(null, urlConvert, json.vid, 'mp3', key.replace(/kbps/i, ''), json.token, parseInt(json.timeExpires), json.fn)
     };
   });
   const res = {
