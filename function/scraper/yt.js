@@ -115,7 +115,7 @@ async function ytDonlodMp3(url) {
           channel: channel,
           published: published,
           views: views,
-          url: y2mate.audio["128"].url
+          url: y2mate.audio.128.url
         }
         return(result)
       })
@@ -147,7 +147,7 @@ async function ytDonlodMp4(url) {
           channel: channel,
           published: published,
           views: views,
-          url: y2mate.video["360"].url
+          url: y2mate.video.360.url
         }
         return(result)
       })
@@ -191,7 +191,7 @@ async function ytPlayMp3(query) {
                     channel: channel,
                     published: published,
                     views: views,
-                    url: y2mate.audio["128"].url
+                    url: y2mate.audio.128.url
                     }
                     return(result)
                 })
@@ -234,7 +234,7 @@ async function ytPlayMp4(query) {
                     channel: channel,
                     published: published,
                     views: views,
-                    url: y2mate.video["360"].url
+                    url: y2mate.video.360.url
                     }
                     return(result)
                 })
