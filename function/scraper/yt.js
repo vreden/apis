@@ -100,7 +100,7 @@ async function ytDonlodMp3(url) {
     try {
       const id = yt.getVideoID(url)
       const yt2mate = new Ytdl();
-        const y2mate = await yt2mate.play(`https://www.youtube.com/watch?v=${id}`)
+        const y2mate = yt2mate.play(`https://www.youtube.com/watch?v=${id}`)
       const yutub = yt.getInfo(`https://www.youtube.com/watch?v=${id}`)
       .then((data) => {
         const title = data.player_response.microformat.playerMicroformatRenderer.title.simpleText
@@ -132,7 +132,7 @@ async function ytDonlodMp4(url) {
     try {
       const id = yt.getVideoID(url)
       const yt2mate = new Ytdl();
-        const y2mate = await yt2mate.play(`https://www.youtube.com/watch?v=${id}`)
+        const y2mate = yt2mate.play(`https://www.youtube.com/watch?v=${id}`)
       const yutub = yt.getInfo(`https://www.youtube.com/watch?v=${id}`)
       .then((data) => {
         const title = data.player_response.microformat.playerMicroformatRenderer.title.simpleText
@@ -174,7 +174,7 @@ async function ytPlayMp3(query) {
                 }
                 const id = yt.getVideoID(url[0])
                 const yt2mate = new Ytdl();
-        const y2mate = await yt2mate.play(`https://www.youtube.com/watch?v=${id}`)
+        const y2mate = yt2mate.play(`https://www.youtube.com/watch?v=${id}`)
                 const yutub = yt.getInfo(`https://www.youtube.com/watch?v=${id}`)
                 .then((data) => {
                     const title = data.player_response.microformat.playerMicroformatRenderer.title.simpleText
@@ -220,7 +220,7 @@ async function ytPlayMp4(query) {
                 }
                 const id = yt.getVideoID(url[0])
                 const yt2mate = new Ytdl();
-        const y2mate = await yt2mate.play(`https://www.youtube.com/watch?v=${id}`)
+        const y2mate = yt2mate.play(`https://www.youtube.com/watch?v=${id}`)
                 const yutub = yt.getInfo(`https://www.youtube.com/watch?v=${id}`)
                 .then((data) => {
                     const title = data.player_response.microformat.playerMicroformatRenderer.title.simpleText
