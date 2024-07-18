@@ -99,11 +99,10 @@ async function ytDonlodMp3(url) {
   return new Promise((resolve, reject) => {
     try {
       const id = yt.getVideoID(url)
-      
+      const yt2mate = new Ytdl();
+        const y2mate = await yt2mate.play(`https://www.youtube.com/watch?v=${id}`)
       const yutub = yt.getInfo(`https://www.youtube.com/watch?v=${id}`)
       .then((data) => {
-        const yt2mate = new Ytdl();
-        const y2mate = await yt2mate.play(`https://www.youtube.com/watch?v=${id}`)
         const title = data.player_response.microformat.playerMicroformatRenderer.title.simpleText
         const thumb = data.player_response.microformat.playerMicroformatRenderer.thumbnail.thumbnails[0].url
         const channel = data.player_response.microformat.playerMicroformatRenderer.ownerChannelName
@@ -132,10 +131,10 @@ async function ytDonlodMp4(url) {
   return new Promise((resolve, reject) => {
     try {
       const id = yt.getVideoID(url)
+      const yt2mate = new Ytdl();
+        const y2mate = await yt2mate.play(`https://www.youtube.com/watch?v=${id}`)
       const yutub = yt.getInfo(`https://www.youtube.com/watch?v=${id}`)
       .then((data) => {
-        const yt2mate = new Ytdl();
-        const y2mate = await yt2mate.play(`https://www.youtube.com/watch?v=${id}`)
         const title = data.player_response.microformat.playerMicroformatRenderer.title.simpleText
         const thumb = data.player_response.microformat.playerMicroformatRenderer.thumbnail.thumbnails[0].url
         const channel = data.player_response.microformat.playerMicroformatRenderer.ownerChannelName
@@ -174,10 +173,10 @@ async function ytPlayMp3(query) {
                     }
                 }
                 const id = yt.getVideoID(url[0])
+                const yt2mate = new Ytdl();
+        const y2mate = await yt2mate.play(`https://www.youtube.com/watch?v=${id}`)
                 const yutub = yt.getInfo(`https://www.youtube.com/watch?v=${id}`)
                 .then((data) => {
-                    const yt2mate = new Ytdl();
-        const y2mate = await yt2mate.play(`https://www.youtube.com/watch?v=${id}`)
                     const title = data.player_response.microformat.playerMicroformatRenderer.title.simpleText
                     const thumb = data.player_response.microformat.playerMicroformatRenderer.thumbnail.thumbnails[0].url
                     const channel = data.player_response.microformat.playerMicroformatRenderer.ownerChannelName
@@ -220,10 +219,10 @@ async function ytPlayMp4(query) {
                     }
                 }
                 const id = yt.getVideoID(url[0])
+                const yt2mate = new Ytdl();
+        const y2mate = await yt2mate.play(`https://www.youtube.com/watch?v=${id}`)
                 const yutub = yt.getInfo(`https://www.youtube.com/watch?v=${id}`)
                 .then((data) => {
-                    const yt2mate = new Ytdl();
-        const y2mate = await yt2mate.play(`https://www.youtube.com/watch?v=${id}`)
                     const title = data.player_response.microformat.playerMicroformatRenderer.title.simpleText
                     const thumb = data.player_response.microformat.playerMicroformatRenderer.thumbnail.thumbnails[0].url
                     const channel = data.player_response.microformat.playerMicroformatRenderer.ownerChannelName
