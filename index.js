@@ -1751,8 +1751,8 @@ const yutub = await y2matemp4(url)
     id: yutub.vid,
     title: yutub.title,
     thumbnail: yutub.thumbnail,
-    audio: yutub.audio["360"].url,
-    quality: yutub.audio["360"].size
+    audio: yutub.video["360"].url,
+    quality: yutub.video["360"].size
   };
   return res;
 }
