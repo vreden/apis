@@ -35,6 +35,7 @@ const { ttSearch } = require('./function/scraper/api.js');
 const { getBuffer } = require("./function/scraper/buffer");
 const { mediafireDl } = require("./function/scraper/mediafire")
 const { ig } = require("./function/scraper/Ig.js")
+const { y2mateplay, y2matemp3, y2matemp4 } = require('./function/scraper/y2mate')
 const apis = require("@siputzx/scraper") 
 const apinn = require("caliph-api")
 const danz = require('d-scrape');
@@ -1731,6 +1732,30 @@ async function VirtualGirlfriends(prompt) {
     throw error
   }
 }  
+async function ytmp3(url) {
+const yutub = await y2matemp3(url)
+
+  const res = {
+    id: yutub.vid,
+    title: yutub.title,
+    thumbnail: yutub.thumbnail,
+    audio: yutub.audio["128"].url,
+    quality: yutub.audio["128"].size
+  };
+  return res;
+}
+async function ytmp4(url) {
+const yutub = await y2matemp4(url)
+
+  const res = {
+    id: yutub.vid,
+    title: yutub.title,
+    thumbnail: yutub.thumbnail,
+    audio: yutub.audio["360"].url,
+    quality: yutub.audio["360"].size
+  };
+  return res;
+}
 // ai kobo
 async function qioov2(prompt, username) {
 	const date = new Date(
@@ -2952,7 +2977,7 @@ app.get('/api/ytmp4', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    ytDonlodMp4(message)
+    ytmp4(message)
     .then((result) => {
     res.status(200).json({
       status: 200,
@@ -3249,7 +3274,7 @@ app.get('/api/ytmp3', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    ytDonlodMp3(message)
+    ytmp4(message)
     .then((result) => {
     res.status(200).json({
       status: 200,
