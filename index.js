@@ -3679,6 +3679,36 @@ app.get('/api/meme', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+app.get('/api/tebakhero', async (req, res) => {
+let abu = await fetch('https://raw.githubusercontent.com/vreden/vreden/main/tebakhero.json')
+var anu = await abu.json()
+let result = anu[Math.floor(Math.random() * anu.length)]
+let results = {
+jawaban: result.jawaban,
+img: result.img
+}
+
+res.status(200).json({
+      status: 200,
+      creator: "Vreden Official",
+      result: results 
+    });
+});
+app.get('/api/tebakff', async (req, res) => {
+let abu = await fetch('https://raw.githubusercontent.com/vreden/vreden/main/tebakff.json')
+var anu = await abu.json()
+let result = anu[Math.floor(Math.random() * anu.length)]
+let results = {
+jawaban: result.jawaban,
+img: result.img
+}
+
+res.status(200).json({
+      status: 200,
+      creator: "Vreden Official",
+      result: results 
+    });
+});
 app.get('/api/galau', async (req, res) => {
 	  let response = await fetch('https://raw.githubusercontent.com/Rianofc/apis/master/function/galau.json');
         var data = await response.json();
