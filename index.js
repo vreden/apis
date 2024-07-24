@@ -1594,6 +1594,7 @@ const response = await fetch(`https://www.public.freefireinfo.site/api/info/sg/$
 const ff = await response.json()
 const pet = ff["Equipped Pet Information"]
 const gul = ff["Guild Information"]
+const gulder = ff["Guild Leader Information"]
 let akun = {
 id: ff["Account UID"],
 name: ff["Account Name"],
@@ -1623,10 +1624,24 @@ level: gul["Guild Level"],
 member: gul["Guild Current Members"],
 capacity: gul["Guild Capacity"]
 }
+let guilder = {
+create_time: gulder["Leader Ac Created Time (GMT 0530)"],
+last_login: gulder["Leader Last Login Time (GMT 0530)"],
+BP_bagdes: gulder["Leader BP Badges"],
+BR_points: gulder["Leader BR Point"],
+CS_points: gulder["Leader CS Points"],
+level: gulder["Leader Level"],
+like: gulder["Leader Likes"],
+name: gulder["Leader Name"],
+eqiupped_title: gulder["Leader Title"],
+id: gulder["Leader UID"],
+xp: gulder["Leader XP"]
+}
 return {
 account: akun,
 pet_info: petff,
-guild: guild
+guild: guild,
+ketua_guild: guilder
 }
 } catch (error) {
 return {
