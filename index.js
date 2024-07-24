@@ -1868,48 +1868,15 @@ const yutub = await y2matemp4(url)
 }
 // ai kobo
 async function qioov2(prompt, username) {
-	const date = new Date(
-      new Date().toLocaleString("en-US", {
-        timeZone: "Asia/Jakarta",
-      }),
-    );
-    const hours = date.getHours();
-    const name = `${username}`;
-    const minutes = date.getMinutes();
-    const timeNow = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
-      const cook = `kamu Adalah Qioo seorang cowok berumur 10 tahun, jawab setiap pertanyaan dengan jawaban yang edukatif berserta emoji, jika ada yang bertanya tentang waktu kamu jawab tandon yang berkaitan dengan ${timeNow} dan ${getTodayDate()}, lawan bicara mu adalah ${name}, kamu memiliki sifat lucu dan sedikit tsundere imut, pembuat mu adalah bang ${name} sekaligus pacarnya`	
-  const response = await axios({
-    method: "POST",
-    url: "https://chateverywhere.app/api/chat",
-    headers: {
-      "Content-Type": "application/json",
-      "Cookie": "_ga=GA1.1.34196701.1707462626; _ga_ZYMW9SZKVK=GS1.1.1707462625.1.0.1707462625.60.0.0; ph_phc_9n85Ky3ZOEwVZlg68f8bI3jnOJkaV8oVGGJcoKfXyn1_posthog=%7B%22distinct_id%22%3A%225aa4878d-a9b6-40fb-8345-3d686d655483%22%2C%22%24sesid%22%3A%5B1707462733662%2C%22018d8cb4-0217-79f9-99ac-b77f18f82ac8%22%2C1707462623766%5D%7D",
-      Origin: "https://chateverywhere.app",
-      Referer: "https://chateverywhere.app/id",
-      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36"
-    },
-    data: {
-      model: {
-        id: "gpt-3.5-turbo-0613",
-        name: "GPT-3.5",
-        maxLength: 12000,
-        tokenLimit: 4000,
-      },
-      prompt: prompt,
-      messages: [{
-        pluginId: null,
-        content: prompt,
-        role: "user"
-      },
-        {
-          pluginId: null,
-          content: cook,
-          role: "assistant"
-        }]
-    }
-  })
-
-  return response.data
+try {
+const res = await fetch(`https://itzpire.com/ai/botika?q=${prompt}&user=${username}&model=sindy`)
+const respons = await res.json()
+const respon = respons.result
+const response = respon.replace(/sindy/g, "Qioo").replace(/Sindy/g, "Qioo").replace(/SINDY/g, "Qioo")
+return response
+} catch (error) {
+return "server sedang perbaikan"
+}
 }
 // -------------
 async function mora(input) {
@@ -2624,7 +2591,8 @@ app.get('/api/blackbox', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "message" tidak ditemukan' });
     }
-    const response = await ptz.blackboxAIChat(message);
+    const responsee = await ptz.blackboxAIChat(message);
+    const response = responsee.replace("$@$v=v1.22-rv1$@$", "")
     res.status(200).json({
       status: 200,
       creator: "Vreden Official",
