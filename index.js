@@ -1609,7 +1609,9 @@ honor_score: ff["Account Honor Score"],
 booyah_pass: ff["Account Booyah Pass"],
 booyah_pass_badge: ff["Account Booyah Pass Badges"],
 evo_access_badge: ff["Account Evo Access Badge"],
-equipped_title: ff["Equipped Title"]
+equipped_title: ff["Equipped Title"],
+BR_points: ff["BR Rank Points"],
+CS_points: ff["CS Rank Points"]
 }
 let petff = {
 name: pet["Pet Name"],
@@ -1628,7 +1630,7 @@ let guilder = {
 create_time: gulder["Leader Ac Created Time (GMT 0530)"],
 last_login: gulder["Leader Last Login Time (GMT 0530)"],
 BP_bagdes: gulder["Leader BP Badges"],
-BR_points: gulder["Leader BR Point"],
+BR_points: gulder["Leader BR Points"],
 CS_points: gulder["Leader CS Points"],
 level: gulder["Leader Level"],
 like: gulder["Leader Likes"],
