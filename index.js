@@ -3,6 +3,7 @@
 // jangan dihapus jembud
 const express = require("express"), cors = require("cors"), secure = require("ssl-express-www");
 const ytdl = require('ytdl-core');
+const yts = require("yt-search")
 const path = require('path');
 const gtts = require('node-gtts')
 const { srgan2x, srgan4x } = require('super-resolution-scraper');
@@ -36,6 +37,13 @@ const { getBuffer } = require("./function/scraper/buffer");
 const { mediafireDl } = require("./function/scraper/mediafire")
 const { ig } = require("./function/scraper/Ig.js")
 const { y2mateplay, y2matemp3, y2matemp4 } = require('./function/scraper/y2mate')
+const {
+  ytDonlodMp3,
+  ytDonlodMp4,
+  ytPlayMp3,
+  ytPlayMp4,
+  ytSearch
+} = require("./function/scraper/yt");
 const apis = require("@siputzx/scraper") 
 const apinn = require("caliph-api")
 const danz = require('d-scrape');
@@ -1580,6 +1588,52 @@ async function morav2(prompt, username) {
 
   return response.data
 }
+async function ffstalk(id) {
+try {
+const response = await fetch(`https://www.public.freefireinfo.site/api/info/sg/${id}?key=deannolimit`)
+const ff = await response.json()
+const pet = ff["Equipped Pet Information"]
+const gul = ff["Guild Information"]
+let akun = {
+id: ff["Account UID"],
+name: ff["Account Name"],
+level: ff["Account Level"],
+xp: ff["Account XP"],
+region: ff["Account Region"],
+like: ff["Account Likes"],
+bio: ff["Account Signature"],
+create_time: ff["Account Create Time (GMT 0530)"],
+last_login: ff["Account Last Login (GMT 0530)"],
+honor_score: ff["Account Honor Score"],
+booyah_pass: ff["Account Booyah Pass"],
+booyah_pass_badge: ff["Account Booyah Pass Badges"],
+evo_access_badge: ff["Account Evo Access Badge"],
+equipped_title: ff["Equipped Title"]
+}
+let petff = {
+name: pet["Pet Name"],
+level: pet["Pet Level"],
+type: pet["Pet Type"],
+xp: pet["Pet XP"]
+}
+let guild = {
+name: gul["Guild Name"],
+id: gul["Guild ID"],
+level: gul["Guild Level"],
+member: gul["Guild Current Members"],
+capacity: gul["Guild Capacity"]
+}
+return {
+account: akun,
+pet_info: petff,
+guild: guild
+}
+} catch (error) {
+return {
+status: "terjadi kesalahan atau uid tidak valid"
+}
+}
+}
 // ml stalk
 async function mlstalk(id, zoneId) {
     return new Promise(async (resolve, reject) => {
@@ -1732,6 +1786,47 @@ async function VirtualGirlfriends(prompt) {
     throw error
   }
 }  
+async function ytplaymp3(teks) {
+const data = await yts(teks)
+                const url = []
+                const pormat = data.all
+                for (let i = 0; i < pormat.length; i++) {
+                    if (pormat[i].type == 'video') {
+                        let dapet = pormat[i]
+                        url.push(dapet.url)
+                    }
+                }
+const yutub = await y2matemp3(url[0])
+const res = {
+    id: yutub.vid,
+    title: yutub.title,
+    thumbnail: yutub.thumbnail,
+    audio: yutub.audio["128"].url,
+    quality: yutub.audio["128"].size
+  };
+  return res;
+                }
+async function ytplaymp4(teks) {
+const data = await yts(teks)
+                const url = []
+                const pormat = data.all
+                for (let i = 0; i < pormat.length; i++) {
+                    if (pormat[i].type == 'video') {
+                        let dapet = pormat[i]
+                        url.push(dapet.url)
+                    }
+                }
+const yutub = await y2matemp4(url)
+
+  const res = {
+    id: yutub.vid,
+    title: yutub.title,
+    thumbnail: yutub.thumbnail,
+    video: yutub.video["360"].url,
+    quality: yutub.video["360"].size
+  };
+  return res;
+}
 async function ytmp3(url) {
 const yutub = await y2matemp3(url)
 
@@ -1751,7 +1846,7 @@ const yutub = await y2matemp4(url)
     id: yutub.vid,
     title: yutub.title,
     thumbnail: yutub.thumbnail,
-    audio: yutub.video["360"].url,
+    video: yutub.video["360"].url,
     quality: yutub.video["360"].size
   };
   return res;
@@ -2371,13 +2466,6 @@ const uptime = os.uptime();
 var muptime = clockString(_uptime);
 const ram = (os.totalmem() / Math.pow(1024, 3)).toFixed(2) + " GB";
   const free_ram = (os.freemem() / Math.pow(1024, 3)).toFixed(2) + " GB";
-  var {
-  ytDonlodMp3,
-  ytDonlodMp4,
-  ytPlayMp3,
-  ytPlayMp4,
-  ytSearch
-} = require("./function/scraper/yt");
 var {
   wallpaperhd,
   HariLibur, 
@@ -2933,6 +3021,22 @@ app.get('/api/mlstalk', async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+app.get('/api/ffstalk', async (req, res) => {
+  try {
+    const id = req.query.id;
+    if (!id) {
+      return res.status(400).json({ error: 'id nya mana?' });
+    }
+	let ffstalki = await ffstalk(id) 
+    res.status(200).json({
+      status: 200,
+      creator: "Vreden Official",
+      result: ffstalki
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 app.get('/api/githubstalk', async (req, res) => {
   try {
     const id = req.query.query;
@@ -3467,7 +3571,7 @@ app.get('/api/ytplaymp4', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-    ytPlayMp4(message)
+    ytplaymp4(message)
     .then((result) => {
     res.status(200).json({
       status: 200,
@@ -3485,7 +3589,7 @@ app.get('/api/ytplaymp3', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-    ytPlayMp3(message)
+    ytplaymp4(message)
     .then((result) => {
     res.status(200).json({
       status: 200,
