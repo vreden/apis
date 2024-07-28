@@ -1871,92 +1871,185 @@ const yutub = await y2matemp4(url)
 async function cekCmd(text) {
 let cmd = text.toLowerCase()
 if (cmd.includes("tutup") && cmd.includes("grup")) {
-return "#tutup"
+return {
+status: true,
+cmd: "#tutup"
+}
 } else if (cmd.includes("tutup") && cmd.includes("group")) {
-return "#tutup"
+return {
+status: true,
+cmd: "#tutup"
+}
 } else if (cmd.includes("nutup") && cmd.includes("grup")) {
-return "#tutup"
+return {
+status: true,
+cmd: "#tutup"
+}
 } else if (cmd.includes("nutup") && cmd.includes("group")) {
-return "#tutup"
+return {
+status: true,
+cmd: "#tutup"
+}
 } else if (cmd.includes("buka") && cmd.includes("grup")) {
-return "#buka"
+return {
+status: true,
+cmd: "#buka"
+}
 } else if (cmd.includes("buka") && cmd.includes("group")) {
-return "#buka"
+return {
+status: true,
+cmd: "#buka"
+}
 } else if (cmd.includes("nyanyi") && cmd.includes("lagu")) {
 let play = cmd.split("lagu")[1] || cmd.split("nyanyi")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("putar") && cmd.includes("lagu")) {
 let play = cmd.split("lagu")[1] || cmd.split("putar")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("main") && cmd.includes("lagu")) {
 let play = cmd.split("lagu")[1] || cmd.split("main")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("cari") && cmd.includes("lagu")) {
 let play = cmd.split("lagu")[1] || cmd.split("cari")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("nyanyi") && cmd.includes("musi")) {
 let play = cmd.split("musi")[1] || cmd.split("nyanyi")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("putar") && cmd.includes("musi")) {
 let play = cmd.split("musi")[1] || cmd.split("putar")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("main") && cmd.includes("musi")) {
 let play = cmd.split("musi")[1] || cmd.split("main")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("cari") && cmd.includes("musi")) {
 let play = cmd.split("musi")[1] || cmd.split("cari")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("nyanyi") && cmd.includes("song")) {
 let play = cmd.split("song")[1] || cmd.split("nyanyi")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("putar") && cmd.includes("song")) {
 let play = cmd.split("song")[1] || cmd.split("putar")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("main") && cmd.includes("song")) {
 let play = cmd.split("song")[1] || cmd.split("main")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("cari") && cmd.includes("song")) {
 let play = cmd.split("song")[1] || cmd.split("cari")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("play")) {
 let play = cmd.split("play")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("putarkan")) {
 let play = cmd.split("putarkan")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("nyanyi") && cmd.includes("audio")) {
 let play = cmd.split("audio")[1] || cmd.split("nyanyi")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("putar") && cmd.includes("audio")) {
 let play = cmd.split("audio")[1] || cmd.split("putar")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("main") && cmd.includes("audio")) {
 let play = cmd.split("audio")[1] || cmd.split("main")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("cari") && cmd.includes("audio")) {
 let play = cmd.split("audio")[1] || cmd.split("cari")[1]
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 } else if (cmd.includes("cari") && cmd.includes("gambar")) {
 let pin = cmd.split("gambar")[1] || cmd.split("cari")[1]
-return "#pin " + pin
+return {
+status: true,
+cmd: "#pin " + pin
+}
 } else if (cmd.includes("cari") && cmd.includes("foto")) {
 let pin = cmd.split("foto")[1] || cmd.split("cari")[1]
-return "#pin " + pin
+return {
+status: true,
+cmd: "#pin " + pin
+}
 } else if (cmd.includes("pinterest")) {
 let pin = cmd.split("pinterest")[1]
-return "#pin " + pin
+return {
+status: true,
+cmd: "#pin " + pin
+}
 } else if (cmd.includes("buat") && cmd.includes("bingimg")) {
 let bing = cmd.split("bingimg")[1] || cmd.split("buat")[1]
-return "#bingimg " + bing
+return {
+status: true,
+cmd: "#bingimg " + bing
+}
 } else if (cmd.includes("buat") && cmd.includes("bingimage")) {
 let bing = cmd.split("bingimage")[1] || cmd.split("buat")[1]
-return "#bingimg " + bing
+return {
+status: true,
+cmd: "#bingimg " + bing
+}
 } else if (cmd.includes("buat") && cmd.includes("bing image")) {
 let bing = cmd.split("bing image")[1] || cmd.split("buat")[1]
-return "#bingimg " + bing
+return {
+status: true,
+cmd: "#bingimg " + bing
+}
 } else if (cmd.includes("buat") && cmd.includes("gambar")) {
 let gam = cmd.split("gambar")[1] || cmd.split("buat")[1]
-return "#txt2img " + gam
+return {
+status: true,
+cmd: "#txt2img " + gam
+}
 } else if (cmd.includes("download") && cmd.includes("lagu")) {
 let play = cmd.split("lagu")[1] || cmd.split("download")[1]
 const tikk = /(http(?:s)?:\/\/)?(?:www\.)?(?:tiktok\.com\/@[^\/]+\/video\/(\d+))|(http(?:s)?:\/\/)?vm\.tiktok\.com\/([^\s&]+)|(http(?:s)?:\/\/)?vt\.tiktok\.com\/([^\s&]+)/g;
@@ -1964,11 +2057,20 @@ const tikktok = (cmd.trim()).match(tikk);
 const youtt = /(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/;
 const youttub = (cmd.trim()).match(youtt);
 if (tikktok) {
-return "#tiktokaudio " + tikktok[0]
+return {
+status: true,
+cmd: "#tiktokaudio " + tikktok[0]
+}
 } else if (youttub) {
-return "#ytmp3 " + youttub[0]
+return {
+status: true,
+cmd: "#ytmp3 " + youttub[0]
+}
 } else {
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 }
 } else if (cmd.includes("download") && cmd.includes("audio")) {
 let play = cmd.split("audio")[1] || cmd.split("download")[1]
@@ -1977,11 +2079,20 @@ const tikktok = (cmd.trim()).match(tikk);
 const youtt = /(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/;
 const youttub = (cmd.trim()).match(youtt);
 if (tikktok) {
-return "#tiktokaudio " + tikktok[0]
+return {
+status: true,
+cmd: "#tiktokaudio " + tikktok[0]
+}
 } else if (youttub) {
-return "#ytmp3 " + youttub[0]
+return {
+status: true,
+cmd: "#ytmp3 " + youttub[0]
+}
 } else {
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 }
 } else if (cmd.includes("download") && cmd.includes("musi")) {
 let play = cmd.split("musi")[1] || cmd.split("download")[1]
@@ -1990,11 +2101,20 @@ const tikktok = (cmd.trim()).match(tikk);
 const youtt = /(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/;
 const youttub = (cmd.trim()).match(youtt);
 if (tikktok) {
-return "#tiktokaudio " + tikktok[0]
+return {
+status: true,
+cmd: "#tiktokaudio " + tikktok[0]
+}
 } else if (youttub) {
-return "#ytmp3 " + youttub[0]
+return {
+status: true,
+cmd: "#ytmp3 " + youttub[0]
+}
 } else {
-return "#play " + play
+return {
+status: true,
+cmd: "#play " + play
+}
 }
 } else if (cmd.includes("download") && cmd.includes("video")) {
 let play = cmd.split("video")[1] || cmd.split("download")[1]
@@ -2003,23 +2123,44 @@ const tikktok = (cmd.trim()).match(tikk);
 const youtt = /(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/;
 const youttub = (cmd.trim()).match(youtt);
 if (tikktok) {
-return "#tiktok " + tikktok[0]
+return {
+status: true,
+cmd: "#tiktok " + tikktok[0]
+}
 } else if (youttub) {
-return "#ytmp4 " + youttub[0]
+return {
+status: true,
+cmd: "#ytmp4 " + youttub[0]
+}
 } else {
-return "#tiktoks " + play
+return {
+status: true,
+cmd: "#tiktoks " + play
+}
 }
 } else if (cmd.includes("buat") && cmd.includes("gambar")) {
 let gam = cmd.split("gambar")[1] || cmd.split("buat")[1]
-return "#txt2img " + gam
+return {
+status: true,
+cmd: "#txt2img " + gam
+}
 } else if (cmd.includes("buat") && cmd.includes("gambar")) {
 let gam = cmd.split("gambar")[1] || cmd.split("buat")[1]
-return "#txt2img " + gam
+return {
+status: true,
+cmd: "#txt2img " + gam
+}
 } else if (cmd.includes("buat") && cmd.includes("gambar")) {
 let gam = cmd.split("gambar")[1] || cmd.split("buat")[1]
-return "#txt2img " + gam
+return {
+status: true,
+cmd: "#txt2img " + gam
+}
 } else {
-return "nothing"
+return {
+status: false,
+cmd: "nothing"
+}
 }
 }
 // ai kobo
