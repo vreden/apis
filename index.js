@@ -2048,14 +2048,14 @@ cmd: "#bingimg " + bing
 let gam = cmd.split("gambar")[1] || cmd.split("buat")[1]
 return {
 status: true,
-cmd: "#txt2img " + gam
+cmd: "#txt2img 26|" + gam
 }
 } else if (cmd.includes("download") && cmd.includes("lagu")) {
 let play = cmd.split("lagu")[1] || cmd.split("download")[1]
 const tikk = /(http(?:s)?:\/\/)?(?:www\.)?(?:tiktok\.com\/@[^\/]+\/video\/(\d+))|(http(?:s)?:\/\/)?vm\.tiktok\.com\/([^\s&]+)|(http(?:s)?:\/\/)?vt\.tiktok\.com\/([^\s&]+)/g;
-const tikktok = (cmd.trim()).match(tikk);
+const tikktok = (text.trim()).match(tikk);
 const youtt = /(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/;
-const youttub = (cmd.trim()).match(youtt);
+const youttub = (text.trim()).match(youtt);
 if (tikktok) {
 return {
 status: true,
@@ -2075,9 +2075,9 @@ cmd: "#play " + play
 } else if (cmd.includes("download") && cmd.includes("audio")) {
 let play = cmd.split("audio")[1] || cmd.split("download")[1]
 const tikk = /(http(?:s)?:\/\/)?(?:www\.)?(?:tiktok\.com\/@[^\/]+\/video\/(\d+))|(http(?:s)?:\/\/)?vm\.tiktok\.com\/([^\s&]+)|(http(?:s)?:\/\/)?vt\.tiktok\.com\/([^\s&]+)/g;
-const tikktok = (cmd.trim()).match(tikk);
+const tikktok = (text.trim()).match(tikk);
 const youtt = /(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/;
-const youttub = (cmd.trim()).match(youtt);
+const youttub = (text.trim()).match(youtt);
 if (tikktok) {
 return {
 status: true,
@@ -2097,9 +2097,9 @@ cmd: "#play " + play
 } else if (cmd.includes("download") && cmd.includes("musi")) {
 let play = cmd.split("musi")[1] || cmd.split("download")[1]
 const tikk = /(http(?:s)?:\/\/)?(?:www\.)?(?:tiktok\.com\/@[^\/]+\/video\/(\d+))|(http(?:s)?:\/\/)?vm\.tiktok\.com\/([^\s&]+)|(http(?:s)?:\/\/)?vt\.tiktok\.com\/([^\s&]+)/g;
-const tikktok = (cmd.trim()).match(tikk);
+const tikktok = (text.trim()).match(tikk);
 const youtt = /(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/;
-const youttub = (cmd.trim()).match(youtt);
+const youttub = (text.trim()).match(youtt);
 if (tikktok) {
 return {
 status: true,
@@ -2119,9 +2119,9 @@ cmd: "#play " + play
 } else if (cmd.includes("download") && cmd.includes("video")) {
 let play = cmd.split("video")[1] || cmd.split("download")[1]
 const tikk = /(http(?:s)?:\/\/)?(?:www\.)?(?:tiktok\.com\/@[^\/]+\/video\/(\d+))|(http(?:s)?:\/\/)?vm\.tiktok\.com\/([^\s&]+)|(http(?:s)?:\/\/)?vt\.tiktok\.com\/([^\s&]+)/g;
-const tikktok = (cmd.trim()).match(tikk);
+const tikktok = (text.trim()).match(tikk);
 const youtt = /(?:https?:\/\/)?(?:youtu\.be\/|(?:www\.|m\.)?youtube\.com\/(?:watch|v|embed|shorts)(?:\.php)?(?:\?.*v=|\/))([a-zA-Z0-9\_-]+)/;
-const youttub = (cmd.trim()).match(youtt);
+const youttub = (text.trim()).match(youtt);
 if (tikktok) {
 return {
 status: true,
@@ -2142,19 +2142,19 @@ cmd: "#tiktoks " + play
 let gam = cmd.split("gambar")[1] || cmd.split("buat")[1]
 return {
 status: true,
-cmd: "#txt2img " + gam
+cmd: "#txt2img 26|" + gam
 }
 } else if (cmd.includes("buat") && cmd.includes("gambar")) {
 let gam = cmd.split("gambar")[1] || cmd.split("buat")[1]
 return {
 status: true,
-cmd: "#txt2img " + gam
+cmd: "#txt2img 26|" + gam
 }
 } else if (cmd.includes("buat") && cmd.includes("gambar")) {
 let gam = cmd.split("gambar")[1] || cmd.split("buat")[1]
 return {
 status: true,
-cmd: "#txt2img " + gam
+cmd: "#txt2img 26|" + gam
 }
 } else {
 return {
