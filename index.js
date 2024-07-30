@@ -2130,8 +2130,52 @@ cmd: "nothing"
 }
 }
 }
+
+async function qioov2(text, username) {
+const payload = {
+app: {
+id: "bcwjrfhsu2t1722301148379",
+time: Date.now(),
+data: {
+sender: { id: username },
+message: [{
+id: Date.now(),
+time: Date.now(),
+type: "text",
+value: text
+}]
+}
+}
+};
+
+const webhookUrl = 'https://webhook.botika.online/webhook/';
+const headers = {
+"Content-Type": "application/json",
+"Authorization": "Bearer s9561k-znra-c37c54x8qxao0vox-nwm9g4tnrm-dp3brfv8"
+};
+
+try {
+const { data, status } = await axios.post(webhookUrl, payload, { headers });
+
+if (status === 200) {
+if (data.app && data.app.data && data.app.data.message) {
+const responseMessages = data.app.data.message.map(message => message.value);
+let replyMessage = responseMessages.join('\n');
+
+if (/(<BR>|<br>)/i.test(replyMessage)) {
+replyMessage = replyMessage.replace(/<BR>|<br>/gi, '\n').replace(/```/g, '\n');
+return replyMessage.split('\n').map(message => `\n\n${message}\n`).join('');
+} else {
+return replyMessage;
+}
+}
+}
+} catch (error) {
+console.error('Error:', error);
+}
+}
 // ai kobo
-async function qioov2(prompt, username) {
+async function qioo(prompt, username) {
 try {
 const res = await fetch(`https://itzpire.com/ai/botika?q=${prompt}&user=${username}&model=sindy`)
 const respons = await res.json()
@@ -2139,7 +2183,8 @@ const respon = respons.result
 const response = respon.replace(/sindy/g, "Qioo").replace(/Sindy/g, "Qioo").replace(/SINDY/g, "Qioo")
 return response
 } catch (error) {
-return "server sedang perbaikan"
+const res = await qioov2(prompt, username)
+return res
 }
 }
 // -------------
@@ -3808,6 +3853,27 @@ const iyahhh = await morav2(message, username)
   }
 });
 app.get('/api/qioo', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+const username = req.query.username;
+    if (!username) {
+      return res.status(400).json({ error: 'Parameter "username" tidak ditemukan' });
+    }	  
+const iyahhh = await qioo(message, username)
+const cmd = await cekCmd(message)
+    res.status(200).json({
+      creator: "Vreden Official",
+      result: iyahhh,
+      command: cmd
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/qioo2', async (req, res) => {
   try {
     const message = req.query.query;
     if (!message) {
