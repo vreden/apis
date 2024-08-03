@@ -68,6 +68,10 @@ const uploader = multer({
 function getRandom(hm) {
     return `${Math.floor(Math.random() * 10000)}${hm}`
 }
+async function pickRandom(list) {
+return list[Math.floor(Math.random() * list.length)]
+}
+
 // scrape 1
 async function gdrive(url) {
     let id = (url.match(/\/?id=(.+)/i) || url.match(/\/d\/(.*?)\//))?.[1];
@@ -4188,8 +4192,8 @@ let data = input_data.map((item, index) => ({
             return;
         }
         let out = data[model - 1].id
-        const samp = await getRandom(samplr)
-        const sty = await getRandom(styler[10].enum)
+        const samp = await pickRandom(samplr)
+        const sty = await pickRandom(styler[10].enum)
         const params = {
     model: out,
     prompt: prompt,
