@@ -137,7 +137,9 @@ async function sendMessage(text) {
 // males benerin:v
 // batas
 const keynya = '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';
-
+const sleep = async (ms) => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 async function txt2imgAnime(data) {
   try {
     const response = await axios.post(
@@ -1800,7 +1802,7 @@ const data = await yts(teks)
                         url.push(dapet.url)
                     }
                 }
-const yutub = await y2matemp4(url)
+const yutub = await y2matemp4(url[0])
 
   const res = {
     id: yutub.vid,
@@ -4159,22 +4161,57 @@ app.get('/api/stablediffusion2', async (req, res, next) => {
 });
 
 app.get('/api/text2img2', async (req, res, next) => {
-    const query = req.query.q;
-    try {
-        if (!query) {
-            res
-                .status(400)
-                .json({ error: "Missing 'q' parameter in the query string." });
+    const model = req.query.model;
+    const prompt = req.query.prompt;
+    const input_data = await diffusion.listModels();
+const samplr = await diffusion.listSampler();
+const styler = await diffusion.getModels();
+try {
+let data = input_data.map((item, index) => ({
+            title: item.replace(/[_-]/g, ' ').replace(/\..*/, ''),
+            id: item
+        }));
+        if (!model) {
+            res.status(400).json({ error: `Masukan models id\n\n*Pilih angka yg ada*\n` + data.map((item, index) => `*${index + 1}.* ${item.title}`).join("\n") });
             return;
         }
-
-        diffusion.text2img(query).then(async image => {
-            res.set({ 'Content-Type': 'image/png' });
-            res.send(image);
-        });
-    } catch (error) {
-        res.send('error')
-    }
+        if (isNaN(model)) {
+            res.status(400).json({ error: `Masukan valid models id\n\n*Pilih angka yg ada*\n` + data.map((item, index) => `*${index + 1}.* ${item.title}`).join("\n") });
+            return;
+        }
+        if (model > data.length) {
+            res.status(400).json({ error: `Masukan valid models id\n\n*Pilih angka yg ada*\n` + data.map((item, index) => `*${index + 1}.* ${item.title}`).join("\n") });
+            return;
+        }
+        if (!prompt) {
+            res.status(400).json({ error: "Masukan Prompt" });
+            return;
+        }
+        let out = data[model - 1].id
+        const samp = await getRandom(samplr)
+        const sty = await getRandom(styler[10].enum)
+        const params = {
+    model: out,
+    prompt: prompt,
+    style_preset: sty,
+    steps: 20,
+    cfg_scale: 7,
+    seed: -1,
+    upscale: true,
+    sampler: samp,
+    width: 1024,
+    height: 1024
+  }
+const generate = await diffusion.txt2img(params);
+await sleep(30000)
+const result = await diffusion.getJobs(generate.job);
+res.status(200).json({
+      creator: "Vreden Official",
+      result: result
+    });
+} catch (error) {
+res.status(400).json({ error: "Terjadi Kesalahan Pada Sistem Prodia" })
+}
 });
 app.get('/api/diffusionXL', async (req, res) => {
     const message = req.query.query;
