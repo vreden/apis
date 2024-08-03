@@ -4203,11 +4203,10 @@ let data = input_data.map((item, index) => ({
     height: 1024
   }
 const generate = await diffusion.txt2img(params);
-await sleep(30000)
-const result = await diffusion.getJobs(generate.job);
 res.status(200).json({
       creator: "Vreden Official",
-      result: result
+      result: generate,
+      url: `http://images.prodia.xyz/${generate.job}.png`
     });
 } catch (error) {
 res.status(400).json({ error: "Terjadi Kesalahan Pada Sistem Prodia" })
