@@ -1791,7 +1791,7 @@ const res = {
     id: yutub.vid,
     title: yutub.title,
     thumbnail: yutub.thumbnail,
-    audio: yutub.audio["128"].url,
+    audio: `https://api.vreden.my.id/api/convertmp3?url=${yutub.audio["128"].url}`,
     quality: yutub.audio["128"].size
   };
   return res;
@@ -1812,7 +1812,7 @@ const yutub = await y2matemp4(url[0])
     id: yutub.vid,
     title: yutub.title,
     thumbnail: yutub.thumbnail,
-    video: yutub.video["360"].url,
+    video: `https://api.vreden.my.id/api/convertmp4?url=${yutub.video["360"].url}`,
     quality: yutub.video["360"].size
   };
   return res;
@@ -1824,7 +1824,7 @@ const yutub = await y2matemp3(url)
     id: yutub.vid,
     title: yutub.title,
     thumbnail: yutub.thumbnail,
-    audio: yutub.audio["128"].url,
+    audio: `https://api.vreden.my.id/api/convertmp3?url=${yutub.audio["128"].url}`,
     quality: yutub.audio["128"].size
   };
   return res;
@@ -1836,10 +1836,15 @@ const yutub = await y2matemp4(url)
     id: yutub.vid,
     title: yutub.title,
     thumbnail: yutub.thumbnail,
-    video: yutub.video["360"].url,
+    video: `https://api.vreden.my.id/api/convertmp4?url=${yutub.video["360"].url}`,
     quality: yutub.video["360"].size
   };
   return res;
+}
+
+async function convertyutub(url) {
+const txt = await getBuffer(url)
+return txt
 }
 async function cekCmd(text) {
 let cmd = text.toLowerCase()
@@ -3109,13 +3114,31 @@ app.get('/api/legacyDiffusion', async (req, res) => {
 	res.set('Content-Type', 'image/png');
         res.send(uploadnya);
 });
+app.get('/api/convertmp3', async (req, res) => {
+  const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+  let ayaaa = await convertyutub(message) 
+            res.set('Content-Type', 'audio/mp3');
+        res.send(ayaaa);
+});
+app.get('/api/convertmp4', async (req, res) => {
+  const message = req.query.url;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+  let ayaaa = await convertyutub(message) 
+            res.set('Content-Type', 'video/mp4');
+        res.send(ayaaa);
+});
 app.get('/api/ytmp4', async (req, res) => {
   try {
     const message = req.query.url;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    ytDonlodMp4(message)
+    ytmp4(message)
     .then((result) => {
     res.status(200).json({
       status: 200,
@@ -3289,7 +3312,7 @@ app.get('/api/ytmp3', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "url" tidak ditemukan' });
     }
-    ytDonlodMp3(message)
+    ytmp3(message)
     .then((result) => {
     res.status(200).json({
       status: 200,
@@ -3408,7 +3431,7 @@ app.get('/api/ytplaymp4', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-    ytPlayMp4(message)
+    ytplaymp4(message)
     .then((result) => {
     res.status(200).json({
       status: 200,
@@ -3426,7 +3449,7 @@ app.get('/api/ytplaymp3', async (req, res) => {
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-    ytPlayMp3(message)
+    ytplaymp3(message)
     .then((result) => {
     res.status(200).json({
       status: 200,
