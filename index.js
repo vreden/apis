@@ -74,26 +74,26 @@ return list[Math.floor(Math.random() * list.length)]
 
 async function bingimage2(prompt) {
 try {
-let img = await fetch(`http://15.235.142.199/api/ai/bingAi?prompt=${prompt}&apikey=uhnKkdVjsVeICuI`)
-const res = await img.json()
+let img = await axios.get(`https://anabot.my.id/api/ai/bingAi?prompt=${prompt}&apikey=uhnKkdVjsVeICuI`)
+const res = img.data
 const result = res.image
 return result
 } catch (error) {
 try {
-let img = await fetch(`http://15.235.142.199/api/ai/bingAi?prompt=${prompt}&apikey=DdUFIJY3sIGZW0g`)
-const res = await img.json()
+let img = await axios.get(`https://anabot.my.id/api/ai/bingAi?prompt=${prompt}&apikey=DdUFIJY3sIGZW0g`)
+const res = img.data
 const result = res.image
 return result
 } catch (error) {
 try {
-let img = await fetch(`http://15.235.142.199/api/ai/bingAi?prompt=${prompt}&apikey=gataupw`)
-const res = await img.json()
+let img = await axios.get(`https://anabot.my.id/api/ai/bingAi?prompt=${prompt}&apikey=gataupw`)
+const res = img.data
 const result = res.image
 return result
 } catch (error) {
 try {
-let img = await fetch(`http://15.235.142.199/api/ai/bingAi?prompt=${prompt}&apikey=freeApikey`)
-const res = await img.json()
+let img = await axios.get(`https://anabot.my.id/api/ai/bingAi?prompt=${prompt}&apikey=freeApikey`)
+const res = img.data
 const result = res.image
 return result
 } catch (error) {
