@@ -6,14 +6,8 @@ const ytdl = require('ytdl-core');
 const yts = require("yt-search")
 const path = require('path');
 const gtts = require('node-gtts')
-const puppeteer = require('puppeteer')
-const CharacterAI = require('node_characterai')
-const Parser = require('node_characterai/parser')
 const { srgan2x, srgan4x } = require('super-resolution-scraper');
 const os = require('os');
-const characterAI = new CharacterAI()
-characterAI.puppeteerPath = puppeteer.executablePath()
-
 const {
   v4: uuidv4
 } = require("uuid")
@@ -2237,7 +2231,7 @@ return res
 }
 async function qioov3(prompt, username) {
 try {
-const res = await fetch(`https://skizo.tech/api/cai/chat?apikey=qioobott&characterId=EKC0Usq_Cs-M_X1oKKiiN1osWRmAU-7NJ8RbA6N-iko&text=${prompt}&sessionId=${username}&token=72ee089d29c24b9d0aaf646d6c3a801170e0f377`)
+const res = await fetch(`https://skizo.tech/api/cai/chat?apikey=SanTampan&characterId=EKC0Usq_Cs-M_X1oKKiiN1osWRmAU-7NJ8RbA6N-iko&text=${prompt}&sessionId=${username}&token=72ee089d29c24b9d0aaf646d6c3a801170e0f377`)
 const respons = await res.json()
 const response = respons.result
 return response
@@ -4010,68 +4004,6 @@ const cmd = await cekCmd(message)
     res.status(500).json({ error: error.message });
   }
 });
-app.get('/api/chara/chat', async (req, res) => {
-	try {
-		let { characterId, text, sessionId } = req.query
-		if (!characterId) return res.json({ success: false, message: 'Input parameter characterId' })
-		if (!text) return res.json({ success: false, message: 'Input parameter text' })
-		
-		if (!sessionId) {
-			const request = await characterAI.requester.request('https://beta.character.ai/chat/history/create/', {
-				headers: characterAI.getHeaders(), method: 'POST',
-				body: Parser.stringify({ character_external_id: characterId })
-			})
-			if (!request.ok()) return res.json({ success: false, message: 'Couldn\'t create a new chat' })
-			
-			const json = await Parser.parseJSON(request)
-			sessionId = json.external_id
-		}
-		
-		const chat = await characterAI.createOrContinueChat(characterId, sessionId)
-		const response = await chat.sendAndAwaitResponse(text, true)
-		const urlAvatar = `https://characterai.io/i/80/static/avatars/${response.srcAvatarFileName}`
-			
-		delete response.chat
-		res.json({
-			success: true,
-			message: '',
-			result: { ...response, urlAvatar, sessionId }
-		})
-	} catch (e) {
-		console.log(e)
-		res.json({ error: true, message: String(e) === '[object Object]' ? 'Internal Server Error' : String(e) })
-	}
-})
-
-app.get('/api/chara/info', async (req, res) => {
-	try {
-		const { characterId } = req.query
-		if (!characterId) return res.json({ success: false, message: 'Input parameter characterId' })
-		
-		const result = await characterAI.fetchCharacterInfo(characterId)
-		if (!result) return res.json({ success: false, message: 'Invalid characterId' })
-		
-		res.json({ success: true, message: '', result })
-	} catch (e) {
-		console.log(e)
-		res.json({ error: true, message: String(e) === '[object Object]' ? 'Internal Server Error' : String(e) })
-	}
-})
-
-app.get('/api/chara/search', async (req, res) => {
-	try {
-		const { name } = req.query
-		if (!name) return res.json({ success: false, message: 'Input parameter name' })
-		
-		const { characters } = await characterAI.searchCharacters(name)
-		if (!characters.length) return res.json({ success: false, message: 'Character not found' })
-		
-		res.json({ success: true, message: '', result: characters })
-	} catch (e) {
-		console.log(e)
-		res.json({ error: true, message: String(e) === '[object Object]' ? 'Internal Server Error' : String(e) })
-	}
-})
 app.get('/api/search-character', async (req, res) => {
   try{
     const message = req.query.query;
@@ -4538,7 +4470,6 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Ada kesalahan pada server😵');
 });
-app.listen(port, async () => {
+app.listen(port, () => {
   console.log(`Server berjalan di ${port}`);
-  	await characterAI.authenticateWithToken("72ee089d29c24b9d0aaf646d6c3a801170e0f377")
 });
