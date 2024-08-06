@@ -2229,6 +2229,17 @@ const res = await qioov2(prompt, username)
 return res
 }
 }
+async function qioov3(prompt, username) {
+try {
+const res = await fetch(`https://skizo.tech/api/cai/chat?apikey=qioobott&characterId=EKC0Usq_Cs-M_X1oKKiiN1osWRmAU-7NJ8RbA6N-iko&text=${prompt}&sessionId=${username}&token=72ee089d29c24b9d0aaf646d6c3a801170e0f377`)
+const respons = await res.json()
+const response = respons.result
+return response
+} catch (error) {
+const res = await qioov2(prompt, username)
+return res
+}
+}
 // -------------
 async function mora(input) {
   const messages = [
@@ -3960,6 +3971,29 @@ const username = req.query.username;
       return res.status(400).json({ error: 'Parameter "username" tidak ditemukan' });
     }	  
 const iyahhh = await qioov2(message, username)
+const cmd = await cekCmd(message)
+    res.status(200).json({
+      creator: "Vreden Official",
+      result: iyahhh,
+      command: cmd
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+app.get('/api/qioo3', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+const username = req.query.sessionid;
+    if (!username) {
+    user = ""
+    } else {
+    user = username
+    }	  
+const iyahhh = await qioov3(message, user)
 const cmd = await cekCmd(message)
     res.status(200).json({
       creator: "Vreden Official",
