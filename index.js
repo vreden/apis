@@ -72,6 +72,37 @@ async function pickRandom(list) {
 return list[Math.floor(Math.random() * list.length)]
 }
 
+async function bingimage2(prompt) {
+try {
+let img = await fetch(`http://15.235.142.199/api/ai/bingAi?prompt=${prompt}&apikey=uhnKkdVjsVeICuI`)
+const res = await img.json()
+const result = res.image
+return result
+} catch (error) {
+try {
+let img = await fetch(`http://15.235.142.199/api/ai/bingAi?prompt=${prompt}&apikey=DdUFIJY3sIGZW0g`)
+const res = await img.json()
+const result = res.image
+return result
+} catch (error) {
+try {
+let img = await fetch(`http://15.235.142.199/api/ai/bingAi?prompt=${prompt}&apikey=gataupw`)
+const res = await img.json()
+const result = res.image
+return result
+} catch (error) {
+try {
+let img = await fetch(`http://15.235.142.199/api/ai/bingAi?prompt=${prompt}&apikey=freeApikey`)
+const res = await img.json()
+const result = res.image
+return result
+} catch (error) {
+return "maksimal request tercapai (100 request / 3jam)"
+}
+}
+}
+}
+}
 // scrape 1
 async function gdrive(url) {
     let id = (url.match(/\/?id=(.+)/i) || url.match(/\/d\/(.*?)\//))?.[1];
@@ -3019,6 +3050,22 @@ app.get('/api/text2img', async (req, res) => {
         res.set('Content-Type', 'image/jpg');
         res.send(body);
     }); 
+});
+app.get('/api/bingimg2', async (req, res) => {
+  try {
+    const message = req.query.query;
+    if (!message) {
+      return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
+    }
+   const anjay = await bingimage2(message)
+    res.status(200).json({
+      status: 200,
+      creator: "Vreden Official",
+      result: anjay
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 app.get('/api/bingimg', async (req, res) => {
   try {
