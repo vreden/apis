@@ -4538,7 +4538,7 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send('Ada kesalahan pada server😵');
 });
-app.listen(port, () => {
+app.listen(port, async () => {
   console.log(`Server berjalan di ${port}`);
   	await characterAI.authenticateWithToken("72ee089d29c24b9d0aaf646d6c3a801170e0f377")
 });
