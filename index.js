@@ -2232,12 +2232,17 @@ return res
 async function qioov3(prompt, username) {
 try {
 const res = await fetch(`https://skizo.tech/api/cai/chat?apikey=SanTampan&characterId=EKC0Usq_Cs-M_X1oKKiiN1osWRmAU-7NJ8RbA6N-iko&text=${prompt}&sessionId=${username}&token=72ee089d29c24b9d0aaf646d6c3a801170e0f377`)
-const respons = await res.json()
-const response = respons.result
-return response
+const respon = await res.json()
+const respons = {
+text: respon.result.text,
+sessionId: respon.result.sessionId
+}
+return respons
 } catch (error) {
 const res = await qioov2(prompt, username)
-return res
+return { 
+text: res
+}
 }
 }
 // -------------
