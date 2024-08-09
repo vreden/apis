@@ -3828,12 +3828,29 @@ app.get('/api/neko', async (req, res) => {
 });
 app.get('/api/ssweb', async (req, res) => {
   const message = req.query.url;
+  const type = req.query.type;
     if (!message) {
       return res.status(400).json({ error: 'Parameter "query" tidak ditemukan' });
     }
-  let ayaaa = await ssweb1234(message) 
-            res.set('Content-Type', 'image/png');
-        res.send(ayaaa);
+    if (!type) {
+      return res.status(400).json({ error: 'Masukan Type nya, phone, tablet, desktop' });
+    }
+    const key = await pickRandom(["f4fd50","f57572","f45b80","a8a45d","0060ec"])
+    if (type === "phone") {
+    let ss = await getBuffer(`https://api.screenshotmachine.com/?key=${key}&url=${message}&device=${type}&dimension=480x800&format=png&cacheLimit=0&delay=200`)
+    res.set('Content-Type', 'image/png');
+        res.send(ss);
+    } else if (type === "tablet") {
+    let ss = await getBuffer(`https://api.screenshotmachine.com/?key=${key}&url=${message}&device=${type}&dimension=800x1280&format=png&cacheLimit=0&delay=200`)
+    res.set('Content-Type', 'image/png');
+        res.send(ss);
+    } else if (type === "desktop") {
+    let ss = await getBuffer(`https://api.screenshotmachine.com/?key=${key}&url=${message}&device=${type}&dimension=1024x768&format=png&cacheLimit=0&delay=200`)
+    res.set('Content-Type', 'image/png');
+        res.send(ss);
+    } else {
+    res.status(400).json({ error: 'Masukan Type nya, phone, tablet, desktop' });
+    }
 });
 
 app.get('/api/asupan', async (req, res) => {
